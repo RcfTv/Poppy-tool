@@ -236,6 +236,8 @@ const main = async () => {
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const overlayOn = () => byId('gacha-overlay')?.classList.contains('is-visible');
   const popupOpen = () => !!window.LootboxModal?.anyOpen?.();
+  // the site's pop-ups are native <dialog>s: a fake Escape key doesn't close them, their own close() does (never "confirm")
+  const closePopups = () => document.querySelectorAll('dialog.lm[open]').forEach(d => { try { window.LootboxModal?.close?.(d); } catch (e) {} });
   const escape = () => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape', key: 'Escape', bubbles: true }));
   const pageBalance = cls => { const e = [...document.querySelectorAll('.' + cls)].find(vis) || document.querySelector('.' + cls); return e ? e.textContent.trim() : '?'; };
   const num = s => parseInt(String(s).replace(/[^\d]/g, ''), 10);
@@ -285,10 +287,12 @@ const main = async () => {
     if (banners.some(b => b.id === id)) return;
     const view = byId('banner-view-' + id);
     if (!view) return;
-    const info = (INIT.banners || []).find(b => String(b.id) === id) || {};
+    // the site keys its lootboxes by `key` ("standard", event slug...), older pages by `id`
+    const info = (INIT.banners || []).find(b => String(b.key ?? b.id) === id) || (INIT.banners || []).find(b => String(b.id) === id) || {};
     const btn10 = view.querySelector('[data-pull-qty="10"]');
     const free = view.dataset.costo === '0';
-    const endsAt = Date.parse(info.data_fine || view.dataset.dataFine || '') || null;
+    const countdown = view.dataset.stato !== 'prossimamente' ? view.querySelector('[data-countdown]')?.dataset.countdown : '';
+    const endsAt = Date.parse(String(info.data_fine || view.dataset.dataFine || countdown || '').replace(' ', 'T')) || null;
     banners.push({
       id, view, info, free, endsAt,
       name: clean(info.nome || view.querySelector('h1,h2,.lb-title')?.textContent || card.innerText).slice(0, 48),
@@ -1442,7 +1446,8 @@ const main = async () => {
         ap.counts[key] = (ap.counts[key] || 0) + 1;
         // expected counts use the odds of the lootbox this pull came from
         (detailsCache[bid]?.odds || []).forEach(o => { if (o.prob != null) ap.expected[o.key] = (ap.expected[o.key] || 0) + o.prob / 100; });
-        if (pull.fifty === true) ap.fifty.won++; else if (pull.fifty === false) ap.fifty.lost++;
+        // the site sends 1 / 0 (null = no 50/50 on this pull)
+        if (pull.fifty === true || pull.fifty === 1) ap.fifty.won++; else if (pull.fifty === false || pull.fifty === 0) ap.fifty.lost++;
         if (ap.log.length < 300000) ap.log.push(pull);
         if (rank(key) >= NOTABLE) { ap.gaps.push(ap.sinceRare); ap.sinceRare = 0; } else ap.sinceRare++;
         if (rank(key) >= NOTABLE || p.featured || p.is_new) { ap.feed.unshift(pull); ap.feed.length = Math.min(ap.feed.length, 80); }
@@ -1514,7 +1519,7 @@ const main = async () => {
             if (Date.now() - lastAct < 400) continue;
 
             // The site asked to convert coins into gems -> never through its popup
-            if (popupOpen()) { escape(); stepEnd(T.noGems); break; }
+            if (popupOpen()) { closePopups(); escape(); stepEnd(T.noGems); break; }
 
             // Summary screen (10×): stop here if a condition is met, otherwise close it
             const summary = byId('phase-summary');
