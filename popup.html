@@ -1,0 +1,26 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  :root { --bg:#0c101c; --card:#151b2b; --fg:#e5e7eb; --muted:#9ca3af; --line:rgba(255,255,255,.08); --accent:#2f9df4; }
+  * { box-sizing: border-box; }
+  body { margin:0; width: 290px; font: 12.5px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--fg); }
+  header { display:flex; align-items:center; gap:10px; padding: 12px 14px; border-bottom: 1px solid var(--line);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 25%, transparent), transparent 70%); }
+  header img { width: 30px; height: 30px; border-radius: 9px; object-fit: cover; }
+  header b { font-size: 14px; } header small { display:block; color: var(--muted); font-size: 10.5px; }
+  main { padding: 12px 14px 14px; display:grid; gap: 10px; }
+  .state { display:flex; align-items:center; gap: 7px; font-weight: 600; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background:#6b7280; } .run .dot { background:#22c55e; }
+  .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .s { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 6px 8px; }
+  .s b { display:block; font-size: 14px; } .s span { font-size: 9.5px; text-transform: uppercase; color: var(--muted); letter-spacing: .5px; }
+  .line { color: var(--muted); font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  button { width:100%; border:0; border-radius: 12px; padding: 10px; font: inherit; font-weight: 700; cursor: pointer; background: var(--accent); color:#fff; }
+  button.stop { background:#ef4444; }
+  .empty { color: var(--muted); text-align: center; padding: 6px 0; }
+</style></head>
+<body>
+  <header><img src="icons/icon128.png" alt=""><div><b>Poppy Tool</b><small>by Rcf</small></div></header>
+  <main id="main"></main>
+  <script src="popup.js"></script>
+</body></html>
