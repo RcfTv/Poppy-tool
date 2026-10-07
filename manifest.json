@@ -11,7 +11,7 @@
   },
   "action": {
     "default_title": "Poppy Tool",
-    "default_popup": "popup.html",
+    "default_popup": "src/popup/popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
@@ -28,7 +28,7 @@
     "https://www.cripsum.com/*"
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "src/background/background.js"
   },
   "content_scripts": [
     {
@@ -37,7 +37,7 @@
         "https://www.cripsum.com/*"
       ],
       "js": [
-        "bridge.js"
+        "src/content/bridge.js"
       ],
       "run_at": "document_start"
     },
@@ -47,8 +47,8 @@
         "https://www.cripsum.com/*"
       ],
       "js": [
-        "site-modules.js",
-        "content.js"
+        "src/content/site-modules.js",
+        "src/content/content.js"
       ],
       "run_at": "document_idle",
       "world": "MAIN"
