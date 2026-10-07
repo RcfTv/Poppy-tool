@@ -505,7 +505,7 @@
       banners.forEach(b => { const g = groups.find(x => x.key === b.pity_gruppo && b.pity?.condiviso); if (g) g.list.push(b); else groups.push({ key: b.pity_gruppo, list: [b] }); });
       $('#sPity').innerHTML = groups.length ? groups.map(({ list }) => {
         const b = list[0], p = pityOf(b.pity_gruppo) || {}, cur = p.contatore ?? b.pity?.contatore ?? 0, hard = b.pity?.hard || 90;
-        const ends = list.map(x => x.data_fine ? Date.parse(x.data_fine) - Date.now() : null).filter(x => x > 0);
+        const ends = list.map(x => x.data_fine ? Date.parse(String(x.data_fine).replace(' ', 'T')) - Date.now() : null).filter(x => x > 0);
         const end = ends.length ? Math.min(...ends) : null;
         const title = list.length > 1 ? `${T.eventBoxes} ×${list.length}` : b.nome;
         return `<div class="prow" title="${esc(list.map(x => x.nome).join('\n'))}"><span class="pn">${esc(title)}${end != null && end > 0 ? ` <span class="p" style="color:var(--muted);font-size:10px">· ${T.endsIn(fmtLeft(end))}</span>` : ''}</span>
@@ -724,8 +724,9 @@
     const endWarnings = () => {
       if (IS_LOOT) return;
       (D.init?.banners || []).forEach(b => {
-        const left = b.data_fine ? Date.parse(b.data_fine) - Date.now() : null;
-        if (left > 0 && left < 86400000 && store.get('endwarn-' + b.id) !== today()) { store.set('endwarn-' + b.id, today()); notify(T.endsSoon(b.nome, fmtLeft(left))); }
+        // the site keys its lootboxes by `key` now (older pages: `id`)
+        const left = b.data_fine ? Date.parse(String(b.data_fine).replace(' ', 'T')) - Date.now() : null, bk = b.key ?? b.id;
+        if (left > 0 && left < 86400000 && store.get('endwarn-' + bk) !== today()) { store.set('endwarn-' + bk, today()); notify(T.endsSoon(b.nome, fmtLeft(left))); }
       });
     };
     refreshAll().then(endWarnings);

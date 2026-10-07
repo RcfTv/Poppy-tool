@@ -1,7 +1,7 @@
 # Poppy tool
 
 ```text
-POPPY TOOL - Chrome extension by Rcf  (v5.0.1)
+POPPY TOOL - Chrome extension by Rcf  (v5.0.2)
 
 INSTALL (1 minute)
   1. Unzip this folder somewhere you'll keep it (e.g. Documents).
