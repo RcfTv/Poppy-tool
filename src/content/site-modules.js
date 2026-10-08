@@ -442,6 +442,59 @@
   .cp-btns button { font: inherit; font-size: 14px; font-weight: 600; border: 0; border-radius: 10px; padding: 8px; cursor: pointer; }
   .cp-cancel { background: var(--fill); color: var(--accent); }
   .cp-pin { background: var(--accent); color: var(--on, #fff); }
+
+  /* ---------- motion (Apple curves: --ease decelerates like a sheet, --spring overshoots a little) ---------- */
+  .panel, .combo-pop, .cpick { --ease: cubic-bezier(.32, .72, 0, 1); --spring: cubic-bezier(.34, 1.4, .64, 1); }
+  @keyframes ap-panel-in { from { opacity: 0; transform: translateY(14px) scale(.97); } }
+  @keyframes ap-page-in { from { opacity: 0; transform: translateY(6px); } }
+  @keyframes ap-pop-in { from { opacity: 0; transform: scale(.94) translateY(-4px); } }
+  @keyframes ap-pop-out { to { opacity: 0; transform: scale(.97); } }
+  @keyframes ap-bump { 0% { transform: scale(1); } 35% { transform: scale(1.14); } 100% { transform: scale(1); } }
+  @keyframes ap-fade-in { from { opacity: 0; } }
+  .panel { animation: ap-panel-in .5s var(--ease) both; transform-origin: bottom right; }
+  .page:not([hidden]) { animation: ap-page-in .32s var(--ease) both; }
+  .conv:not([hidden]), .box:not([hidden]) { animation: ap-fade-in .3s var(--ease) both; }
+  /* segmented control: the highlight slides between tabs */
+  .tabs.has-ind { position: relative; }
+  .seg-ind { position: absolute; top: 2px; bottom: 2px; left: 0; width: 0; border-radius: 7px; background: var(--seg-on); pointer-events: none; z-index: 0;
+    box-shadow: 0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04), 0 0 0 .5px rgba(0,0,0,.04);
+    transition: transform .38s var(--spring), width .38s var(--spring), opacity .2s; }
+  .seg-ind.no-anim { transition: none; }
+  .tabs.has-ind .tab { position: relative; z-index: 1; }
+  .tabs.has-ind .tab.on { background: transparent; box-shadow: none; }
+  .tab { transition: color .2s, background .2s, transform .25s var(--spring); }
+  .tab:active { transform: scale(.95); }
+  /* pop-ups: dropdown list and colour picker */
+  .combo-pop { animation: ap-pop-in .26s var(--spring) both; transform-origin: top center; }
+  .cpick { animation: ap-pop-in .3s var(--spring) both; transform-origin: bottom center; }
+  .combo-pop.out, .cpick.out { animation: ap-pop-out .16s ease-in both; }
+  .combo-btn svg { transition: transform .3s var(--spring); }
+  .combo-item { transition: background .12s, color .12s; }
+  /* buttons press in and spring back */
+  .go, .chip, .mbtn, .icon-btn, .swatch, .qlinks a, .cv-row button, .cp-btns button, .combo-btn, .m .mbtn {
+    transition: transform .3s var(--spring), background-color .2s, color .2s, box-shadow .25s, filter .2s, opacity .2s; }
+  .go:active, .chip:active, .mbtn:active, .qlinks a:active, .cv-row button:active, .cp-btns button:active, .conv .cv-go:active { transform: scale(.97); opacity: .85; }
+  .icon-btn:active { transform: scale(.88); }
+  .swatch:hover { transform: scale(1.12); } .swatch:active { transform: scale(.92); }
+  .combo-btn:active { transform: scale(.985); }
+  .go:disabled, .chip:disabled { transform: none; }
+  /* iOS switch: the knob stretches while pressed */
+  .sw i::after { transition: transform .32s var(--spring), width .2s var(--ease); }
+  .toggle:active .sw i::after { width: 27px; }
+  .toggle:active .sw input:checked + i::after { transform: translateX(11px); }
+  .toggle { transition: transform .3s var(--spring), opacity .25s; }
+  .toggle:active { transform: scale(.985); }
+  /* values */
+  .bump { animation: ap-bump .42s var(--spring); display: inline-block; }
+  .stat b.bump { display: block; transform-origin: left center; }
+  .bar i, .m .mbar i { transition: width .6s var(--ease); }
+  .pill, .pill .dot { transition: background-color .3s, color .3s; }
+  .smsg:not(:empty), .msg:not(:empty), .cp-err:not(:empty) { animation: ap-fade-in .25s var(--ease) both; }
+  .m, .item, .hrow { transition: opacity .3s, box-shadow .3s, background-color .3s; }
+  .tabs.fade-l, .tabs.fade-r { transition: -webkit-mask-image .2s; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  }
   `;
 
   // ---------------------------------------------------------------- shared helpers
@@ -646,7 +699,7 @@
     const onDoc = e => { const t = e.composedPath()[0]; if (pop && !combo.contains(t) && !pop.contains(t)) close(); };
     const close = () => {
       if (!pop) return;
-      pop.remove(); pop = null; items = []; active = -1; btn.setAttribute('aria-expanded', 'false');
+      leave(pop); pop = null; items = []; active = -1; btn.setAttribute('aria-expanded', 'false');
       document.removeEventListener('pointerdown', onDoc, true); root.removeEventListener('scroll', onScroll, true);
       window.removeEventListener('scroll', onScroll, true); window.removeEventListener('resize', close);
     };
@@ -723,8 +776,21 @@
     // the clicked / selected tab is brought into view
     tabsEl.addEventListener('click', e => { const t = e.target.closest('.tab'); if (t) t.scrollIntoView({ block: 'nearest', inline: 'nearest' }); });
     new ResizeObserver(fade).observe(tabsEl);
-    setTimeout(() => { tabsEl.querySelector('.tab.on')?.scrollIntoView({ block: 'nearest', inline: 'center' }); fade(); }, 0);
+    // segmented control: one highlight that slides from tab to tab
+    const ind = document.createElement('span'); ind.className = 'seg-ind no-anim'; tabsEl.prepend(ind);
+    tabsEl.classList.add('has-ind');
+    const place = () => {
+      const on = tabsEl.querySelector('.tab.on');
+      if (!on) { ind.style.opacity = '0'; return; }
+      ind.style.opacity = '1'; ind.style.width = on.offsetWidth + 'px'; ind.style.transform = `translateX(${on.offsetLeft}px)`;
+    };
+    new MutationObserver(place).observe(tabsEl, { subtree: true, attributes: true, attributeFilter: ['class'], childList: true });
+    const ro = new ResizeObserver(place); tabsEl.querySelectorAll('.tab').forEach(t => ro.observe(t)); ro.observe(tabsEl);
+    setTimeout(() => { tabsEl.querySelector('.tab.on')?.scrollIntoView({ block: 'nearest', inline: 'center' }); fade(); place();
+      requestAnimationFrame(() => requestAnimationFrame(() => ind.classList.remove('no-anim'))); }, 0);
   }
+  // pop-ups leave with a short fade instead of vanishing
+  const leave = el => { el.classList.add('out'); el.style.pointerEvents = 'none'; setTimeout(() => el.remove(), matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 160); };
 
   // ---------------------------------------------------------------- accent colour picker (both panels)
   // Swatches (Default + palette + pinned custom colours) and a "+" that opens a colour picker:
@@ -777,7 +843,7 @@
     const onKey = e => { if (e.key === 'Escape') close(false); };
     const close = keep => {
       if (!pop) return;
-      pop.remove(); pop = null; anchor?.setAttribute('aria-expanded', 'false');
+      leave(pop); pop = null; anchor?.setAttribute('aria-expanded', 'false');
       document.removeEventListener('pointerdown', onDoc, true); root.removeEventListener('scroll', onScroll, true);
       window.removeEventListener('scroll', onScroll, true); window.removeEventListener('resize', reposition); root.removeEventListener('keydown', onKey, true);
       if (!keep) preview(null);   // back to the saved colour
@@ -892,6 +958,17 @@
     const fillRange = r => r.style.setProperty('--pct', ((r.value - (r.min || 0)) / ((r.max || 100) - (r.min || 0)) * 100) + '%');
     root.addEventListener('input', e => { if (e.target.type === 'range') fillRange(e.target); }, true);
     setTimeout(() => root.querySelectorAll('input[type=range]').forEach(fillRange), 0);
+    // counters and tab badges give a small bounce when their value changes (not the running clock)
+    new MutationObserver(muts => {
+      const seen = new Set();
+      muts.forEach(m => {
+        const el = (m.target.nodeType === 3 ? m.target.parentElement : m.target)?.closest?.('.stat b, .tbadge');
+        if (!el || el.id === 'sTime' || seen.has(el)) return; seen.add(el);
+        if (el.__last === el.textContent) return; const first = el.__last == null; el.__last = el.textContent;
+        if (first) return;
+        el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
+      });
+    }).observe(root, { subtree: true, childList: true, characterData: true });
 
     const msg = (id, t, err) => { const e = $(id); if (!e) return; e.textContent = t || ''; e.classList.toggle('err', !!err); };
     const badge = (id, n) => { const b = $('#sBadge-' + id); if (b) { b.hidden = !n; b.textContent = n; } };

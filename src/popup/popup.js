@@ -42,6 +42,7 @@ async function render() {
   document.getElementById('goTab').onclick = () => { chrome.tabs.update(tab.id, { active: true }); chrome.windows.update(tab.windowId, { focused: true }); window.close(); };
 }
 chrome.storage.session.onChanged.addListener(render);
+setTimeout(() => document.body.classList.remove('intro'), 800);   // the entrance animation plays once, not on every refresh
 render();
 chrome.tabs.query({ url: ['https://cripsum.com/*lootbox*', 'https://www.cripsum.com/*lootbox*'] })
   .then(ts => ts.forEach(t => chrome.tabs.sendMessage(t.id, { type: 'ap-cmd', cmd: 'status' }).catch(() => {})));

@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.1.4-test — October 8, 2026 (test branch, pre-release)
+
+- Animations everywhere, with Apple's curves (smooth deceleration and a light spring):
+  - the tab highlight slides from tab to tab like an iOS segmented control; each page fades and slides in
+  - the panel eases in when the page loads; dropdowns and the colour picker spring open and fade out
+  - buttons, chips and swatches press in and spring back; iOS switches stretch while pressed
+  - counters and tab badges bounce when their value changes; progress bars glide to their new value
+  - the toolbar popup slides its content in once when it opens
+- Every animation is turned off when Windows is set to reduce motion
+
 ## 5.1.3-test — October 8, 2026 (test branch, pre-release)
 
 - Toolbar popup restyled like the panel (Apple look, light theme when the panel uses it, star of the best rarity, same language as the panel)

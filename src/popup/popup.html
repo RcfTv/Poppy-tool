@@ -31,10 +31,21 @@
   button.alt { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); font-size: 14px; padding: 10px; }
   .empty { color: var(--label2); text-align: center; padding: 6px 0; }
   html { overflow-x: hidden; }
+  /* motion: same Apple curves as the panel */
+  :root { --ease: cubic-bezier(.32, .72, 0, 1); --spring: cubic-bezier(.34, 1.4, .64, 1); }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+  header { animation: rise .4s var(--ease) both; }
+  .intro main > * { animation: rise .45s var(--ease) both; }
+  .intro main > *:nth-child(2) { animation-delay: .03s; } .intro main > *:nth-child(3) { animation-delay: .06s; }
+  .intro main > *:nth-child(4) { animation-delay: .09s; } .intro main > *:nth-child(5) { animation-delay: .12s; } .intro main > *:nth-child(6) { animation-delay: .15s; }
+  button { transition: transform .3s var(--spring), background-color .25s, filter .2s, opacity .2s; }
+  button:active { transform: scale(.97); opacity: .85; }
+  .dot { transition: background-color .3s; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
   ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background-color: color-mix(in srgb, var(--accent) 35%, transparent); border: 2px solid transparent; background-clip: padding-box; border-radius: 999px; }
 </style></head>
-<body>
+<body class="intro">
   <header><img src="../../icons/icon128.png" alt=""><div><b>Poppy Tool</b><small>by Rcf</small></div></header>
   <main id="main"></main>
   <script src="popup.js"></script>

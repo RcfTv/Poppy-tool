@@ -47,7 +47,7 @@ Poppy Tool was called **Auto Pull** until version 5.0.0.
 
 ### Apple / SwiftUI look (test branch)
 
-The [`test`](https://github.com/RcfTv/Poppy-tool/tree/test) branch (pre-release **5.1.3-test**) restyles the panel like an Apple app: SF font, translucent materials, iOS colours, segmented tabs, iOS switches, star rarity markers and a custom accent colour picker.
+The [`test`](https://github.com/RcfTv/Poppy-tool/tree/test) branch (pre-release **5.1.4-test**) restyles the panel like an Apple app: SF font, translucent materials, iOS colours, segmented tabs, iOS switches, star rarity markers, a custom accent colour picker and smooth Apple-style animations.
 
 <table><tr>
 <td align="center" valign="top"><img src="docs/screenshots/apple/pull-dark.png" width="190" alt="Pull (dark)"><br><b>Pull (dark)</b></td>
@@ -110,6 +110,7 @@ Every version is on the [Releases page](https://github.com/RcfTv/Poppy-tool/rele
 
 | Release | Highlights | Download |
 |---------|------------|----------|
+| [5.1.4-test](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.1.4-test) (pre-release, `test` branch) | Smooth Apple-style animations everywhere | [poppy-tool-v5.1.4-test.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.1.4-test/poppy-tool-v5.1.4-test.zip) |
 | [5.1.3-test](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.1.3-test) (pre-release, `test` branch) | Whole tool harmonised (toolbar popup, queue, sliders, settings, icons) | [poppy-tool-v5.1.3-test.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.1.3-test/poppy-tool-v5.1.3-test.zip) |
 | [5.1.2-test](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.1.2-test) (pre-release, `test` branch) | Uniform star rarity markers everywhere | [poppy-tool-v5.1.2-test.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.1.2-test/poppy-tool-v5.1.2-test.zip) |
 | [5.1.1-test](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.1.1-test) (pre-release, `test` branch) | Custom accent colours, star rarity markers, dropdown and tab fixes | [poppy-tool-v5.1.1-test.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.1.1-test/poppy-tool-v5.1.1-test.zip) |
