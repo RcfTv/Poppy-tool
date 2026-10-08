@@ -12,8 +12,12 @@ Pick a lootbox and a stop target, press Start, and Poppy Tool pulls until it get
 ![Chrome](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)
 ![Languages](https://img.shields.io/badge/panel-FR%20%7C%20EN%20%7C%20IT-black)
 ![By Rcf](https://img.shields.io/badge/by-Rcf-F05138)
+![Made with Claude](https://img.shields.io/badge/made%20with-Claude-D97757)
 
 </div>
+
+> [!NOTE]
+> **This tool was written entirely by Claude, as a test.** Every line of code, the README and the changelog were produced by Claude (Anthropic's AI) through Claude Code, with Rcf only giving the instructions and testing the result.
 
 ---
 
@@ -121,5 +125,5 @@ Poppy-tool/
 
 ## Credits
 
-Built by **Rcf** with Claude Code.
+Written entirely by **Claude** (Anthropic) with Claude Code, as a test of what an AI can build on its own. Idea, instructions and testing by **Rcf**.
 Poppy Tool is an independent fan-made extension, not affiliated with Cripsum.
