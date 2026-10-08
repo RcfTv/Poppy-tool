@@ -66,7 +66,7 @@ const main = async () => {
     endless: 'Endless mode', endlessSub: 'never stop on a drop', stopNew: 'Stop on a NEW character', stopNewSub: 'one you don\'t own yet',
     maxOpens: 'Max 10× opens', noLimit: '∞', paid: 'Spend gems', start: 'Start', stop: 'Stop',
     opens: 'Opens', pulls: 'Pulls', time: 'Time', spent: 'Spent', perMin: '/min',
-    session: 'This session', best: 'Best pulls', none: 'Nothing rare yet', isNew: 'NEW',
+    session: 'This session', best: 'Best pulls', none: 'Nothing rare yet', isNew: 'NEW', featuredTag: 'rate-up',
     pity: 'Pity', guaranteed: (label, n) => `${label} guaranteed within ${n}`, softFrom: n => `boosted from ${n}`,
     endsIn: t => `Ends in ${t}`, ended: 'Ended', endsSoon: (name, t) => `${name} ends in ${t}!`,
     freeLeft: n => `${n} free pull${n > 1 ? 's' : ''} left`, freeUsed: 'Free pulls used up',
@@ -121,7 +121,7 @@ const main = async () => {
     endless: 'Mode infini', endlessSub: 'ne jamais s\'arrêter sur un drop', stopNew: 'Arrêt sur un NOUVEAU perso', stopNewSub: 'un perso que tu n\'as pas encore',
     maxOpens: 'Max ouvertures 10×', paid: 'Dépenser des gemmes', start: 'Lancer', stop: 'Arrêter',
     opens: 'Ouvertures', pulls: 'Pulls', time: 'Temps', spent: 'Dépensé', perMin: '/min',
-    session: 'Cette session', best: 'Meilleurs pulls', none: 'Rien de rare pour l\'instant', isNew: 'NOUVEAU',
+    session: 'Cette session', best: 'Meilleurs pulls', none: 'Rien de rare pour l\'instant', isNew: 'NOUVEAU', featuredTag: 'mis en avant',
     pity: 'Pity', guaranteed: (label, n) => `${label} garanti dans ${n}`, softFrom: n => `boost à partir de ${n}`,
     endsIn: t => `Se termine dans ${t}`, ended: 'Terminé', endsSoon: (name, t) => `${name} se termine dans ${t} !`,
     freeLeft: n => `${n} pull${n > 1 ? 's' : ''} gratuit${n > 1 ? 's' : ''} restant${n > 1 ? 's' : ''}`, freeUsed: 'Pulls gratuits épuisés',
@@ -176,7 +176,7 @@ const main = async () => {
     endless: 'Modalità infinita', endlessSub: 'non fermarti mai su un drop', stopNew: 'Fermati su un personaggio NUOVO', stopNewSub: 'uno che non hai ancora',
     maxOpens: 'Max aperture 10×', paid: 'Spendi gemme', start: 'Avvia', stop: 'Ferma',
     opens: 'Aperture', pulls: 'Pull', time: 'Tempo', spent: 'Spese',
-    session: 'Questa sessione', best: 'Pull migliori', none: 'Ancora niente di raro', isNew: 'NUOVO',
+    session: 'Questa sessione', best: 'Pull migliori', none: 'Ancora niente di raro', isNew: 'NUOVO', featuredTag: 'in evidenza',
     guaranteed: (label, n) => `${label} garantito entro ${n}`, softFrom: n => `aumenta da ${n}`,
     endsIn: t => `Finisce tra ${t}`, ended: 'Finito', endsSoon: (name, t) => `${name} finisce tra ${t}!`,
     freeLeft: n => `${n} pull gratis rimast${n > 1 ? 'i' : 'o'}`, freeUsed: 'Pull gratis finiti',
@@ -689,6 +689,10 @@ const main = async () => {
     if (select.id === 'banner' || select.dataset.k === 'banner') return bannerById(value)?.accent;
     if (select.id === 'alertFrom') return rInfo(value).color;
     if (typeof value === 'string' && value.startsWith('r:')) return rInfo(value.slice(2)).color;
+    if (typeof value === 'string' && value.startsWith('c:')) {
+      const p = Object.values(detailsCache).flatMap(d => d.pool).find(x => 'c:' + x.id === value);
+      return p ? rInfo(p.rarity).color : null;
+    }
     return null;
   };
   // the shared combobox from site-modules.js (follows the panel when it scrolls, Apple look)
@@ -835,7 +839,7 @@ const main = async () => {
       `<optgroup label="${esc(T.rarities)}">${rars.map((o, i) =>
         `<option value="r:${esc(o.key)}">${esc(o.label)}${i ? ' ' + T.orBetter : ''}${o.prob != null ? ` · ${fmtProb(o.prob)}` : ''}</option>`).join('')}</optgroup>` +
       (chars.length ? `<optgroup label="${esc(T.characters)}">${chars.map(p =>
-        `<option value="c:${esc(p.id)}">${p.featured ? '★ ' : ''}${esc(p.name)} — ${esc(rInfo(p.rarity).label)}${p.owned ? ' ✓' : ''}</option>`).join('')}</optgroup>` : '');
+        `<option value="c:${esc(p.id)}">${esc(p.name)} — ${esc(rInfo(p.rarity).label)}${p.featured ? ' · ' + T.featuredTag : ''}${p.owned ? ' ✓' : ''}</option>`).join('')}</optgroup>` : '');
     // a character target is kept even when this lootbox doesn't have it (queue)
     if (cur && cur.startsWith('c:') && ![...$('#target').options].some(o => o.value === cur)) {
       const name = Object.values(detailsCache).flatMap(d => d.pool).find(p => 'c:' + p.id === cur)?.name || cur;
@@ -1018,7 +1022,7 @@ const main = async () => {
     $('#collBar').style.width = pool.length ? (owned / pool.length * 100) + '%' : '0';
     const missing = pool.filter(p => !p.owned).sort((a, c) => rank(c.rarity) - rank(a.rarity));
     $('#miss').innerHTML = !pool.length ? '' : missing.length
-      ? missing.map(p => `<span style="--c:${esc(rInfo(p.rarity).color)}">${esc(p.id == null ? T.hidden : p.name)}</span>`).join('')
+      ? missing.map(p => `<span style="--c:${esc(rInfo(p.rarity).color)}"><i class="c" style="background:${esc(rInfo(p.rarity).color)}"></i>${esc(p.id == null ? T.hidden : p.name)}</span>`).join('')
       : `<div class="empty">${T.allOwned}</div>`;
     const dup = Object.values(store.get('dupes', {})).sort((a, b) => b.copies - a.copies).slice(0, 10);
     $('#dupes').innerHTML = dup.length
@@ -1047,11 +1051,11 @@ const main = async () => {
     const hist = getHist();
     $('#hist').innerHTML = hist.length ? hist.map(h => {
       const d = new Date(h.date);
-      const rares = RAR.slice().reverse().filter(r => rank(r.key) >= NOTABLE && h.counts?.[r.key]).map(r => `${h.counts[r.key]} ${r.label}`).join(' · ');
+      const rares = RAR.slice().reverse().filter(r => rank(r.key) >= NOTABLE && h.counts?.[r.key]).map(r => `<span class="rc"><span class="c" style="background:${esc(r.color)}"></span>${h.counts[r.key]} ${esc(r.label)}</span>`).join(' · ');
       return `<div class="hrow"><div class="t"><b>${esc(h.banner)}</b><span>${d.toLocaleDateString(NL)} ${d.toLocaleTimeString(NL, { hour: '2-digit', minute: '2-digit' })}</span></div>
         <div class="d">${fmt(h.opens)} ${T.opens.toLowerCase()} · ${fmt(h.pulls)} ${T.pulls.toLowerCase()} · ${fmtTime(h.ms)}${h.spent ? ` · ${fmt(h.spent)} ${T.gems.toLowerCase()}` : ''}</div>
-        <div class="d">${esc(rares || '—')}</div>
-        ${h.best?.length ? `<div class="r">${h.best.map(b => esc(b.name) + (b.isNew ? ' ✦' : '')).join(', ')}</div>` : ''}
+        <div class="d">${rares || '—'}</div>
+        ${h.best?.length ? `<div class="r">${h.best.map(b => esc(b.name) + (b.isNew ? `<span class="badge">${T.isNew}</span>` : '')).join(', ')}</div>` : ''}
         <div class="r">${T.reason}: ${esc(h.end)}</div></div>`;
     }).join('') : `<div class="empty">${T.historyEmpty}</div>`;
   }

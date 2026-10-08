@@ -296,7 +296,7 @@
   .tabs.fade-r { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); }
   .tabs.fade-l { -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px); mask-image: linear-gradient(90deg, transparent, #000 28px); }
   .tabs.fade-l.fade-r { -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent); }
-  .tab { flex: 1 0 auto; padding: 5px 9px; margin: 0; border: 0; border-radius: 7px; font-size: 12px; font-weight: 500; color: var(--label); letter-spacing: -.08px; transition: background .2s, box-shadow .2s; }
+  .tab { flex: 1 0 auto; padding: 5px 9px; margin: 0; border: 0; border-radius: 7px; font-size: 12px; font-weight: 500; color: var(--label); letter-spacing: -.08px; transition: background .2s, box-shadow .2s; scroll-margin-inline: 30px; }
   .tab:hover { color: var(--label); background: var(--fill); }
   .tab.on { background: var(--seg-on); border: 0; font-weight: 600; box-shadow: 0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04), 0 0 0 .5px rgba(0,0,0,.04); }
   .tbadge { background: var(--ios-red); color: #fff; min-width: 16px; height: 16px; line-height: 16px; font-size: 10px; font-weight: 600; }
@@ -380,6 +380,10 @@
   /* white (Special) stars stay visible on the light theme */
   .panel.light .c[style*="#ffffff" i], .panel.light .c[style*="#fff;" i], .panel.light .chips .chip i[style*="#ffffff" i],
   .combo-pop.light .dotc.star[style*="#ffffff" i] { background: #C7C7CC !important; }
+  .rc { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+  .miss span { border-left: 0; display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px 3px 7px; background: var(--fill); }
+  .m .mp .c { margin-right: 2px; }
+  .dotc:not(.star) { width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 0 .5px var(--sep); }
   /* on the highlighted (accent) row the star turns white, like icons in a macOS menu */
   .combo-item:hover .dotc.star, .combo-item.active .dotc.star { background: #fff !important; }
   /* accent swatches: palette, pinned custom colours, "+" opens the picker */
@@ -899,9 +903,9 @@
       else {
         const opens = hist.reduce((s, h) => s + (h.opens || 0), 0), pulls = hist.reduce((s, h) => s + (h.pulls || 0), 0);
         const counts = {}; hist.forEach(h => Object.entries(h.counts || {}).forEach(([k, v]) => counts[k] = (counts[k] || 0) + v));
-        const rare = RORDER.slice(0, 3).filter(k => counts[k]).map(k => `${counts[k]} ${T.rar[k]}`).join(' · ');
+        const rare = RORDER.slice(0, 3).filter(k => counts[k]).map(k => `<span class="rc"><span class="c" style="background:${RCOL[k]}"></span>${counts[k]} ${esc(T.rar[k])}</span>`).join(' · ');
         const best = hist.flatMap(h => h.best || []).sort((a, b) => RORDER.indexOf(a.rarity) - RORDER.indexOf(b.rarity)).slice(0, 3).map(b => b.name).join(', ');
-        $('#sWeek').innerHTML = `<div><span>${fmt(opens)} ${T.opens} · ${fmt(pulls)} ${T.pulls}</span><b>${esc(rare || '—')}</b></div>` + (best ? `<div><span>${T.bestWeek}</span><b>${esc(best)}</b></div>` : '');
+        $('#sWeek').innerHTML = `<div><span>${fmt(opens)} ${T.opens} · ${fmt(pulls)} ${T.pulls}</span><b>${rare || '—'}</b></div>` + (best ? `<div><span>${T.bestWeek}</span><b>${esc(best)}</b></div>` : '');
       }
     };
     $('#sHarvest').onclick = async () => {
@@ -986,7 +990,7 @@
         const hidden = p.mascherato && !p.posseduto;
         return `<div class="m" style="border-left-color:${RCOL[p.rarita] || 'transparent'};${p.posseduto ? '' : 'opacity:.55'}">
           ${p.img && !hidden ? `<img src="${esc(p.img)}" alt="" loading="lazy">` : '<img alt="">'}
-          <div class="mi"><div class="mt">${esc(hidden ? '???' : p.nome)}</div><div class="mp">${esc(T.rar[p.rarita] || p.rarita)}${p.potenziabile ? ' · ⬆' : ''}</div></div>
+          <div class="mi"><div class="mt">${esc(hidden ? '???' : p.nome)}</div><div class="mp"><span class="c" style="background:${RCOL[p.rarita] || '#8E8E93'}"></span> ${esc(T.rar[p.rarita] || p.rarita)}${p.potenziabile ? ' · ⬆' : ''}</div></div>
           ${p.posseduto ? `<div class="mx"><b>×${fmt(p.quantita)}</b><br>${T.lv} ${fmt(p.livello)}</div>` : ''}</div>`;
       }).join('') + (list.length > inv.shown ? `<button class="chip more" id="sIMore">${T.showMore(Math.min(60, list.length - inv.shown))}</button>` : '')
         : `<div class="empty">${T.noMatch}</div>`;

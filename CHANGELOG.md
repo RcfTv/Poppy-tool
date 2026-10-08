@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.1.2-test — October 8, 2026 (test branch, pre-release)
+
+- Every rarity shows the same coloured star: characters in the "Stop when I get" dropdown, the Missing list (Stats), inventory rows, history and the Home "Last 7 days" counts
+- Featured characters say "rate-up" instead of a typed ★; new characters in the history get the green NEW badge instead of ✦
+- Lootbox colour dots in the dropdowns are round and the same size as the stars
+- A tab brought into view is no longer half hidden under the tab bar's edge fade
+
 ## 5.1.1-test — October 8, 2026 (test branch, pre-release)
 
 - Accent colours: 15 colours to pick from, plus a custom colour picker (saturation / brightness area, hue slider, hex field, live preview). "Pin" keeps up to 8 custom colours in the row, × removes one
