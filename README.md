@@ -28,6 +28,23 @@ Opening lootboxes one by one on Cripsum takes forever, and the rewards you earn 
 
 Poppy Tool was called **Auto Pull** until version 5.0.0.
 
+## Screenshots
+
+<table>
+<tr>
+<td align="center" valign="top"><img src="docs/screenshots/pull.png" width="250" alt="Pull tab"><br><b>Pull</b></td>
+<td align="center" valign="top"><img src="docs/screenshots/stats.png" width="250" alt="Stats tab"><br><b>Stats</b></td>
+<td align="center" valign="top"><img src="docs/screenshots/home.png" width="250" alt="Home tab"><br><b>Home</b></td>
+</tr>
+<tr>
+<td align="center" valign="top"><img src="docs/screenshots/missions.png" width="250" alt="Missions tab"><br><b>Missions</b></td>
+<td align="center" valign="top"><img src="docs/screenshots/inventory.png" width="250" alt="Inventory tab"><br><b>Inventory</b></td>
+<td align="center" valign="top"><img src="docs/screenshots/history.png" width="250" alt="History tab"><br><b>History</b></td>
+</tr>
+</table>
+
+<sub>Taken from a real Poppy Tool session (30 opens, 300 pulls) run by the extension on a local copy of the lootbox page with <b>demo data</b>: the characters, balances and missions are made up.</sub>
+
 ## Features
 
 ### One widget, every page
@@ -109,6 +126,7 @@ To update, download the [latest release](https://github.com/RcfTv/Poppy-tool/rel
 Poppy-tool/
 ├── manifest.json              Manifest V3: permissions, scripts, icons
 ├── icons/                     extension icon in 16, 48 and 128 px
+├── docs/screenshots/          README screenshots
 └── src/
     ├── background/
     │   └── background.js      service worker: notifications, per-tab state, anti-freeze alarm
