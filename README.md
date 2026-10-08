@@ -34,11 +34,11 @@ Poppy Tool was called **Auto Pull** until version 5.0.0.
 <tr>
 <td align="center" valign="top"><img src="docs/screenshots/pull.png" width="250" alt="Pull tab"><br><b>Pull</b></td>
 <td align="center" valign="top"><img src="docs/screenshots/stats.png" width="250" alt="Stats tab"><br><b>Stats</b></td>
-<td align="center" valign="top"><img src="docs/screenshots/home.png" width="250" alt="Home tab"><br><b>Home</b></td>
+<td align="center" valign="top"><img src="docs/screenshots/inventory.png" width="250" alt="Inventory tab"><br><b>Inventory</b></td>
 </tr>
 <tr>
+<td align="center" valign="top"><img src="docs/screenshots/home.png" width="250" alt="Home tab"><br><b>Home</b></td>
 <td align="center" valign="top"><img src="docs/screenshots/missions.png" width="250" alt="Missions tab"><br><b>Missions</b></td>
-<td align="center" valign="top"><img src="docs/screenshots/inventory.png" width="250" alt="Inventory tab"><br><b>Inventory</b></td>
 <td align="center" valign="top"><img src="docs/screenshots/history.png" width="250" alt="History tab"><br><b>History</b></td>
 </tr>
 </table>
