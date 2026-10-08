@@ -27,7 +27,7 @@
   ::-webkit-scrollbar-thumb:active { background-color: var(--accent); }
   ::-webkit-scrollbar-corner, ::-webkit-scrollbar-button { display: none; background: transparent; }
   .panel::-webkit-scrollbar-track { margin: 18px 0; }
-  .panel { --accent:#2f9df4; --on-accent:#fff;
+  .panel { --accent:#0A84FF; --on-accent:#fff;
     --bg: rgba(12,16,28,.93); --fg:#e5e7eb; --strong:#fff; --muted:#9ca3af; --faint:#6b7280;
     --card: rgba(255,255,255,.04); --card2: rgba(255,255,255,.07); --line: rgba(255,255,255,.08); --field: rgba(255,255,255,.05); --grid: rgba(255,255,255,.07);
     width: 350px; max-height: calc(100vh - 32px); overflow: auto;
@@ -70,12 +70,7 @@
   .m .mtag { font-size: 9.5px; font-weight: 700; padding: 2px 6px; border-radius: 6px; flex:none; }
   .m .mtag.r { background: var(--accent); color: var(--on-accent); } .m .mtag.ok { background: var(--card2); color: var(--muted); }
   .page { padding: 12px 14px 14px; display: grid; gap: 12px; } .page[hidden] { display: none; }
-  .panel.min .tabs, .panel.min .page, .panel.min .mini { display: none !important; } .panel.min { width: auto; } .panel.min .head { border-radius: 18px; }
-  .mini { display: none; padding: 10px 12px 12px; gap: 8px; align-items: center; }
-  .panel.compact { width: 310px; } .panel.compact .tabs, .panel.compact .page { display: none !important; } .panel.compact .mini { display: flex; }
-  .mini .mstat { flex: 1; min-width: 0; font-size: 11.5px; color: var(--muted); line-height: 1.3; } .mini .mstat b { color: var(--strong); font-size: 13px; }
-  .mini .mstat span { display:block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .mini .go { width: auto; padding: 8px 16px; }
+  .panel.min .tabs, .panel.min .page { display: none !important; } .panel.min { width: auto; } .panel.min .head { border-radius: 18px; }
   label.f { display:grid; gap: 5px; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
   select, input[type=number], input[type=time] { width: 100%; font: inherit; font-size: 12.5px; text-transform: none; letter-spacing: 0; color: var(--strong);
     background: var(--field); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; outline: none; color-scheme: dark; }
@@ -91,7 +86,7 @@
   .combo-btn .combo-val { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display:flex; align-items:center; gap: 7px; }
   .combo-btn svg { flex: none; color: var(--muted); transition: transform .15s; }
   .combo-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
-  .combo-pop { --accent:#2f9df4; --fg:#e5e7eb; --strong:#fff; --muted:#9ca3af; --faint:#6b7280; --field: rgba(255,255,255,.06);
+  .combo-pop { --accent:#0A84FF; --fg:#e5e7eb; --strong:#fff; --muted:#9ca3af; --faint:#6b7280; --field: rgba(255,255,255,.06);
     --card2: rgba(255,255,255,.09); --line: rgba(255,255,255,.1);
     position: fixed; z-index: 2147483647; background: #0e131fF7; border: 1px solid var(--line); border-radius: 12px; color: var(--fg);
     box-shadow: 0 14px 40px rgba(0,0,0,.5); overflow: hidden; display:flex; flex-direction: column; backdrop-filter: blur(18px) saturate(140%); }
@@ -264,6 +259,250 @@
   .go.alt { background: linear-gradient(135deg, #7c3aed, #2563eb); color: #fff; box-shadow: none; }
   .go.warn { background: #f59e0b; color: #1f1300; box-shadow: none; }
   `;
+  // TEST BRANCH - Apple / SwiftUI look: system materials, SF font, iOS system colours, grouped inset
+  // lists, segmented-control tabs, iOS switches. Loaded last, so it overrides both panels' base styles.
+  const APPLE_CSS = `
+  .panel, .combo-pop, .ghost {
+    --sys-bg: rgba(28,28,30,.78); --grouped: rgba(44,44,46,.72); --grouped2: rgba(58,58,60,.72);
+    --label: #fff; --label2: rgba(235,235,245,.62); --label3: rgba(235,235,245,.32);
+    --sep: rgba(84,84,88,.55); --fill: rgba(118,118,128,.24); --fill2: rgba(118,118,128,.32);
+    --seg-on: #636366; --ios-green: #30D158; --ios-red: #FF453A; --ios-orange: #FF9F0A; --ios-yellow: #FFD60A;
+    --bg: var(--sys-bg); --fg: var(--label); --strong: var(--label); --muted: var(--label2); --faint: var(--label3);
+    --card: var(--grouped); --card2: var(--fill); --line: var(--sep); --field: var(--fill); --grid: var(--sep); }
+  .panel.light, .combo-pop.light {
+    --sys-bg: rgba(242,242,247,.82); --grouped: rgba(255,255,255,.92); --grouped2: #fff;
+    --label: #000; --label2: rgba(60,60,67,.62); --label3: rgba(60,60,67,.32);
+    --sep: rgba(60,60,67,.18); --fill: rgba(118,118,128,.12); --fill2: rgba(118,118,128,.2);
+    --seg-on: #fff; --ios-green: #34C759; --ios-red: #FF3B30; --ios-orange: #FF9500; --ios-yellow: #FFCC00; }
+  .panel { font: 13px/1.38 -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Helvetica Neue", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+    letter-spacing: -.08px; -webkit-font-smoothing: antialiased; border-radius: 26px; border: .5px solid rgba(255,255,255,.14);
+    backdrop-filter: blur(40px) saturate(190%); -webkit-backdrop-filter: blur(40px) saturate(190%);
+    box-shadow: 0 0 0 .5px rgba(0,0,0,.4), 0 24px 60px rgba(0,0,0,.45), 0 4px 14px rgba(0,0,0,.2); }
+  .panel.light { border-color: rgba(0,0,0,.08); box-shadow: 0 0 0 .5px rgba(0,0,0,.06), 0 24px 60px rgba(0,0,0,.16), 0 4px 14px rgba(0,0,0,.06); }
+  .panel.min .head { border-radius: 26px; }
+  /* navigation bar */
+  .head { background: none; padding: 14px 12px 10px 16px; border-radius: 26px 26px 0 0; gap: 10px; }
+  .logo { width: 34px; height: 34px; border-radius: 9px; background: var(--accent); box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+  .logo.has-img { box-shadow: 0 0 0 .5px var(--sep), 0 1px 3px rgba(0,0,0,.25); }
+  .title { font-size: 17px; font-weight: 600; letter-spacing: -.43px; }
+  .by { font-size: 12px; color: var(--label2); letter-spacing: 0; }
+  .pill { background: var(--fill); border: 0; font-size: 12px; font-weight: 500; padding: 4px 10px; color: var(--label); }
+  .pill.run .dot { background: var(--ios-green); } .pill.found .dot { background: var(--ios-orange); } .pill.err .dot { background: var(--ios-red); }
+  .icon-btn { width: 28px; height: 28px; border-radius: 50%; background: var(--fill); color: var(--label2); }
+  .icon-btn:hover { background: var(--fill2); color: var(--label); }
+  /* tabs = segmented control */
+  /* one row that scrolls sideways (mouse wheel too, see mount); the edges fade when more tabs are hidden there */
+  .tabs { margin: 2px 14px 4px; padding: 2px; gap: 0; border: 0; border-radius: 9px; background: var(--fill); }
+  .tabs.fade-r { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); }
+  .tabs.fade-l { -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px); mask-image: linear-gradient(90deg, transparent, #000 28px); }
+  .tabs.fade-l.fade-r { -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent); }
+  .tab { flex: 1 0 auto; padding: 5px 9px; margin: 0; border: 0; border-radius: 7px; font-size: 12px; font-weight: 500; color: var(--label); letter-spacing: -.08px; transition: background .2s, box-shadow .2s; scroll-margin-inline: 30px; }
+  .tab:hover { color: var(--label); background: var(--fill); }
+  .tab.on { background: var(--seg-on); border: 0; font-weight: 600; box-shadow: 0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04), 0 0 0 .5px rgba(0,0,0,.04); }
+  .tbadge { background: var(--ios-red); color: #fff; min-width: 16px; height: 16px; line-height: 16px; font-size: 10px; font-weight: 600; }
+  .page { padding: 12px 16px 16px; gap: 14px; }
+  /* section headers like a grouped List */
+  .sec, label.f, .gtitle { font-size: 12px; font-weight: 400; text-transform: uppercase; letter-spacing: -.08px; color: var(--label2); }
+  .sec { padding: 0 4px; margin-bottom: 6px; }
+  label.f { gap: 6px; padding-left: 4px; }
+  /* grouped inset rows */
+  .box, .stat, .tile, .toggle, .verdict, .hrow, .conv, .qstep, .bal, .item, .m {
+    background: var(--grouped); border: 0; border-radius: 12px; box-shadow: 0 0 0 .5px var(--sep) inset; }
+  .m { border-left: 0; padding: 9px 12px; margin-bottom: 6px; }
+  .m.ready { box-shadow: inset 3px 0 0 var(--accent), 0 0 0 .5px var(--sep) inset; }
+  .m .mtag { border-radius: 999px; padding: 3px 8px; font-size: 11px; font-weight: 600; }
+  .m .mtag.r { background: color-mix(in srgb, var(--accent) 18%, transparent); color: var(--accent); }
+  .m .mbtn { border-radius: 999px; padding: 5px 12px; font-size: 12px; font-weight: 600; }
+  .m .mbtn.dim { background: var(--fill); color: var(--accent); }
+  .m img, .item img { border-radius: 8px; }
+  .item { border-left: 0; box-shadow: inset 3px 0 0 var(--c), 0 0 0 .5px var(--sep) inset; padding: 7px 10px; }
+  .stat, .tile { padding: 9px 10px; }
+  .stat b, .tile b { font-size: 17px; font-weight: 600; letter-spacing: -.4px; font-variant-numeric: tabular-nums; }
+  .stat span, .tile span { font-size: 11px; text-transform: none; letter-spacing: 0; color: var(--label2); }
+  .toggle { padding: 10px 12px; }
+  .toggle b { font-size: 14px; font-weight: 400; letter-spacing: -.15px; }
+  .toggle small { font-size: 12px; color: var(--label2); }
+  /* iOS switch */
+  .sw { width: 42px; height: 26px; order: 2; margin-left: auto; }
+  .toggle { justify-content: space-between; }
+  .sw i { background: var(--fill2); transition: background .25s; }
+  .sw i::after { left: 2px; top: 2px; width: 22px; height: 22px; background: #fff; box-shadow: 0 3px 8px rgba(0,0,0,.15), 0 3px 1px rgba(0,0,0,.06); transition: transform .25s cubic-bezier(.3,.7,.4,1); }
+  .sw input:checked + i { background: var(--ios-green); }
+  .sw input:checked + i::after { transform: translateX(16px); background: #fff; }
+  /* fields */
+  select, input[type=number], input[type=time], .sinput, .combo-btn { background: var(--fill); border: 0; border-radius: 10px; padding: 9px 12px; font-size: 14px; color: var(--label); letter-spacing: -.15px; }
+  select:focus, input:focus, .sinput:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent); }
+  .combo-btn[aria-expanded="true"] { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent); }
+  .combo-btn svg { color: var(--accent); }
+  .combo-pop { background: var(--sys-bg); border: .5px solid var(--sep); border-radius: 14px; backdrop-filter: blur(40px) saturate(190%); -webkit-backdrop-filter: blur(40px) saturate(190%);
+    box-shadow: 0 18px 50px rgba(0,0,0,.35); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; }
+  .combo-search { background: var(--fill) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238e8e93' stroke-width='2.6' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-3.5-3.5'/%3E%3C/svg%3E") no-repeat 10px 50%;
+    border: 0; border-radius: 10px; padding: 8px 10px 8px 30px; font: inherit; font-size: 14px; color: var(--label); outline: none; }
+  .combo-search::placeholder { color: var(--label3); }
+  .combo-search:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent); }
+  .combo-item { border-radius: 8px; font-size: 14px; }
+  .combo-item:hover, .combo-item.active { background: var(--accent); color: #fff; }
+  .combo-item.sel::after { color: inherit; }
+  .combo-group { font-size: 12px; text-transform: none; letter-spacing: 0; font-weight: 600; color: var(--label2); }
+  /* buttons: .borderedProminent / .bordered */
+  .go { border-radius: 12px; padding: 12px; font-size: 16px; font-weight: 600; letter-spacing: -.3px; box-shadow: none; }
+  .go:hover { filter: brightness(1.06); } .go:active { transform: none; opacity: .75; }
+  .go.stop { background: var(--ios-red); box-shadow: none; }
+  .go.alt { background: var(--accent); color: var(--on-accent); }
+  .go.warn { background: var(--ios-orange); color: #fff; }
+  .chip { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); border: 0; border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 500; }
+  .chip:hover { filter: none; background: color-mix(in srgb, var(--accent) 24%, transparent); }
+  .chip.on { background: var(--accent); color: var(--on-accent); }
+  .chips .chip { background: var(--fill); color: var(--label); }
+  .chips .chip.on { background: var(--accent); color: var(--on-accent); }
+  .qlinks a { background: var(--grouped); border: 0; box-shadow: 0 0 0 .5px var(--sep) inset; border-radius: 10px; color: var(--accent); font-size: 12px; font-weight: 500; padding: 8px 4px; }
+  .conv .cv-go { background: var(--accent); border-radius: 10px; }
+  .conv .cv-go.confirm { background: var(--ios-orange); color: #fff; }
+  .cv-row button { background: var(--fill); border: 0; color: var(--accent); }
+  /* progress views */
+  .bar, .m .mbar { background: var(--fill2); height: 5px; }
+  .tag { background: var(--fill); border: 0; font-size: 12px; padding: 3px 9px; }
+  .tag.warn { background: color-mix(in srgb, var(--ios-orange) 22%, transparent); color: var(--ios-orange); }
+  .badge { background: var(--ios-green); color: #fff; border-radius: 999px; padding: 1px 6px; font-weight: 600; }
+  .msg { color: var(--ios-red); } .msg.ok, .smsg { color: var(--ios-orange); } .smsg.err { color: var(--ios-red); }
+  .lrow .up { color: var(--ios-green); } .lrow .down { color: var(--ios-red); }
+  .verdict { font-weight: 600; font-size: 14px; }
+  .swatch { border-radius: 50%; border: 0; box-shadow: 0 0 0 .5px var(--sep) inset; }
+  .swatch.auto span { border-radius: 50%; }
+  .swatch.sel { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
+  .wallet { border-top: .5px solid var(--sep); }
+  .empty { color: var(--label3); }
+  .ghost { border-radius: 26px; border: 2px dashed var(--accent); }
+  /* rarity markers are stars */
+  .c, .dotc.star, .chips .chip i { width: 12px; height: 12px; border-radius: 0; box-shadow: none; flex: none; vertical-align: -1px;
+    -webkit-mask: var(--star) center / contain no-repeat; mask: var(--star) center / contain no-repeat; }
+  .panel, .combo-pop { --star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.8l3.05 6.6 7.2.8-5.37 4.88 1.5 7.1L12 17.6l-6.38 3.58 1.5-7.1L1.75 9.2l7.2-.8z'/%3E%3C/svg%3E"); }
+  /* white (Special) stars stay visible on the light theme */
+  .panel.light .c[style*="#ffffff" i], .panel.light .c[style*="#fff;" i], .panel.light .chips .chip i[style*="#ffffff" i],
+  .combo-pop.light .dotc.star[style*="#ffffff" i] { background: #C7C7CC !important; }
+  .rc { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+  .miss span { border-left: 0; display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px 3px 7px; background: var(--fill); }
+  .m .mp .c { margin-right: 2px; }
+  .dotc:not(.star) { width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 0 .5px var(--sep); }
+  .ico { flex: none; vertical-align: -2px; }
+  .tag { display: inline-flex; align-items: center; gap: 5px; }
+  .dotc { flex: none; }
+  .panel.light .dotc.star[style*="#ffffff" i] { background: #C7C7CC !important; }
+  /* nothing in a page may be wider than the panel */
+  .page > * { min-width: 0; }
+  /* queue steps fit the panel width */
+  .qstep { grid-template-columns: 16px minmax(0, 1fr) 52px 28px; gap: 6px; padding: 6px 8px; }
+  .qstep .combo { min-width: 0; }
+  .qstep .combo-btn { padding: 8px 10px; font-size: 13px; }
+  .qstep input { padding: 8px 4px; font-size: 14px; }
+  .qstep .icon-btn { font-size: 12px; }
+  .qstep.cur { box-shadow: inset 0 0 0 2px var(--accent); }
+  /* best pulls: the star tells the rarity, no side bar (same as every other list) */
+  .item { box-shadow: 0 0 0 .5px var(--sep) inset; }
+  /* settings: group title (like a Settings section) above the small field captions */
+  .gtitle { font-size: 15px; font-weight: 600; text-transform: none; letter-spacing: -.24px; color: var(--label); padding: 4px 4px 0; }
+  /* iOS slider: accent-filled track, white thumb */
+  input[type=range] { -webkit-appearance: none; appearance: none; height: 4px; border-radius: 999px; outline: none; cursor: pointer; padding: 0;
+    background: linear-gradient(var(--accent), var(--accent)) 0 / var(--pct, 50%) 100% no-repeat, var(--fill2); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #fff;
+    box-shadow: 0 .5px 4px rgba(0,0,0,.3), 0 3px 8px rgba(0,0,0,.15); }
+  input[type=range]:focus { box-shadow: none; }
+  /* on the highlighted (accent) row the star turns white, like icons in a macOS menu */
+  .combo-item:hover .dotc.star, .combo-item.active .dotc.star { background: #fff !important; }
+  /* accent swatches: palette, pinned custom colours, "+" opens the picker */
+  .swatches { gap: 8px; }
+  .swatch { width: 24px; height: 24px; }
+  .swatch.add { background: conic-gradient(#FF453A, #FFD60A, #30D158, #64D2FF, #0A84FF, #BF5AF2, #FF375F, #FF453A); }
+  .swatch.add span { position: absolute; inset: 4px; border-radius: 50%; background: var(--bg); display: grid; place-items: center; font-size: 15px; font-weight: 600; line-height: 1; color: var(--label); }
+  .swatch.pinned .x { position: absolute; top: -5px; right: -5px; width: 15px; height: 15px; border-radius: 50%; background: var(--label2); color: var(--sys-bg);
+    font: 600 11px/15px system-ui, sans-serif; font-style: normal; text-align: center; display: none; cursor: pointer; }
+  .swatch.pinned:hover .x { display: block; }
+  .cpick { --accent: #0A84FF; position: fixed; z-index: 2147483647; width: 244px; padding: 12px; display: grid; gap: 10px;
+    --sys-bg: rgba(36,36,38,.86); --label: #fff; --label2: rgba(235,235,245,.62); --label3: rgba(235,235,245,.32); --sep: rgba(84,84,88,.55); --fill: rgba(118,118,128,.24); --fill2: rgba(118,118,128,.32); --ios-red: #FF453A;
+    background: var(--sys-bg); color: var(--label); border: .5px solid var(--sep); border-radius: 16px; box-shadow: 0 18px 50px rgba(0,0,0,.4);
+    backdrop-filter: blur(40px) saturate(190%); -webkit-backdrop-filter: blur(40px) saturate(190%);
+    font: 13px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; }
+  .cpick.light { --sys-bg: rgba(250,250,252,.92); --label: #000; --label2: rgba(60,60,67,.62); --label3: rgba(60,60,67,.32); --sep: rgba(60,60,67,.18); --fill: rgba(118,118,128,.12); --fill2: rgba(118,118,128,.2); --ios-red: #FF3B30;
+    box-shadow: 0 18px 50px rgba(0,0,0,.18); }
+  .cp-title { font-weight: 600; font-size: 15px; letter-spacing: -.2px; }
+  .cp-sv { position: relative; height: 140px; border-radius: 10px; cursor: crosshair; touch-action: none;
+    background: linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, var(--hue, red)); box-shadow: 0 0 0 .5px var(--sep) inset; }
+  .cp-hue { position: relative; height: 14px; border-radius: 999px; cursor: pointer; touch-action: none;
+    background: linear-gradient(90deg, #f00, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00); }
+  .cp-knob { position: absolute; width: 18px; height: 18px; border-radius: 50%; border: 3px solid #fff; transform: translate(-50%, -50%); pointer-events: none;
+    box-shadow: 0 0 0 .5px rgba(0,0,0,.25), 0 2px 6px rgba(0,0,0,.35); }
+  .cp-hue .cp-knob { top: 50%; }
+  .cp-row { display: flex; gap: 8px; align-items: center; }
+  .cp-prev { width: 32px; height: 32px; border-radius: 8px; flex: none; box-shadow: 0 0 0 .5px var(--sep) inset; }
+  .cp-hex { flex: 1; min-width: 0; font: inherit; font-size: 14px; font-variant-numeric: tabular-nums; letter-spacing: .5px; text-transform: uppercase;
+    color: var(--label); background: var(--fill); border: 0; border-radius: 8px; padding: 8px 10px; outline: none; }
+  .cp-hex:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent); }
+  .cp-err { font-size: 11.5px; color: var(--ios-red); } .cp-err:empty { display: none; }
+  .cp-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cp-btns button { font: inherit; font-size: 14px; font-weight: 600; border: 0; border-radius: 10px; padding: 8px; cursor: pointer; }
+  .cp-cancel { background: var(--fill); color: var(--accent); }
+  .cp-pin { background: var(--accent); color: var(--on, #fff); }
+
+  /* ---------- motion (Apple curves: --ease decelerates like a sheet, --spring overshoots a little) ---------- */
+  .panel, .combo-pop, .cpick, .ghost { --ease: cubic-bezier(.32, .72, 0, 1); --spring: cubic-bezier(.34, 1.4, .64, 1); }
+  @keyframes ap-panel-in { from { opacity: 0; transform: translateY(14px) scale(.97); } }
+  @keyframes ap-page-in { from { opacity: 0; transform: translateY(6px); } }
+  @keyframes ap-pop-in { from { opacity: 0; transform: scale(.94) translateY(-4px); } }
+  @keyframes ap-pop-out { to { opacity: 0; transform: scale(.97); } }
+  @keyframes ap-bump { 0% { transform: scale(1); } 35% { transform: scale(1.14); } 100% { transform: scale(1); } }
+  @keyframes ap-fade-in { from { opacity: 0; } }
+  .panel { animation: ap-panel-in .5s var(--ease) both; transform-origin: bottom right; }
+  .page:not([hidden]) { animation: ap-page-in .32s var(--ease) both; }
+  .conv:not([hidden]), .box:not([hidden]) { animation: ap-fade-in .3s var(--ease) both; }
+  /* segmented control: the highlight slides between tabs */
+  .tabs.has-ind { position: relative; }
+  .seg-ind { position: absolute; top: 2px; bottom: 2px; left: 0; width: 0; border-radius: 7px; background: var(--seg-on); pointer-events: none; z-index: 0;
+    box-shadow: 0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04), 0 0 0 .5px rgba(0,0,0,.04);
+    transition: transform .38s var(--spring), width .38s var(--spring), opacity .2s; }
+  .seg-ind.no-anim { transition: none; }
+  .tabs.has-ind .tab { position: relative; z-index: 1; }
+  .tabs.has-ind .tab.on { background: transparent; box-shadow: none; }
+  .tab { transition: color .2s, background .2s, transform .25s var(--spring); }
+  .tab:active { transform: scale(.95); }
+  /* pop-ups: dropdown list and colour picker */
+  .combo-pop { animation: ap-pop-in .26s var(--spring) both; transform-origin: top center; }
+  .cpick { animation: ap-pop-in .3s var(--spring) both; transform-origin: bottom center; }
+  .combo-pop.out, .cpick.out { animation: ap-pop-out .16s ease-in both; }
+  .combo-btn svg { transition: transform .3s var(--spring); }
+  .combo-item { transition: background .12s, color .12s; }
+  /* buttons press in and spring back */
+  .go, .chip, .mbtn, .icon-btn, .swatch, .qlinks a, .cv-row button, .cp-btns button, .combo-btn, .m .mbtn {
+    transition: transform .3s var(--spring), background-color .2s, color .2s, box-shadow .25s, filter .2s, opacity .2s; }
+  .go:active, .chip:active, .mbtn:active, .qlinks a:active, .cv-row button:active, .cp-btns button:active, .conv .cv-go:active { transform: scale(.97); opacity: .85; }
+  .icon-btn:active { transform: scale(.88); }
+  .swatch:hover { transform: scale(1.12); } .swatch:active { transform: scale(.92); }
+  .combo-btn:active { transform: scale(.985); }
+  .go:disabled, .chip:disabled { transform: none; }
+  /* iOS switch: the knob stretches while pressed */
+  .sw i::after { transition: transform .32s var(--spring), width .2s var(--ease); }
+  .toggle:active .sw i::after { width: 27px; }
+  .toggle:active .sw input:checked + i::after { transform: translateX(11px); }
+  .toggle { transition: transform .3s var(--spring), opacity .25s; }
+  .toggle:active { transform: scale(.985); }
+  /* values */
+  .bump { animation: ap-bump .42s var(--spring); display: inline-block; }
+  .stat b.bump { display: block; transform-origin: left center; }
+  .bar i, .m .mbar i { transition: width .6s var(--ease); }
+  .pill, .pill .dot { transition: background-color .3s, color .3s; }
+  .smsg:not(:empty), .msg:not(:empty), .cp-err:not(:empty) { animation: ap-fade-in .25s var(--ease) both; }
+  .m, .item, .hrow { transition: opacity .3s, box-shadow .3s, background-color .3s; }
+  .tabs.fade-l, .tabs.fade-r { transition: -webkit-mask-image .2s; }
+  /* moving the panel: it lifts while dragged, the snap outline springs in near a corner */
+  .panel { transition: scale .3s var(--spring), box-shadow .3s var(--ease); }
+  .panel.dragging { scale: 1.015; box-shadow: 0 0 0 .5px rgba(0,0,0,.4), 0 34px 80px rgba(0,0,0,.55), 0 8px 20px rgba(0,0,0,.25); }
+  .panel.light.dragging { box-shadow: 0 0 0 .5px rgba(0,0,0,.06), 0 34px 80px rgba(0,0,0,.22), 0 8px 20px rgba(0,0,0,.08); }
+  .ghost { scale: .96; transition: opacity .2s, scale .35s var(--spring); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+  .ghost.on { scale: 1; }
+  .head { cursor: grab; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  }
+  `;
 
   // ---------------------------------------------------------------- shared helpers
   const store = {
@@ -317,6 +556,7 @@
       nUnread: n => `${n} new message${n > 1 ? 's' : ''}`, nReq: n => `${n} new friend request${n > 1 ? 's' : ''}`,
       endsSoon: (name, t) => `${name} ends in ${t}!`, endsIn: t => `ends in ${t}`, idle: 'Up to date', todo: n => `${n} to do`,
       language: 'Panel language', auto: 'Auto', theme: 'Light theme', sound: 'Sound', notify: 'Windows notification', volume: 'Volume', accent: 'Accent colour', accentAuto: 'Default',
+      custom: 'Custom colour', pin: 'Pin', cancel: 'Cancel', unpin: 'Unpin', hexBad: 'Enter a colour like #FF9F0A',
       lootHint: 'Lootbox auto-pull settings are on the lootbox page.',
       rar: { comune: 'Common', raro: 'Rare', epico: 'Epic', leggendario: 'Legendary', speciale: 'Special', segreto: 'Secret', theone: 'The One' },
     },
@@ -339,6 +579,7 @@
       nUnread: n => `${n} nouveau${n > 1 ? 'x' : ''} message${n > 1 ? 's' : ''}`, nReq: n => `${n} nouvelle${n > 1 ? 's' : ''} demande${n > 1 ? 's' : ''} d'ami`,
       endsSoon: (name, t) => `${name} se termine dans ${t} !`, endsIn: t => `fin dans ${t}`, idle: 'À jour', todo: n => `${n} à faire`,
       language: 'Langue du panneau', auto: 'Auto', theme: 'Thème clair', sound: 'Son', notify: 'Notification Windows', volume: 'Volume', accent: 'Couleur d\'accent', accentAuto: 'Par défaut',
+      custom: 'Couleur perso', pin: 'Épingler', cancel: 'Annuler', unpin: 'Retirer', hexBad: 'Entre une couleur comme #FF9F0A',
       lootHint: 'Les réglages de l\'auto-pull sont sur la page lootbox.',
       rar: { comune: 'Commun', raro: 'Rare', epico: 'Épique', leggendario: 'Légendaire', speciale: 'Spécial', segreto: 'Secret', theone: 'The One' },
     },
@@ -356,6 +597,7 @@
       achDone: 'sbloccati', points: 'punti', locked: 'Da sbloccare', unlocked: 'Sbloccati',
       giftsTitle: 'Regali', claimGifts: 'Riscuoti regali', autoG: 'Riscatto regali auto', reqTitle: 'Richieste di amicizia', accept: 'Accetta', decline: 'Rifiuta',
       latest: 'Ultimi messaggi', openInbox: 'Apri la posta', idle: 'Tutto a posto', language: 'Lingua del pannello', theme: 'Tema chiaro', sound: 'Suono', notify: 'Notifica Windows',
+      custom: 'Colore personalizzato', pin: 'Fissa', cancel: 'Annulla', unpin: 'Rimuovi', hexBad: 'Inserisci un colore come #FF9F0A',
       rar: { comune: 'Comune', raro: 'Raro', epico: 'Epico', leggendario: 'Leggendario', speciale: 'Speciale', segreto: 'Segreto', theone: 'The One' },
     },
   };
@@ -432,12 +674,342 @@
   const upgradeAll = () => postJSON('/api/game/upgrade_all_characters.php', {});
   const friendAct = (what, id) => postJSON(`/api/social/${what}_friend_request.php`, { sender_id: id });
 
+  // ---------------------------------------------------------------- searchable combobox (both panels)
+  // Replaces a native <select>. The list lives in the panel's shadow root with position: fixed, so it is moved
+  // on every scroll inside the panel (scroll events never leave the shadow root) and closed once its button
+  // is scrolled out of the panel.
+  function makeCombo(select, { root, panel, color = () => null, star = () => true, search = 'Search…', noMatch = 'No match' }) {
+    if (!select || select.__combo) return;
+    select.style.display = 'none';
+    const combo = document.createElement('div'); combo.className = 'combo';
+    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'combo-btn'; btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = `<span class="combo-val"></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
+    combo.appendChild(btn); select.after(combo);
+    const valEl = btn.querySelector('.combo-val');
+    let pop = null, items = [], active = -1;
+    const label = () => {
+      const o = select.selectedOptions[0], col = o ? color(select, o.value) : null;
+      valEl.innerHTML = (col ? `<span class="dotc${star(select) ? ' star' : ''}" style="background:${esc(col)}"></span>` : '') + `<span>${esc(o ? o.textContent : '')}</span>`;
+      btn.disabled = select.disabled;
+    };
+    const reposition = () => {
+      if (!pop) return;
+      const r = btn.getBoundingClientRect(), p = panel.getBoundingClientRect();
+      if (r.bottom < p.top + 8 || r.top > p.bottom - 8 || !r.width) return close();   // scrolled out of the panel
+      const below = innerHeight - r.bottom, above = r.top, maxH = Math.min(300, Math.max(below, above) - 16);
+      pop.style.left = r.left + 'px'; pop.style.width = r.width + 'px';
+      if (below < 240 && above > below) { pop.style.top = 'auto'; pop.style.bottom = (innerHeight - r.top + 4) + 'px'; }
+      else { pop.style.bottom = 'auto'; pop.style.top = (r.bottom + 4) + 'px'; }
+      const list = pop.querySelector('.combo-list'); if (list) list.style.maxHeight = (maxH - (pop.querySelector('.combo-search') ? 50 : 10)) + 'px';
+    };
+    const onScroll = e => { if (pop && !pop.contains(e.target)) reposition(); };   // the list's own scrolling doesn't move it
+    const onDoc = e => { const t = e.composedPath()[0]; if (pop && !combo.contains(t) && !pop.contains(t)) close(); };
+    const close = () => {
+      if (!pop) return;
+      leave(pop); pop = null; items = []; active = -1; btn.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('pointerdown', onDoc, true); root.removeEventListener('scroll', onScroll, true);
+      window.removeEventListener('scroll', onScroll, true); window.removeEventListener('resize', close);
+    };
+    const paint = () => items.forEach((it, i) => it.el.classList.toggle('active', i === active));
+    const choose = o => { if (o.value !== select.value) { select.value = o.value; select.dispatchEvent(new Event('change', { bubbles: true })); } label(); close(); btn.focus(); };
+    const open = () => {
+      if (pop || select.disabled) return;
+      pop = document.createElement('div'); pop.className = 'combo-pop';
+      if (panel.classList.contains('light')) pop.classList.add('light');
+      pop.style.setProperty('--accent', getComputedStyle(panel).getPropertyValue('--accent') || '#0A84FF');
+      const many = select.querySelectorAll('option').length > 8;
+      pop.innerHTML = (many ? `<input class="combo-search" type="text" placeholder="${esc(search)}">` : '') + `<div class="combo-list"></div>`;
+      root.appendChild(pop);
+      const listEl = pop.querySelector('.combo-list'), searchEl = pop.querySelector('.combo-search');
+      const add = o => {
+        const el = document.createElement('div'); el.className = 'combo-item' + (o.value === select.value ? ' sel' : '');
+        const col = color(select, o.value);
+        el.innerHTML = (col ? `<span class="dotc${star(select) ? ' star' : ''}" style="background:${esc(col)}"></span>` : '') + `<span>${esc(o.textContent)}</span>`;
+        el.addEventListener('pointerdown', e => e.preventDefault());
+        el.onclick = () => choose(o);
+        listEl.appendChild(el); items.push({ el, opt: o });
+      };
+      const render = q => {
+        q = (q || '').trim().toLowerCase(); listEl.innerHTML = ''; items = [];
+        [...select.children].forEach(node => {
+          if (node.tagName === 'OPTGROUP') {
+            const opts = [...node.children].filter(o => !q || o.textContent.toLowerCase().includes(q));
+            if (!opts.length) return;
+            const g = document.createElement('div'); g.className = 'combo-group'; g.textContent = node.label; listEl.appendChild(g);
+            opts.forEach(add);
+          } else if (node.tagName === 'OPTION' && (!q || node.textContent.toLowerCase().includes(q))) add(node);
+        });
+        if (!items.length) { const e = document.createElement('div'); e.className = 'combo-empty'; e.textContent = noMatch; listEl.appendChild(e); }
+        active = items.findIndex(it => it.opt.value === select.value); if (active < 0 && q && items.length) active = 0;
+        paint(); items[active]?.el.scrollIntoView({ block: 'nearest' });
+      };
+      render(''); btn.setAttribute('aria-expanded', 'true'); reposition();
+      document.addEventListener('pointerdown', onDoc, true); root.addEventListener('scroll', onScroll, true);
+      window.addEventListener('scroll', onScroll, true); window.addEventListener('resize', close);
+      if (searchEl) {
+        searchEl.oninput = () => render(searchEl.value);
+        searchEl.onkeydown = e => {
+          if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(items.length - 1, active + 1); paint(); items[active]?.el.scrollIntoView({ block: 'nearest' }); }
+          else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(0, active - 1); paint(); items[active]?.el.scrollIntoView({ block: 'nearest' }); }
+          else if (e.key === 'Enter') { e.preventDefault(); if (items[active]) choose(items[active].opt); }
+          else if (e.key === 'Escape') { e.preventDefault(); close(); btn.focus(); }
+        };
+        setTimeout(() => searchEl.focus(), 0);
+      }
+    };
+    btn.onclick = () => pop ? close() : open();
+    select.addEventListener('change', label);
+    const mo = new MutationObserver(() => { label(); if (pop) close(); });
+    mo.observe(select, { childList: true, attributes: true, attributeFilter: ['disabled'] });
+    label();
+    select.__combo = { close, mo };
+  }
+
+  // tab bar: one scrolling row; the mouse wheel scrolls it sideways, the edges fade while tabs are hidden there
+  function scrollableTabs(tabsEl) {
+    if (!tabsEl || tabsEl.__wheel) return; tabsEl.__wheel = true;
+    const fade = () => {
+      const max = tabsEl.scrollWidth - tabsEl.clientWidth;
+      tabsEl.classList.toggle('fade-l', tabsEl.scrollLeft > 2);
+      tabsEl.classList.toggle('fade-r', tabsEl.scrollLeft < max - 2);
+    };
+    tabsEl.addEventListener('wheel', e => {
+      if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;   // trackpads already scroll sideways
+      const max = tabsEl.scrollWidth - tabsEl.clientWidth; if (max <= 0) return;
+      e.preventDefault();
+      tabsEl.scrollLeft = Math.max(0, Math.min(max, tabsEl.scrollLeft + (e.deltaMode === 1 ? e.deltaY * 32 : e.deltaY)));
+    }, { passive: false });
+    tabsEl.addEventListener('scroll', fade, { passive: true });
+    // the clicked / selected tab is brought into view
+    tabsEl.addEventListener('click', e => { const t = e.target.closest('.tab'); if (t) t.scrollIntoView({ block: 'nearest', inline: 'nearest' }); });
+    new ResizeObserver(fade).observe(tabsEl);
+    // segmented control: one highlight that slides from tab to tab
+    const ind = document.createElement('span'); ind.className = 'seg-ind no-anim'; tabsEl.prepend(ind);
+    tabsEl.classList.add('has-ind');
+    const place = () => {
+      const on = tabsEl.querySelector('.tab.on');
+      if (!on) { ind.style.opacity = '0'; return; }
+      ind.style.opacity = '1'; ind.style.width = on.offsetWidth + 'px'; ind.style.transform = `translateX(${on.offsetLeft}px)`;
+    };
+    new MutationObserver(place).observe(tabsEl, { subtree: true, attributes: true, attributeFilter: ['class'], childList: true });
+    const ro = new ResizeObserver(place); tabsEl.querySelectorAll('.tab').forEach(t => ro.observe(t)); ro.observe(tabsEl);
+    setTimeout(() => { tabsEl.querySelector('.tab.on')?.scrollIntoView({ block: 'nearest', inline: 'center' }); fade(); place();
+      requestAnimationFrame(() => requestAnimationFrame(() => ind.classList.remove('no-anim'))); }, 0);
+  }
+  // ---------------------------------------------------------------- moving + minimising the panel (both panels)
+  // Drag the header anywhere: the panel stays where it is dropped (kept relative to the nearest window edges,
+  // so it stays on screen when the window is resized). Dropped near a corner it snaps there (a dashed outline
+  // shows the spot); a double-click on the header also snaps it to the nearest corner.
+  // "–" folds the panel down to its header with an animation (and unfolds it the same way).
+  function movable({ host, panel, head, ghost, minBtn, minPath }) {
+    const MARGIN = 16, SNAP = 80, PAD = 4;
+    const EASE = 'cubic-bezier(.32, .72, 0, 1)', SPRING = 'cubic-bezier(.34, 1.3, .64, 1)';
+    const still = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let place = store.get('place', null), drag = null;
+    if (!place || !['corner', 'free'].includes(place.mode)) {
+      const c = store.get('corner'); place = { mode: 'corner', c: ['br', 'bl', 'tr', 'tl'].includes(c) ? c : 'br' };
+    }
+    const save = () => { store.set('place', place); if (place.mode === 'corner') store.set('corner', place.c); };
+    // never (partly) off screen: pulled back inside for display, the saved spot is kept
+    const keepInView = () => {
+      if (place.mode !== 'free') return;
+      const r = host.getBoundingClientRect(), s = host.style;
+      if (r.left < PAD || r.right > innerWidth - PAD) { s.right = ''; s.left = Math.max(PAD, Math.min(innerWidth - r.width - PAD, r.left)) + 'px'; }
+      if (r.top < PAD || r.bottom > innerHeight - PAD) { s.bottom = ''; s.top = Math.max(PAD, Math.min(innerHeight - r.height - PAD, r.top)) + 'px'; }
+    };
+    const apply = () => {
+      const s = host.style; s.left = s.top = s.right = s.bottom = '';
+      if (place.mode === 'corner') { s[place.c[0] === 't' ? 'top' : 'bottom'] = MARGIN + 'px'; s[place.c[1] === 'l' ? 'left' : 'right'] = MARGIN + 'px'; }
+      else { s[place.ax === 'l' ? 'left' : 'right'] = place.dx + 'px'; s[place.ay === 't' ? 'top' : 'bottom'] = place.dy + 'px'; }
+      keepInView();
+    };
+    const cornerXY = (c, w, h) => ({ x: c[1] === 'l' ? MARGIN : innerWidth - w - MARGIN, y: c[0] === 't' ? MARGIN : innerHeight - h - MARGIN });
+    // the corner whose spot is closest to where the panel is now (works for a panel almost as tall as the window too)
+    const nearestCorner = r => ['tl', 'tr', 'bl', 'br'].map(c => { const p = cornerXY(c, r.width, r.height); return { c, d: Math.hypot(r.left - p.x, r.top - p.y) }; })
+      .sort((a, b) => a.d - b.d)[0].c;
+    // move to the saved placement, gliding from where the panel is now
+    const glide = from => {
+      apply();
+      const to = host.getBoundingClientRect(), dx = from.left - to.left, dy = from.top - to.top;
+      if (still() || (Math.abs(dx) < 1 && Math.abs(dy) < 1)) return;
+      host.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], { duration: 460, easing: SPRING });
+    };
+    const freeFrom = r => {
+      const ax = r.left + r.width / 2 < innerWidth / 2 ? 'l' : 'r', ay = r.top + r.height / 2 < innerHeight / 2 ? 't' : 'b';
+      return { mode: 'free', ax, ay, dx: Math.round(ax === 'l' ? r.left : innerWidth - r.right), dy: Math.round(ay === 't' ? r.top : innerHeight - r.bottom) };
+    };
+
+    head.addEventListener('pointerdown', e => {
+      if (e.button !== 0 || e.target.closest('button')) return;
+      const r = host.getBoundingClientRect();
+      drag = { sx: e.clientX, sy: e.clientY, dx: e.clientX - r.left, dy: e.clientY - r.top, w: r.width, h: r.height, moved: false, snap: null };
+      head.setPointerCapture(e.pointerId); e.preventDefault();
+    });
+    head.addEventListener('pointermove', e => {
+      if (!drag) return;
+      if (!drag.moved) { if (Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) < 4) return; drag.moved = true; panel.classList.add('dragging'); }
+      const x = Math.min(Math.max(0, e.clientX - drag.dx), innerWidth - drag.w), y = Math.min(Math.max(0, e.clientY - drag.dy), innerHeight - drag.h);
+      const s = host.style; s.right = s.bottom = ''; s.left = x + 'px'; s.top = y + 'px';
+      // close to a corner: show where it would snap
+      const c = nearestCorner({ left: x, top: y, width: drag.w, height: drag.h }), p = cornerXY(c, drag.w, drag.h);
+      drag.snap = Math.hypot(x - p.x, y - p.y) < SNAP ? c : null;
+      if (drag.snap) Object.assign(ghost.style, { left: p.x + 'px', top: p.y + 'px', width: drag.w + 'px', height: drag.h + 'px' });
+      ghost.classList.toggle('on', !!drag.snap);
+    });
+    const endDrag = () => {
+      if (!drag) return;
+      const d = drag; drag = null;
+      ghost.classList.remove('on'); panel.classList.remove('dragging');
+      if (!d.moved) return;
+      const from = host.getBoundingClientRect();
+      place = d.snap ? { mode: 'corner', c: d.snap } : freeFrom(from);
+      save(); glide(from);
+    };
+    head.addEventListener('pointerup', endDrag); head.addEventListener('pointercancel', endDrag);
+    head.addEventListener('dblclick', e => {
+      if (e.target.closest('button')) return;
+      const from = host.getBoundingClientRect();
+      place = { mode: 'corner', c: nearestCorner(from) }; save(); glide(from);
+    });
+    addEventListener('resize', () => { if (!drag) apply(); });
+    new ResizeObserver(() => { if (!drag) keepInView(); }).observe(panel);
+
+    // minimise / restore, the panel folds to its header and back
+    let anim = null;
+    const setMin = (m, animate = true) => {
+      const before = panel.getBoundingClientRect();
+      anim?.cancel();
+      panel.classList.toggle('min', m); minPath.setAttribute('d', m ? 'M5 12h14M12 5v14' : 'M5 12h14'); store.set('min', m);
+      minBtn.title = m ? '+' : '–';
+      if (!animate || still()) return;
+      const after = panel.getBoundingClientRect();
+      const overflow = panel.style.overflow; panel.style.overflow = 'hidden';
+      anim = panel.animate([{ width: before.width + 'px', height: before.height + 'px' }, { width: after.width + 'px', height: after.height + 'px' }],
+        { duration: m ? 380 : 480, easing: m ? EASE : SPRING });
+      anim.onfinish = anim.oncancel = () => { panel.style.overflow = overflow; anim = null; keepInView(); };
+      minBtn.querySelector('svg')?.animate([{ transform: 'rotate(-90deg) scale(.5)', opacity: .2 }, { transform: 'none', opacity: 1 }], { duration: 420, easing: SPRING });
+    };
+    minBtn.onclick = () => setMin(!panel.classList.contains('min'));
+    setMin(!!store.get('min', false), false);
+    apply();
+    return { setMin, apply };
+  }
+
+  // pop-ups leave with a short fade instead of vanishing
+  const leave = el => { el.classList.add('out'); el.style.pointerEvents = 'none'; setTimeout(() => el.remove(), matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 160); };
+
+  // ---------------------------------------------------------------- accent colour picker (both panels)
+  // Swatches (Default + palette + pinned custom colours) and a "+" that opens a colour picker:
+  // saturation / brightness area, hue slider, hex field. "Pin" applies the colour and keeps it in the row.
+  const PALETTE = ['#0A84FF', '#5E5CE6', '#BF5AF2', '#FF2D92', '#FF375F', '#FF453A', '#FF9F0A', '#FFD60A',
+    '#A3E635', '#30D158', '#66D4CF', '#40C8E0', '#64D2FF', '#AC8E68', '#8E8E93'];
+  const hexOk = h => /^#[0-9a-f]{6}$/i.test(h);
+  const normHex = h => { h = String(h || '').trim().replace(/^#?/, '#'); if (/^#[0-9a-f]{3}$/i.test(h)) h = '#' + [...h.slice(1)].map(c => c + c).join(''); return hexOk(h) ? h.toUpperCase() : null; };
+  const hsvToHex = (h, s, v) => {
+    const f = n => { const k = (n + h / 60) % 6; return v - v * s * Math.max(0, Math.min(k, 4 - k, 1)); };
+    return '#' + [f(5), f(3), f(1)].map(x => Math.round(x * 255).toString(16).padStart(2, '0')).join('').toUpperCase();
+  };
+  const hexToHsv = hex => {
+    const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255), max = Math.max(r, g, b), d = max - Math.min(r, g, b);
+    const h = !d ? 0 : max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    return { h: (h * 60 + 360) % 360, s: max ? d / max : 0, v: max };
+  };
+  function accentPicker(box, { root, panel, get, set, preview }) {
+    const pinned = () => store.get('pinnedAccents', []).filter(hexOk);
+    const render = () => {
+      const cur = get() || 'auto', pins = pinned().filter(c => !PALETTE.includes(c));
+      box.innerHTML = `<button class="swatch auto" data-a="auto" title="${esc(T.accentAuto)}"><span>A</span></button>`
+        + PALETTE.map(c => `<button class="swatch" data-a="${c}" style="background:${c}" title="${c}"></button>`).join('')
+        + pins.map(c => `<button class="swatch pinned" data-a="${c}" style="background:${c}" title="${c}"><i class="x" data-unpin="${c}" title="${esc(T.unpin)}">×</i></button>`).join('')
+        + `<button class="swatch add" data-add title="${esc(T.custom)}"><span>+</span></button>`;
+      box.querySelectorAll('.swatch').forEach(b => b.classList.toggle('sel', b.dataset.a === cur));
+      // a custom colour that isn't in the row (picked before) still shows as selected on "+"
+      if (cur !== 'auto' && !box.querySelector(`.swatch[data-a="${cur}"]`)) box.querySelector('.swatch.add').classList.add('sel');
+    };
+    box.addEventListener('click', e => {
+      const x = e.target.closest('[data-unpin]');
+      if (x) { e.stopPropagation(); store.set('pinnedAccents', pinned().filter(c => c !== x.dataset.unpin)); if (get() === x.dataset.unpin) set('auto'); render(); return; }
+      const b = e.target.closest('.swatch'); if (!b) return;
+      if (b.dataset.add != null) return open(b);
+      set(b.dataset.a); render();
+    });
+
+    // ---- the picker pop-up
+    let pop = null, hsv = null, anchor = null;
+    const reposition = () => {
+      if (!pop) return;
+      const r = anchor.getBoundingClientRect(), p = panel.getBoundingClientRect();
+      if (r.bottom < p.top + 8 || r.top > p.bottom - 8 || !r.width) return close(false);
+      const w = pop.offsetWidth, h = pop.offsetHeight;
+      pop.style.left = Math.max(8, Math.min(innerWidth - w - 8, r.left + r.width / 2 - w / 2)) + 'px';
+      pop.style.top = (r.top - h - 8 > 8 ? r.top - h - 8 : Math.min(innerHeight - h - 8, r.bottom + 8)) + 'px';
+    };
+    const onScroll = e => { if (pop && !pop.contains(e.target)) reposition(); };
+    const onDoc = e => { const t = e.composedPath()[0]; if (pop && !pop.contains(t) && !anchor.contains(t)) close(false); };
+    const onKey = e => { if (e.key === 'Escape') close(false); };
+    const close = keep => {
+      if (!pop) return;
+      leave(pop); pop = null; anchor?.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('pointerdown', onDoc, true); root.removeEventListener('scroll', onScroll, true);
+      window.removeEventListener('scroll', onScroll, true); window.removeEventListener('resize', reposition); root.removeEventListener('keydown', onKey, true);
+      if (!keep) preview(null);   // back to the saved colour
+    };
+    const open = btn => {
+      if (pop) return close(false);
+      anchor = btn; anchor.setAttribute('aria-expanded', 'true');
+      const start = normHex(get()) || normHex(getComputedStyle(panel).getPropertyValue('--accent')) || '#0A84FF';
+      hsv = hexToHsv(start);
+      pop = document.createElement('div'); pop.className = 'cpick' + (panel.classList.contains('light') ? ' light' : '');
+      pop.innerHTML = `<div class="cp-title">${esc(T.custom)}</div>
+        <div class="cp-sv"><i class="cp-knob"></i></div>
+        <div class="cp-hue"><i class="cp-knob"></i></div>
+        <div class="cp-row"><span class="cp-prev"></span><input class="cp-hex" maxlength="7" spellcheck="false" aria-label="Hex"></div>
+        <div class="cp-err"></div>
+        <div class="cp-btns"><button class="cp-cancel">${esc(T.cancel)}</button><button class="cp-pin">${esc(T.pin)}</button></div>`;
+      root.appendChild(pop);
+      const sv = pop.querySelector('.cp-sv'), hue = pop.querySelector('.cp-hue'), hex = pop.querySelector('.cp-hex'), err = pop.querySelector('.cp-err');
+      const paint = (fromInput) => {
+        const c = hsvToHex(hsv.h, hsv.s, hsv.v);
+        sv.style.setProperty('--hue', `hsl(${hsv.h} 100% 50%)`);
+        sv.querySelector('.cp-knob').style.cssText = `left:${hsv.s * 100}%;top:${(1 - hsv.v) * 100}%;background:${c}`;
+        hue.querySelector('.cp-knob').style.cssText = `left:${hsv.h / 360 * 100}%;background:hsl(${hsv.h} 100% 50%)`;
+        pop.querySelector('.cp-prev').style.background = c;
+        pop.style.setProperty('--accent', c);
+        const [r, g, b] = [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16)); pop.style.setProperty('--on', 0.299 * r + 0.587 * g + 0.114 * b > 160 ? '#000' : '#fff');
+        if (!fromInput) { hex.value = c; err.textContent = ''; }
+        preview(c);
+      };
+      const drag = (el, onMove) => el.addEventListener('pointerdown', e => {
+        e.preventDefault(); el.setPointerCapture(e.pointerId);
+        const move = ev => { const r = el.getBoundingClientRect(); onMove(Math.max(0, Math.min(1, (ev.clientX - r.left) / r.width)), Math.max(0, Math.min(1, (ev.clientY - r.top) / r.height))); paint(); };
+        move(e); el.onpointermove = move; el.onpointerup = el.onpointercancel = () => { el.onpointermove = null; };
+      });
+      drag(sv, (x, y) => { hsv.s = x; hsv.v = 1 - y; });
+      drag(hue, x => { hsv.h = Math.min(359.9, x * 360); });
+      hex.oninput = () => { const c = normHex(hex.value); if (c) { hsv = hexToHsv(c); paint(true); err.textContent = ''; } };
+      const pin = () => {
+        const c = normHex(hex.value); if (!c) { err.textContent = T.hexBad; hex.focus(); return; }
+        if (!PALETTE.includes(c)) store.set('pinnedAccents', [c, ...pinned().filter(x => x !== c)].slice(0, 8));
+        close(true); set(c); render();
+      };
+      hex.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); pin(); } };
+      pop.querySelector('.cp-pin').onclick = pin;
+      pop.querySelector('.cp-cancel').onclick = () => close(false);
+      paint(); reposition();
+      document.addEventListener('pointerdown', onDoc, true); root.addEventListener('scroll', onScroll, true);
+      window.addEventListener('scroll', onScroll, true); window.addEventListener('resize', reposition); root.addEventListener('keydown', onKey, true);
+      setTimeout(() => { hex.focus(); hex.select(); }, 0);
+    };
+    render();
+    return { render, close: () => close(false) };
+  }
+
   // ---------------------------------------------------------------- mount (adds the tabs to a panel)
   function mount(ctx) {
     setLang();
     const { root } = ctx;
     const $ = s => root.querySelector(s);
-    const style = document.createElement('style'); style.textContent = EXTRA_CSS; root.appendChild(style);
+    const style = document.createElement('style'); style.textContent = EXTRA_CSS + APPLE_CSS; root.appendChild(style);
     const site = store.get('site', {});
     const saveSite = () => store.set('site', site);
 
@@ -487,6 +1059,22 @@
       ctx.pagesHost.insertBefore(p, ctx.beforePage || null);
     });
     root.addEventListener('pointerdown', unlockAudio, { capture: true });
+    scrollableTabs(ctx.tabsEl);
+    // sliders show their filled part in the accent colour (iOS style)
+    const fillRange = r => r.style.setProperty('--pct', ((r.value - (r.min || 0)) / ((r.max || 100) - (r.min || 0)) * 100) + '%');
+    root.addEventListener('input', e => { if (e.target.type === 'range') fillRange(e.target); }, true);
+    setTimeout(() => root.querySelectorAll('input[type=range]').forEach(fillRange), 0);
+    // counters and tab badges give a small bounce when their value changes (not the running clock)
+    new MutationObserver(muts => {
+      const seen = new Set();
+      muts.forEach(m => {
+        const el = (m.target.nodeType === 3 ? m.target.parentElement : m.target)?.closest?.('.stat b, .tbadge');
+        if (!el || el.id === 'sTime' || seen.has(el)) return; seen.add(el);
+        if (el.__last === el.textContent) return; const first = el.__last == null; el.__last = el.textContent;
+        if (first) return;
+        el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
+      });
+    }).observe(root, { subtree: true, childList: true, characterData: true });
 
     const msg = (id, t, err) => { const e = $(id); if (!e) return; e.textContent = t || ''; e.classList.toggle('err', !!err); };
     const badge = (id, n) => { const b = $('#sBadge-' + id); if (b) { b.hidden = !n; b.textContent = n; } };
@@ -525,9 +1113,9 @@
       else {
         const opens = hist.reduce((s, h) => s + (h.opens || 0), 0), pulls = hist.reduce((s, h) => s + (h.pulls || 0), 0);
         const counts = {}; hist.forEach(h => Object.entries(h.counts || {}).forEach(([k, v]) => counts[k] = (counts[k] || 0) + v));
-        const rare = RORDER.slice(0, 3).filter(k => counts[k]).map(k => `${counts[k]} ${T.rar[k]}`).join(' · ');
+        const rare = RORDER.slice(0, 3).filter(k => counts[k]).map(k => `<span class="rc"><span class="c" style="background:${RCOL[k]}"></span>${counts[k]} ${esc(T.rar[k])}</span>`).join(' · ');
         const best = hist.flatMap(h => h.best || []).sort((a, b) => RORDER.indexOf(a.rarity) - RORDER.indexOf(b.rarity)).slice(0, 3).map(b => b.name).join(', ');
-        $('#sWeek').innerHTML = `<div><span>${fmt(opens)} ${T.opens} · ${fmt(pulls)} ${T.pulls}</span><b>${esc(rare || '—')}</b></div>` + (best ? `<div><span>${T.bestWeek}</span><b>${esc(best)}</b></div>` : '');
+        $('#sWeek').innerHTML = `<div><span>${fmt(opens)} ${T.opens} · ${fmt(pulls)} ${T.pulls}</span><b>${rare || '—'}</b></div>` + (best ? `<div><span>${T.bestWeek}</span><b>${esc(best)}</b></div>` : '');
       }
     };
     $('#sHarvest').onclick = async () => {
@@ -612,7 +1200,7 @@
         const hidden = p.mascherato && !p.posseduto;
         return `<div class="m" style="border-left-color:${RCOL[p.rarita] || 'transparent'};${p.posseduto ? '' : 'opacity:.55'}">
           ${p.img && !hidden ? `<img src="${esc(p.img)}" alt="" loading="lazy">` : '<img alt="">'}
-          <div class="mi"><div class="mt">${esc(hidden ? '???' : p.nome)}</div><div class="mp">${esc(T.rar[p.rarita] || p.rarita)}${p.potenziabile ? ' · ⬆' : ''}</div></div>
+          <div class="mi"><div class="mt">${esc(hidden ? '???' : p.nome)}</div><div class="mp"><span class="c" style="background:${RCOL[p.rarita] || '#8E8E93'}"></span> ${esc(T.rar[p.rarita] || p.rarita)}${p.potenziabile ? ' · ⬆' : ''}</div></div>
           ${p.posseduto ? `<div class="mx"><b>×${fmt(p.quantita)}</b><br>${T.lv} ${fmt(p.livello)}</div>` : ''}</div>`;
       }).join('') + (list.length > inv.shown ? `<button class="chip more" id="sIMore">${T.showMore(Math.min(60, list.length - inv.shown))}</button>` : '')
         : `<div class="empty">${T.noMatch}</div>`;
@@ -686,7 +1274,7 @@
       const msgs = (D.inbox?.messages || []).filter(m => !Number(m.is_archived)).slice(0, 8);
       $('#sUnread').textContent = D.inbox?.unread_count ? `${D.inbox.unread_count} ${T.unread}` : '';
       $('#sLList').innerHTML = msgs.map(m => `<div class="m${Number(m.is_read) ? '' : ' ready'}"><div class="mi"><div class="mt">${esc(LANG === 'it' ? m.title_it : (m.title_en || m.title_it))}</div>
-        <div class="mp">${esc(new Date((m.created_at || '').replace(' ', 'T')).toLocaleDateString(NL))}${Number(m.has_rewards) ? ' · 🎁' : ''}</div></div></div>`).join('') || `<div class="empty">${T.loading}</div>`;
+        <div class="mp">${esc(new Date((m.created_at || '').replace(' ', 'T')).toLocaleDateString(NL))}${Number(m.has_rewards) ? ' · <svg class=\"ico\" width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"8\" width=\"18\" height=\"4\" rx=\"1\"/><path d=\"M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 1 1 4.5-1.5A2.5 2.5 0 1 1 16.5 8\"/></svg>' : ''}</div></div></div>`).join('') || `<div class="empty">${T.loading}</div>`;
     };
     let claimingG = false;
     const claimGifts = async () => {
@@ -761,10 +1349,9 @@
     document.body.appendChild(host);
     const root = host.attachShadow({ mode: 'open' });
     const s = settings();
-    const accent = s.accent && s.accent !== 'auto' ? s.accent : '#2f9df4';
+    const accent = s.accent && s.accent !== 'auto' ? s.accent : '#0A84FF';
     const textOn = hex => { const c = hex.replace('#', ''); const [r, g, b] = [0, 2, 4].map(i => parseInt(c.slice(i, i + 2), 16)); return (0.299 * r + 0.587 * g + 0.114 * b) > 160 ? '#0b0f1a' : '#ffffff'; };
     const toggle = (id, title, sub) => `<label class="toggle"><span class="sw"><input type="checkbox" id="${id}"><i></i></span><span><b>${title}</b>${sub ? `<small>${sub}</small>` : ''}</span></label>`;
-    const ACCENTS = ['#2f9df4', '#a855f7', '#22c55e', '#f59e0b', '#ef4444', '#ec4899', '#14b8a6'];
     root.innerHTML = `<style>${PANEL_CSS}</style>
 <div class="ghost" id="ghost"></div>
 <div class="panel${s.light ? ' light' : ''}" id="panel" style="--accent:${accent};--on-accent:${textOn(accent)}">
@@ -799,14 +1386,12 @@
     $('#notify').checked = s.notify !== false; $('#notify').onchange = () => setS('notify', $('#notify').checked);
     $('#light').checked = !!s.light; $('#light').onchange = () => { setS('light', $('#light').checked); panel.classList.toggle('light', $('#light').checked); };
     $('#volume').value = s.volume ?? 60; $('#volume').oninput = () => setS('volume', +$('#volume').value); $('#volume').onchange = () => { unlockAudio(); chime(); };
-    $('#swatches').innerHTML = `<button class="swatch auto" data-a="auto" title="${esc(T.accentAuto)}"><span>A</span></button>` + ACCENTS.map(c => `<button class="swatch" data-a="${c}" style="background:${c}"></button>`).join('');
-    const paintSw = () => root.querySelectorAll('.swatch').forEach(b => b.classList.toggle('sel', b.dataset.a === (settings().accent || 'auto')));
-    root.querySelectorAll('.swatch').forEach(b => b.onclick = () => {
-      setS('accent', b.dataset.a); paintSw();
-      const a = b.dataset.a === 'auto' ? '#2f9df4' : b.dataset.a;
-      [panel, $('#ghost')].forEach(el => { el.style.setProperty('--accent', a); el.style.setProperty('--on-accent', textOn(a)); });
-    });
-    paintSw();
+    const paintAccent = a => [panel, $('#ghost')].forEach(el => { el.style.setProperty('--accent', a); el.style.setProperty('--on-accent', textOn(a)); });
+    const savedAccent = () => { const a = settings().accent; return a && a !== 'auto' ? a : '#0A84FF'; };
+    accentPicker($('#swatches'), { root, panel, get: () => settings().accent || 'auto',
+      set: a => { setS('accent', a); paintAccent(savedAccent()); }, preview: c => paintAccent(c || savedAccent()) });
+    // the panel's own dropdowns instead of the native ones (language, inventory category)
+    root.querySelectorAll('select').forEach(sel => makeCombo(sel, { root, panel, search: T.search, noMatch: T.noMatch }));
 
     // tabs
     const showTab = t => {
@@ -820,36 +1405,13 @@
     const startTab = store.get('sitetab', 'home');
     showTab([...mod.ids, 'ssettings'].includes(startTab) ? startTab : 'home');
 
-    // icon, minimise, drag + corner snap (same storage as the lootbox panel)
+    // icon, then minimise + drag anywhere / snap to a corner (shared with the lootbox panel)
     const setIcon = () => { const u = document.documentElement.dataset.apIcon; if (u && !$('#logo img')) { const i = new Image(); i.onload = () => { $('#logo').replaceChildren(i); $('#logo').classList.add('has-img'); }; i.src = u; } };
     setIcon(); new MutationObserver(setIcon).observe(document.documentElement, { attributes: true, attributeFilter: ['data-ap-icon'] });
-    const setMin = m => { panel.classList.toggle('min', m); $('#minpath').setAttribute('d', m ? 'M5 12h14M12 5v14' : 'M5 12h14'); store.set('min', m); };
-    $('#min').onclick = () => setMin(!panel.classList.contains('min'));
-    setMin(!!store.get('min', false));
-    const MARGIN = 16;
-    let corner = ['br', 'bl', 'tr', 'tl'].includes(store.get('corner')) ? store.get('corner') : 'br';
-    const placeAt = c => { host.style.transition = ''; host.style.left = host.style.top = host.style.right = host.style.bottom = '';
-      host.style[c[0] === 't' ? 'top' : 'bottom'] = MARGIN + 'px'; host.style[c[1] === 'l' ? 'left' : 'right'] = MARGIN + 'px'; };
-    const cornerXY = (c, w, h) => ({ x: c[1] === 'l' ? MARGIN : innerWidth - w - MARGIN, y: c[0] === 't' ? MARGIN : innerHeight - h - MARGIN });
-    const nearest = (px, py) => (py < innerHeight / 2 ? 't' : 'b') + (px < innerWidth / 2 ? 'l' : 'r');
-    placeAt(corner);
-    let drag = null; const head = $('.head');
-    head.addEventListener('pointerdown', e => { if (e.button !== 0 || e.target.closest('button')) return; const r = host.getBoundingClientRect();
-      drag = { sx: e.clientX, sy: e.clientY, dx: e.clientX - r.left, dy: e.clientY - r.top, w: r.width, h: r.height, moved: false }; head.setPointerCapture(e.pointerId); e.preventDefault(); });
-    head.addEventListener('pointermove', e => { if (!drag) return;
-      if (!drag.moved) { if (Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) < 4) return; drag.moved = true; panel.classList.add('dragging'); }
-      const x = Math.min(Math.max(0, e.clientX - drag.dx), innerWidth - drag.w), y = Math.min(Math.max(0, e.clientY - drag.dy), innerHeight - drag.h);
-      host.style.right = host.style.bottom = ''; host.style.left = x + 'px'; host.style.top = y + 'px'; drag.px = e.clientX; drag.py = e.clientY;
-      const p = cornerXY(nearest(e.clientX, e.clientY), drag.w, drag.h), g = $('#ghost');
-      Object.assign(g.style, { left: p.x + 'px', top: p.y + 'px', width: drag.w + 'px', height: drag.h + 'px' }); g.classList.add('on'); });
-    const endDrag = () => { if (!drag) return; const d = drag; drag = null; $('#ghost').classList.remove('on'); panel.classList.remove('dragging'); if (!d.moved) return;
-      const r = host.getBoundingClientRect(); corner = nearest(d.px, d.py); store.set('corner', corner); const p = cornerXY(corner, r.width, r.height);
-      host.style.transition = 'left .22s cubic-bezier(.2,.8,.2,1), top .22s cubic-bezier(.2,.8,.2,1)'; host.style.left = p.x + 'px'; host.style.top = p.y + 'px';
-      setTimeout(() => placeAt(corner), 240); };
-    head.addEventListener('pointerup', endDrag); head.addEventListener('pointercancel', endDrag);
+    movable({ host, panel, head: $('.head'), ghost: $('#ghost'), minBtn: $('#min'), minPath: $('#minpath') });
   }
 
-  window.__apSite = { mount, css: EXTRA_CSS };
+  window.__apSite = { mount, makeCombo, accentPicker, movable, css: EXTRA_CSS };
   if (!IS_LOOT) {
     const go = () => { if (document.querySelector('meta[name="csrf-token"]') || document.querySelector('nav, .cnav, header')) buildShell(); };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go, { once: true }); else go();

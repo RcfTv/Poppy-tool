@@ -66,7 +66,7 @@ const main = async () => {
     endless: 'Endless mode', endlessSub: 'never stop on a drop', stopNew: 'Stop on a NEW character', stopNewSub: 'one you don\'t own yet',
     maxOpens: 'Max 10× opens', noLimit: '∞', paid: 'Spend gems', start: 'Start', stop: 'Stop',
     opens: 'Opens', pulls: 'Pulls', time: 'Time', spent: 'Spent', perMin: '/min',
-    session: 'This session', best: 'Best pulls', none: 'Nothing rare yet', isNew: 'NEW',
+    session: 'This session', best: 'Best pulls', none: 'Nothing rare yet', isNew: 'NEW', featuredTag: 'rate-up',
     pity: 'Pity', guaranteed: (label, n) => `${label} guaranteed within ${n}`, softFrom: n => `boosted from ${n}`,
     endsIn: t => `Ends in ${t}`, ended: 'Ended', endsSoon: (name, t) => `${name} ends in ${t}!`,
     freeLeft: n => `${n} free pull${n > 1 ? 's' : ''} left`, freeUsed: 'Free pulls used up',
@@ -105,7 +105,7 @@ const main = async () => {
     watchdog: 'Anti-freeze', watchdogSub: 'reloads the page if nothing happens for 2 minutes',
     speed: 'Pull speed', slow: 'Slow', normal: 'Normal', fast: 'Fast',
     sLook: 'Look', language: 'Panel language', auto: 'Auto', accent: 'Accent colour', accentAuto: 'Lootbox colour',
-    theme: 'Light theme', compact: 'Compact mode', compactSub: 'only the counter and the button',
+    theme: 'Light theme',
     shortcut: 'Alt+P = Start / Stop', alertTitle: r => `Poppy Tool — ${r}!`, testMsg: 'This is how an alert looks.',
     finished: 'Poppy Tool stopped', endWarnTitle: 'Poppy Tool — event ending',
     freeBack: (name, n) => `${n} free pull${n > 1 ? 's' : ''} back on ${name}!`, freeBackTitle: 'Poppy Tool — free pulls', search: 'Search…', noMatch: 'No match',
@@ -121,7 +121,7 @@ const main = async () => {
     endless: 'Mode infini', endlessSub: 'ne jamais s\'arrêter sur un drop', stopNew: 'Arrêt sur un NOUVEAU perso', stopNewSub: 'un perso que tu n\'as pas encore',
     maxOpens: 'Max ouvertures 10×', paid: 'Dépenser des gemmes', start: 'Lancer', stop: 'Arrêter',
     opens: 'Ouvertures', pulls: 'Pulls', time: 'Temps', spent: 'Dépensé', perMin: '/min',
-    session: 'Cette session', best: 'Meilleurs pulls', none: 'Rien de rare pour l\'instant', isNew: 'NOUVEAU',
+    session: 'Cette session', best: 'Meilleurs pulls', none: 'Rien de rare pour l\'instant', isNew: 'NOUVEAU', featuredTag: 'mis en avant',
     pity: 'Pity', guaranteed: (label, n) => `${label} garanti dans ${n}`, softFrom: n => `boost à partir de ${n}`,
     endsIn: t => `Se termine dans ${t}`, ended: 'Terminé', endsSoon: (name, t) => `${name} se termine dans ${t} !`,
     freeLeft: n => `${n} pull${n > 1 ? 's' : ''} gratuit${n > 1 ? 's' : ''} restant${n > 1 ? 's' : ''}`, freeUsed: 'Pulls gratuits épuisés',
@@ -160,7 +160,7 @@ const main = async () => {
     watchdog: 'Anti-blocage', watchdogSub: 'recharge la page si rien ne bouge pendant 2 minutes',
     speed: 'Vitesse de pull', slow: 'Lente', normal: 'Normale', fast: 'Rapide',
     sLook: 'Apparence', language: 'Langue du panneau', auto: 'Auto', accent: 'Couleur d\'accent', accentAuto: 'Couleur de la lootbox',
-    theme: 'Thème clair', compact: 'Mode compact', compactSub: 'juste le compteur et le bouton',
+    theme: 'Thème clair',
     shortcut: 'Alt+P = Lancer / Arrêter', alertTitle: r => `Poppy Tool — ${r} !`, testMsg: 'Voilà à quoi ressemble une alerte.',
     finished: 'Poppy Tool arrêté', endWarnTitle: 'Poppy Tool — fin d\'event',
     freeBack: (name, n) => `${n} pull${n > 1 ? 's' : ''} gratuit${n > 1 ? 's' : ''} de retour sur ${name} !`, freeBackTitle: 'Poppy Tool — pulls gratuits', search: 'Rechercher…', noMatch: 'Aucun résultat',
@@ -176,7 +176,7 @@ const main = async () => {
     endless: 'Modalità infinita', endlessSub: 'non fermarti mai su un drop', stopNew: 'Fermati su un personaggio NUOVO', stopNewSub: 'uno che non hai ancora',
     maxOpens: 'Max aperture 10×', paid: 'Spendi gemme', start: 'Avvia', stop: 'Ferma',
     opens: 'Aperture', pulls: 'Pull', time: 'Tempo', spent: 'Spese',
-    session: 'Questa sessione', best: 'Pull migliori', none: 'Ancora niente di raro', isNew: 'NUOVO',
+    session: 'Questa sessione', best: 'Pull migliori', none: 'Ancora niente di raro', isNew: 'NUOVO', featuredTag: 'in evidenza',
     guaranteed: (label, n) => `${label} garantito entro ${n}`, softFrom: n => `aumenta da ${n}`,
     endsIn: t => `Finisce tra ${t}`, ended: 'Finito', endsSoon: (name, t) => `${name} finisce tra ${t}!`,
     freeLeft: n => `${n} pull gratis rimast${n > 1 ? 'i' : 'o'}`, freeUsed: 'Pull gratis finiti',
@@ -196,7 +196,7 @@ const main = async () => {
     historyEmpty: 'Ancora nessuna sessione.', clearHist: 'Svuota', reason: 'Fine',
     sStop: 'Condizioni di arresto', timer: 'Fermati dopo (minuti)', stopClock: 'Fermati alle (ora)', keepGems: 'Fermati se le gemme scendono sotto',
     sAlerts: 'Avvisi', alertFrom: 'Avvisami da', sound: 'Suono', notify: 'Notifica Windows', titleBlink: 'Titolo della scheda', testAlert: 'Prova',
-    sLook: 'Aspetto', language: 'Lingua del pannello', theme: 'Tema chiaro', compact: 'Modalità compatta',
+    sLook: 'Aspetto', language: 'Lingua del pannello', theme: 'Tema chiaro',
     shortcut: 'Alt+P = Avvia / Ferma', finished: 'Poppy Tool fermato',
   };
   const T = Object.assign({}, EN, { fr: FR, it: IT }[LANG] || {});
@@ -247,7 +247,7 @@ const main = async () => {
   const fmtProb = p => p == null ? '' : (p >= 1 ? +p.toFixed(1) : +p.toPrecision(2)).toLocaleString(NL, { maximumFractionDigits: 4 }) + '%';
   const fmtTime = ms => { const s = Math.floor(ms / 1000), h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60; return (h ? h + 'h ' : '') + String(m).padStart(h ? 2 : 1, '0') + 'm ' + String(s % 60).padStart(2, '0') + 's'; };
   const fmtLeft = ms => { const m = Math.floor(ms / 60000), d = Math.floor(m / 1440), h = Math.floor(m / 60) % 24; return d ? `${d}d ${h}h` : h ? `${h}h ${m % 60}m` : `${m % 60}m`; };
-  const textOn = hex => { const c = (hex || '#2f9df4').replace('#', ''); const [r, g, b] = [0, 2, 4].map(i => parseInt(c.slice(i, i + 2), 16)); return (0.299 * r + 0.587 * g + 0.114 * b) > 160 ? '#0b0f1a' : '#ffffff'; };
+  const textOn = hex => { const c = (hex || '#0A84FF').replace('#', ''); const [r, g, b] = [0, 2, 4].map(i => parseInt(c.slice(i, i + 2), 16)); return (0.299 * r + 0.587 * g + 0.114 * b) > 160 ? '#0b0f1a' : '#ffffff'; };
   const today = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
 
   // ---------- session state ----------
@@ -297,7 +297,7 @@ const main = async () => {
       id, view, info, free, endsAt,
       name: clean(info.nome || view.querySelector('h1,h2,.lb-title')?.textContent || card.innerText).slice(0, 48),
       cost: free ? T.free : clean(btn10?.lastElementChild?.textContent || btn10?.innerText.split('\n').pop()),
-      accent: view.dataset.accent || '#2f9df4',
+      accent: view.dataset.accent || '#0A84FF',
       pityGroup: view.dataset.pityGruppo || info.pity_gruppo || 'standard',
       freeLeft: Math.max(0, parseInt(info.uso?.gratis_rimaste ?? view.dataset.gratis ?? 0, 10) || 0),
     });
@@ -350,7 +350,7 @@ const main = async () => {
   ::-webkit-scrollbar-thumb:active { background-color: var(--accent); }
   ::-webkit-scrollbar-corner, ::-webkit-scrollbar-button { display: none; background: transparent; }
   .panel::-webkit-scrollbar-track { margin: 18px 0; }
-  .panel { --accent:#2f9df4; --on-accent:#fff;
+  .panel { --accent:#0A84FF; --on-accent:#fff;
     --bg: rgba(12,16,28,.93); --fg:#e5e7eb; --strong:#fff; --muted:#9ca3af; --faint:#6b7280;
     --card: rgba(255,255,255,.04); --card2: rgba(255,255,255,.07); --line: rgba(255,255,255,.08); --field: rgba(255,255,255,.05); --grid: rgba(255,255,255,.07);
     width: 350px; max-height: calc(100vh - 32px); overflow: auto;
@@ -393,12 +393,7 @@ const main = async () => {
   .m .mtag { font-size: 9.5px; font-weight: 700; padding: 2px 6px; border-radius: 6px; flex:none; }
   .m .mtag.r { background: var(--accent); color: var(--on-accent); } .m .mtag.c { background: var(--card2); color: var(--muted); }
   .page { padding: 12px 14px 14px; display: grid; gap: 12px; } .page[hidden] { display: none; }
-  .panel.min .tabs, .panel.min .page, .panel.min .mini { display: none !important; } .panel.min { width: auto; } .panel.min .head { border-radius: 18px; }
-  .mini { display: none; padding: 10px 12px 12px; gap: 8px; align-items: center; }
-  .panel.compact { width: 310px; } .panel.compact .tabs, .panel.compact .page { display: none !important; } .panel.compact .mini { display: flex; }
-  .mini .mstat { flex: 1; min-width: 0; font-size: 11.5px; color: var(--muted); line-height: 1.3; } .mini .mstat b { color: var(--strong); font-size: 13px; }
-  .mini .mstat span { display:block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .mini .go { width: auto; padding: 8px 16px; }
+  .panel.min .tabs, .panel.min .page { display: none !important; } .panel.min { width: auto; } .panel.min .head { border-radius: 18px; }
   label.f { display:grid; gap: 5px; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
   select, input[type=number], input[type=time] { width: 100%; font: inherit; font-size: 12.5px; text-transform: none; letter-spacing: 0; color: var(--strong);
     background: var(--field); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; outline: none; color-scheme: dark; }
@@ -414,7 +409,7 @@ const main = async () => {
   .combo-btn .combo-val { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display:flex; align-items:center; gap: 7px; }
   .combo-btn svg { flex: none; color: var(--muted); transition: transform .15s; }
   .combo-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
-  .combo-pop { --accent:#2f9df4; --fg:#e5e7eb; --strong:#fff; --muted:#9ca3af; --faint:#6b7280; --field: rgba(255,255,255,.06);
+  .combo-pop { --accent:#0A84FF; --fg:#e5e7eb; --strong:#fff; --muted:#9ca3af; --faint:#6b7280; --field: rgba(255,255,255,.06);
     --card2: rgba(255,255,255,.09); --line: rgba(255,255,255,.1);
     position: fixed; z-index: 2147483647; background: #0e131fF7; border: 1px solid var(--line); border-radius: 12px; color: var(--fg);
     box-shadow: 0 14px 40px rgba(0,0,0,.5); overflow: hidden; display:flex; flex-direction: column; backdrop-filter: blur(18px) saturate(140%); }
@@ -547,14 +542,9 @@ const main = async () => {
     <div class="logo" id="logo"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6z"/></svg></div>
     <div><div class="title">Poppy Tool</div><div class="by">${T.by}</div></div>
     <div class="pill" id="pill"><span class="dot"></span><span id="state">${T.idle}</span></div>
-    <button class="icon-btn" id="cmp" title="${T.compact}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path id="cmppath" d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/></svg></button>
     <button class="icon-btn" id="min" title="–"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path id="minpath" d="M5 12h14"/></svg></button>
   </div>
 
-  <div class="mini" id="mini">
-    <div class="mstat"><b id="mOpens">0</b> ${T.opens.toLowerCase()} · <b id="mTime">0m 00s</b><span id="mBest">–</span></div>
-    <button class="go" id="mGo">${T.start}</button>
-  </div>
 
   <div class="tabs" id="tabs">
     <button class="tab on" data-tab="pull">${T.tPull}</button><button class="tab" data-tab="queue">${T.tQueue}</button>
@@ -661,7 +651,7 @@ const main = async () => {
     <div class="group"><div class="gtitle">${T.sLook}</div>
       <label class="f">${T.language}<select id="lang"><option value="auto">${T.auto}</option><option value="fr">Français</option><option value="en">English</option><option value="it">Italiano</option></select></label>
       <label class="f">${T.accent}<div class="swatches" id="swatches"></div></label>
-      ${toggle('light', T.theme)}${toggle('compact', T.compact, T.compactSub)}</div>
+      ${toggle('light', T.theme)}</div>
   </div>
 </div>`;
   const $ = s => root.querySelector(s);
@@ -673,12 +663,11 @@ const main = async () => {
   const DEF = { banner: banners[0].id, target: 'r:theone', endless: false, stopNew: false, max: 0, paid: false,
     timer: 0, clock: '', keepGems: 0, budget: 0, autoRefill: false, keepGodos: 0, freeFirst: true, autoDestiny: true,
     autoResume: true, watchdog: true, speed: 'normal', alertFrom: 'speciale', sound: true, notify: true, titleBlink: true,
-    volume: 60, freeReminder: true, accent: 'auto', light: false, compact: false, tab: 'pull', lang: 'auto', useQueue: false, repeatQueue: false, queue: [] };
+    volume: 60, freeReminder: true, accent: 'auto', light: false, tab: 'pull', lang: 'auto', useQueue: false, repeatQueue: false, queue: [] };
   const cfg = Object.assign({}, DEF, settingsRaw);
   if (!Array.isArray(cfg.queue)) cfg.queue = [];
-  const BOOL = ['endless', 'stopNew', 'paid', 'autoRefill', 'freeFirst', 'autoDestiny', 'autoResume', 'watchdog', 'sound', 'notify', 'titleBlink', 'freeReminder', 'light', 'compact', 'useQueue', 'repeatQueue'];
+  const BOOL = ['endless', 'stopNew', 'paid', 'autoRefill', 'freeFirst', 'autoDestiny', 'autoResume', 'watchdog', 'sound', 'notify', 'titleBlink', 'freeReminder', 'light', 'useQueue', 'repeatQueue'];
   const NUMS = ['max', 'timer', 'keepGems', 'budget', 'keepGodos'];
-  const ACCENTS = ['#2f9df4', '#a855f7', '#22c55e', '#f59e0b', '#ef4444', '#ec4899', '#14b8a6'];
   const saveCfg = () => store.set('settings', cfg);
   if (bannerById(cfg.banner)) $('#banner').value = cfg.banner;
   BOOL.forEach(k => { $('#' + k).checked = !!cfg[k]; });
@@ -690,113 +679,29 @@ const main = async () => {
   $('#alertFrom').innerHTML = RAR.slice().reverse().filter(r => rank(r.key) >= rank('leggendario'))
     .map((r, i) => `<option value="${esc(r.key)}">${esc(r.label)}${i ? ' ' + T.orBetter : ''}</option>`).join('');
   $('#alertFrom').value = cfg.alertFrom;
-  $('#swatches').innerHTML = `<button class="swatch auto" data-a="auto" title="${esc(T.accentAuto)}"><span>A</span></button>` +
-    ACCENTS.map(c => `<button class="swatch" data-a="${c}" style="background:${c}" title="${c}"></button>`).join('');
-  const paintSwatches = () => root.querySelectorAll('.swatch').forEach(s => s.classList.toggle('sel', s.dataset.a === (cfg.accent || 'auto')));
-  root.querySelectorAll('.swatch').forEach(s => s.onclick = () => { cfg.accent = s.dataset.a; saveCfg(); paintSwatches(); paintAccent(currentBanner()); beat(); });
-  paintSwatches();
+  // accent colours: palette, pinned custom colours and a colour picker (shared with the other pages, site-modules.js)
+  window.__apSite?.accentPicker?.($('#swatches'), { root, panel, get: () => cfg.accent || 'auto',
+    set: a => { cfg.accent = a; saveCfg(); paintAccent(currentBanner()); beat(); },
+    preview: c => c ? [panel, $('#ghost')].forEach(el => { el.style.setProperty('--accent', c); el.style.setProperty('--on-accent', textOn(c)); }) : paintAccent(currentBanner()) });
 
   // ---------- searchable combobox that replaces the native <select> fields ----------
   const comboColor = (select, value) => {
     if (select.id === 'banner' || select.dataset.k === 'banner') return bannerById(value)?.accent;
     if (select.id === 'alertFrom') return rInfo(value).color;
     if (typeof value === 'string' && value.startsWith('r:')) return rInfo(value.slice(2)).color;
+    if (typeof value === 'string' && value.startsWith('c:')) {
+      const p = Object.values(detailsCache).flatMap(d => d.pool).find(x => 'c:' + x.id === value);
+      return p ? rInfo(p.rarity).color : null;
+    }
     return null;
   };
-  function makeCombo(select) {
-    if (!select || select.__combo) return;
-    select.style.display = 'none';
-    const combo = document.createElement('div'); combo.className = 'combo';
-    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'combo-btn'; btn.setAttribute('aria-expanded', 'false');
-    btn.innerHTML = `<span class="combo-val"></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
-    combo.appendChild(btn); select.after(combo);
-    const valEl = btn.querySelector('.combo-val');
-    let pop = null, items = [], active = -1;
-    const label = () => {
-      const o = select.selectedOptions[0], col = o ? comboColor(select, o.value) : null;
-      valEl.innerHTML = (col ? `<span class="dotc" style="background:${esc(col)}"></span>` : '') + `<span>${esc(o ? o.textContent : '')}</span>`;
-      btn.disabled = select.disabled;
-    };
-    const reposition = () => {
-      if (!pop) return;
-      const r = btn.getBoundingClientRect(), below = innerHeight - r.bottom, above = r.top;
-      const maxH = Math.min(300, Math.max(below, above) - 16);
-      pop.style.left = r.left + 'px'; pop.style.width = r.width + 'px';
-      if (below < 240 && above > below) { pop.style.top = 'auto'; pop.style.bottom = (innerHeight - r.top + 4) + 'px'; }
-      else { pop.style.bottom = 'auto'; pop.style.top = (r.bottom + 4) + 'px'; }
-      const list = pop.querySelector('.combo-list'); if (list) list.style.maxHeight = (maxH - (pop.querySelector('.combo-search') ? 50 : 10)) + 'px';
-    };
-    const onDoc = e => { const t = e.composedPath()[0]; if (pop && !combo.contains(t) && !pop.contains(t)) close(); };
-    const close = () => {
-      if (!pop) return;
-      pop.remove(); pop = null; items = []; active = -1; btn.setAttribute('aria-expanded', 'false');
-      document.removeEventListener('pointerdown', onDoc, true); window.removeEventListener('scroll', reposition, true); window.removeEventListener('resize', close);
-    };
-    const paint = () => items.forEach((it, i) => it.el.classList.toggle('active', i === active));
-    const choose = o => { if (o.value !== select.value) { select.value = o.value; select.dispatchEvent(new Event('change', { bubbles: true })); } label(); close(); btn.focus(); };
-    const open = () => {
-      if (pop || select.disabled) return;
-      pop = document.createElement('div'); pop.className = 'combo-pop';
-      if (panel.classList.contains('light')) pop.classList.add('light');
-      pop.style.setProperty('--accent', getComputedStyle(panel).getPropertyValue('--accent') || '#2f9df4');
-      const many = select.querySelectorAll('option').length > 8;
-      pop.innerHTML = (many ? `<input class="combo-search" type="text" placeholder="${esc(T.search)}">` : '') + `<div class="combo-list"></div>`;
-      root.appendChild(pop);
-      const listEl = pop.querySelector('.combo-list'), search = pop.querySelector('.combo-search');
-      const add = o => {
-        const el = document.createElement('div'); el.className = 'combo-item' + (o.value === select.value ? ' sel' : '');
-        const col = comboColor(select, o.value);
-        el.innerHTML = (col ? `<span class="dotc" style="background:${esc(col)}"></span>` : '') + `<span>${esc(o.textContent)}</span>`;
-        el.addEventListener('pointerdown', e => e.preventDefault());
-        el.onclick = () => choose(o);
-        listEl.appendChild(el); items.push({ el, opt: o });
-      };
-      const render = q => {
-        q = (q || '').trim().toLowerCase(); listEl.innerHTML = ''; items = [];
-        [...select.children].forEach(node => {
-          if (node.tagName === 'OPTGROUP') {
-            const opts = [...node.children].filter(o => !q || o.textContent.toLowerCase().includes(q));
-            if (!opts.length) return;
-            const g = document.createElement('div'); g.className = 'combo-group'; g.textContent = node.label; listEl.appendChild(g);
-            opts.forEach(add);
-          } else if (node.tagName === 'OPTION' && (!q || node.textContent.toLowerCase().includes(q))) add(node);
-        });
-        if (!items.length) { const e = document.createElement('div'); e.className = 'combo-empty'; e.textContent = T.noMatch; listEl.appendChild(e); }
-        active = items.findIndex(it => it.opt.value === select.value); if (active < 0 && q && items.length) active = 0;
-        paint(); items[active]?.el.scrollIntoView({ block: 'nearest' });
-      };
-      render(''); btn.setAttribute('aria-expanded', 'true'); reposition();
-      document.addEventListener('pointerdown', onDoc, true); window.addEventListener('scroll', reposition, true); window.addEventListener('resize', close);
-      if (search) {
-        search.oninput = () => render(search.value);
-        search.onkeydown = e => {
-          if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(items.length - 1, active + 1); paint(); items[active]?.el.scrollIntoView({ block: 'nearest' }); }
-          else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(0, active - 1); paint(); items[active]?.el.scrollIntoView({ block: 'nearest' }); }
-          else if (e.key === 'Enter') { e.preventDefault(); if (items[active]) choose(items[active].opt); }
-          else if (e.key === 'Escape') { e.preventDefault(); close(); btn.focus(); }
-        };
-        setTimeout(() => search.focus(), 0);
-      }
-    };
-    btn.onclick = () => pop ? close() : open();
-    select.addEventListener('change', label);
-    const mo = new MutationObserver(() => { label(); if (pop) close(); });
-    mo.observe(select, { childList: true, attributes: true, attributeFilter: ['disabled'] });
-    label();
-    select.__combo = { close, mo };
-  }
+  // the shared combobox from site-modules.js (follows the panel when it scrolls, Apple look)
+  const makeCombo = select => window.__apSite?.makeCombo?.(select, { root, panel, color: comboColor, star: select => select.id !== 'banner' && select.dataset.k !== 'banner', search: T.search, noMatch: T.noMatch });
   const enhanceSelects = scope => (scope || root).querySelectorAll('select').forEach(makeCombo);
 
-  // minimise
-  const setMin = m => { panel.classList.toggle('min', m); $('#minpath').setAttribute('d', m ? 'M5 12h14M12 5v14' : 'M5 12h14'); store.set('min', m); };
-  $('#min').onclick = () => setMin(!panel.classList.contains('min'));
-  setMin(!!store.get('min', false));
 
   const applyLook = () => {
     panel.classList.toggle('light', !!cfg.light);
-    panel.classList.toggle('compact', !!cfg.compact);
-    $('#compact').checked = !!cfg.compact;
-    $('#cmppath').setAttribute('d', cfg.compact ? 'M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7' : 'M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7');
   };
   const syncStops = () => {
     const locked = ap.running;
@@ -816,7 +721,6 @@ const main = async () => {
   $('#volume').addEventListener('input', () => { cfg.volume = parseInt($('#volume').value, 10) || 0; saveCfg(); });
   $('#volume').addEventListener('change', () => { unlockAudio(); chime(false); });
   $('#volTest').onclick = () => { unlockAudio(); chime(false); };
-  $('#cmp').onclick = () => { cfg.compact = !cfg.compact; saveCfg(); applyLook(); if (cfg.compact) setMin(false); };
   applyLook();
 
   // whole-site tabs (site-modules.js): Home, Missions, Inventory, Achievements, Inbox
@@ -853,57 +757,8 @@ const main = async () => {
     iconObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-ap-icon'] });
   }
 
-  // ---------- drag by the header, snap to the nearest corner ----------
-  const MARGIN = 16;
-  const CORNERS = ['br', 'bl', 'tr', 'tl'];
-  let corner = CORNERS.includes(store.get('corner')) ? store.get('corner') : 'br';
-  const placeAt = c => {
-    host.style.transition = '';
-    host.style.left = host.style.top = host.style.right = host.style.bottom = '';
-    host.style[c[0] === 't' ? 'top' : 'bottom'] = MARGIN + 'px';
-    host.style[c[1] === 'l' ? 'left' : 'right'] = MARGIN + 'px';
-  };
-  const cornerXY = (c, w, h) => ({ x: c[1] === 'l' ? MARGIN : innerWidth - w - MARGIN, y: c[0] === 't' ? MARGIN : innerHeight - h - MARGIN });
-  const nearest = (px, py) => (py < innerHeight / 2 ? 't' : 'b') + (px < innerWidth / 2 ? 'l' : 'r');
-  placeAt(corner);
-  let drag = null;
-  const head = $('.head');
-  head.addEventListener('pointerdown', e => {
-    if (e.button !== 0 || e.target.closest('button')) return;
-    const r = host.getBoundingClientRect();
-    drag = { sx: e.clientX, sy: e.clientY, dx: e.clientX - r.left, dy: e.clientY - r.top, w: r.width, h: r.height, moved: false };
-    head.setPointerCapture(e.pointerId);
-    e.preventDefault();
-  });
-  head.addEventListener('pointermove', e => {
-    if (!drag) return;
-    if (!drag.moved) {
-      if (Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) < 4) return;
-      drag.moved = true; panel.classList.add('dragging');
-    }
-    const x = Math.min(Math.max(0, e.clientX - drag.dx), innerWidth - drag.w);
-    const y = Math.min(Math.max(0, e.clientY - drag.dy), innerHeight - drag.h);
-    host.style.transition = ''; host.style.right = host.style.bottom = '';
-    host.style.left = x + 'px'; host.style.top = y + 'px';
-    drag.px = e.clientX; drag.py = e.clientY;
-    const c = nearest(e.clientX, e.clientY), p = cornerXY(c, drag.w, drag.h), g = $('#ghost');
-    Object.assign(g.style, { left: p.x + 'px', top: p.y + 'px', width: drag.w + 'px', height: drag.h + 'px' });
-    g.classList.add('on');
-  });
-  const endDrag = () => {
-    if (!drag) return;
-    const d = drag; drag = null;
-    $('#ghost').classList.remove('on'); panel.classList.remove('dragging');
-    if (!d.moved) return;
-    const r = host.getBoundingClientRect();
-    corner = nearest(d.px, d.py); store.set('corner', corner);
-    const p = cornerXY(corner, r.width, r.height);
-    host.style.transition = 'left .22s cubic-bezier(.2,.8,.2,1), top .22s cubic-bezier(.2,.8,.2,1)';
-    host.style.left = p.x + 'px'; host.style.top = p.y + 'px';
-    setTimeout(() => placeAt(corner), 240);
-  };
-  head.addEventListener('pointerup', endDrag);
-  head.addEventListener('pointercancel', endDrag);
+  // ---------- minimise + drag anywhere by the header / snap to a corner (shared, site-modules.js) ----------
+  window.__apSite?.movable?.({ host, panel, head: $('.head'), ghost: $('#ghost'), minBtn: $('#min'), minPath: $('#minpath') });
 
   // ======================================================================
   // Rendering: Pull tab
@@ -931,7 +786,7 @@ const main = async () => {
       `<optgroup label="${esc(T.rarities)}">${rars.map((o, i) =>
         `<option value="r:${esc(o.key)}">${esc(o.label)}${i ? ' ' + T.orBetter : ''}${o.prob != null ? ` · ${fmtProb(o.prob)}` : ''}</option>`).join('')}</optgroup>` +
       (chars.length ? `<optgroup label="${esc(T.characters)}">${chars.map(p =>
-        `<option value="c:${esc(p.id)}">${p.featured ? '★ ' : ''}${esc(p.name)} — ${esc(rInfo(p.rarity).label)}${p.owned ? ' ✓' : ''}</option>`).join('')}</optgroup>` : '');
+        `<option value="c:${esc(p.id)}">${esc(p.name)} — ${esc(rInfo(p.rarity).label)}${p.featured ? ' · ' + T.featuredTag : ''}${p.owned ? ' ✓' : ''}</option>`).join('')}</optgroup>` : '');
     // a character target is kept even when this lootbox doesn't have it (queue)
     if (cur && cur.startsWith('c:') && ![...$('#target').options].some(o => o.value === cur)) {
       const name = Object.values(detailsCache).flatMap(d => d.pool).find(p => 'c:' + p.id === cur)?.name || cur;
@@ -945,8 +800,8 @@ const main = async () => {
 
   function renderInfo() {
     const b = currentBanner(), tags = [];
-    if (b.endsAt) { const left = b.endsAt - Date.now(); tags.push(`<span class="tag${left < 86400000 ? ' warn' : ''}">⏳ ${left > 0 ? T.endsIn(fmtLeft(left)) : T.ended}</span>`); }
-    if (b.freeLeft > 0) tags.push(`<span class="tag">🎁 ${T.freeLeft(b.freeLeft)}</span>`);
+    if (b.endsAt) { const left = b.endsAt - Date.now(); tags.push(`<span class="tag${left < 86400000 ? ' warn' : ''}"><svg class="ico" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>${left > 0 ? T.endsIn(fmtLeft(left)) : T.ended}</span>`); }
+    if (b.freeLeft > 0) tags.push(`<span class="tag"><svg class="ico" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 1 1 4.5-1.5A2.5 2.5 0 1 1 16.5 8"/></svg>${T.freeLeft(b.freeLeft)}</span>`);
     if (ap.running && cfg.useQueue && ap.queueLen) tags.push(`<span class="tag">${T.stepOf(ap.queuePos + 1, ap.queueLen)}</span>`);
     $('#bInfo').innerHTML = tags.join('');
   }
@@ -967,8 +822,6 @@ const main = async () => {
         <div class="meta"><div class="nm">${esc(f.name)}${f.isNew ? `<span class="badge">${T.isNew}</span>` : ''}</div>
         <div class="rl"><span class="c" style="background:${esc(r.color)};margin-right:5px"></span>${esc(r.label)} · #${f.open}</div></div></div>`;
     }).join('') : `<div class="empty">${T.none}</div>`;
-    const top = ap.feed.slice().sort((a, b) => rank(b.rarity) - rank(a.rarity))[0];
-    $('#mBest').textContent = top ? `${rInfo(top.rarity).label}: ${top.name}` : T.none;
   };
   function renderPity() {
     const b = currentBanner();
@@ -988,7 +841,7 @@ const main = async () => {
     $('#fiftyBox').hidden = !featured;
     if (featured) {
       $('#fWon').textContent = fmt(ap.fifty.won); $('#fLost').textContent = fmt(ap.fifty.lost);
-      $('#fGuar').textContent = st?.garantito ? '★ ' + T.nextFeatured : '';
+      $('#fGuar').innerHTML = st?.garantito ? `<span class="c" style="background:var(--accent);margin-right:5px"></span>${esc(T.nextFeatured)}` : '';
       $('#fRule').textContent = rules.featured_entro ? T.featuredWithin(rules.featured_entro) : '';
     }
   }
@@ -1002,9 +855,9 @@ const main = async () => {
   const renderSpentToday = () => { $('#spentToday').textContent = T.spentToday(fmt(spentTodayGodos())); };
   const renderStats = () => {
     const ms = ap.startedAt ? (ap.endedAt || Date.now()) - ap.startedAt : 0;
-    $('#sOpens').textContent = fmt(ap.n); $('#mOpens').textContent = fmt(ap.n);
+    $('#sOpens').textContent = fmt(ap.n);
     $('#sPulls').textContent = fmt(ap.pulls);
-    $('#sTime').textContent = fmtTime(ms); $('#mTime').textContent = fmtTime(ms);
+    $('#sTime').textContent = fmtTime(ms);
     $('#sSpent').textContent = fmt(ap.spentGems || 0);
     $('#rate').textContent = ms > 20000 ? `${fmt(Math.round(ap.pulls / (ms / 60000)))} ${T.pulls.toLowerCase()}${T.perMin}` : '';
     const w = wallet();
@@ -1116,7 +969,7 @@ const main = async () => {
     $('#collBar').style.width = pool.length ? (owned / pool.length * 100) + '%' : '0';
     const missing = pool.filter(p => !p.owned).sort((a, c) => rank(c.rarity) - rank(a.rarity));
     $('#miss').innerHTML = !pool.length ? '' : missing.length
-      ? missing.map(p => `<span style="--c:${esc(rInfo(p.rarity).color)}">${esc(p.id == null ? T.hidden : p.name)}</span>`).join('')
+      ? missing.map(p => `<span style="--c:${esc(rInfo(p.rarity).color)}"><i class="c" style="background:${esc(rInfo(p.rarity).color)}"></i>${esc(p.id == null ? T.hidden : p.name)}</span>`).join('')
       : `<div class="empty">${T.allOwned}</div>`;
     const dup = Object.values(store.get('dupes', {})).sort((a, b) => b.copies - a.copies).slice(0, 10);
     $('#dupes').innerHTML = dup.length
@@ -1145,11 +998,11 @@ const main = async () => {
     const hist = getHist();
     $('#hist').innerHTML = hist.length ? hist.map(h => {
       const d = new Date(h.date);
-      const rares = RAR.slice().reverse().filter(r => rank(r.key) >= NOTABLE && h.counts?.[r.key]).map(r => `${h.counts[r.key]} ${r.label}`).join(' · ');
+      const rares = RAR.slice().reverse().filter(r => rank(r.key) >= NOTABLE && h.counts?.[r.key]).map(r => `<span class="rc"><span class="c" style="background:${esc(r.color)}"></span>${h.counts[r.key]} ${esc(r.label)}</span>`).join(' · ');
       return `<div class="hrow"><div class="t"><b>${esc(h.banner)}</b><span>${d.toLocaleDateString(NL)} ${d.toLocaleTimeString(NL, { hour: '2-digit', minute: '2-digit' })}</span></div>
         <div class="d">${fmt(h.opens)} ${T.opens.toLowerCase()} · ${fmt(h.pulls)} ${T.pulls.toLowerCase()} · ${fmtTime(h.ms)}${h.spent ? ` · ${fmt(h.spent)} ${T.gems.toLowerCase()}` : ''}</div>
-        <div class="d">${esc(rares || '—')}</div>
-        ${h.best?.length ? `<div class="r">${h.best.map(b => esc(b.name) + (b.isNew ? ' ✦' : '')).join(', ')}</div>` : ''}
+        <div class="d">${rares || '—'}</div>
+        ${h.best?.length ? `<div class="r">${h.best.map(b => esc(b.name) + (b.isNew ? `<span class="badge">${T.isNew}</span>` : '')).join(', ')}</div>` : ''}
         <div class="r">${T.reason}: ${esc(h.end)}</div></div>`;
     }).join('') : `<div class="empty">${T.historyEmpty}</div>`;
   }
@@ -1312,7 +1165,8 @@ const main = async () => {
     const top = ap.feed.slice().sort((a, b) => rank(b.rarity) - rank(a.rarity))[0];
     post({ type: 'beat', running: ap.running, resume: !!cfg.autoResume, state: $('#state').textContent, opens: ap.n, pulls: ap.pulls,
       time: ap.startedAt ? fmtTime((ap.endedAt || Date.now()) - ap.startedAt) : '', banner: currentBanner().name,
-      best: top ? `${rInfo(top.rarity).label}: ${top.name}` : '', color: accentOf(currentBanner()), lang: LANG,
+      best: top ? `${rInfo(top.rarity).label}: ${top.name}` : '', bestColor: top ? rInfo(top.rarity).color : '', light: !!cfg.light,
+      color: accentOf(currentBanner()), lang: LANG,
       labels: { start: T.start, stop: T.stop, opens: T.opens, pulls: T.pulls, time: T.time, best: T.best } });
   };
   const onCmd = e => {
@@ -1340,7 +1194,6 @@ const main = async () => {
 
   const startStop = () => { if (ap.running) { ap.stop = true; store.del('resume'); setState(T.stopping); } else run(); };
   $('#go').onclick = startStop;
-  $('#mGo').onclick = startStop;
   const onKey = e => {
     if (e.altKey && !e.ctrlKey && !e.metaKey && e.code === 'KeyP') { e.preventDefault(); e.stopPropagation(); unlockAudio(); startStop(); }
   };
@@ -1354,7 +1207,7 @@ const main = async () => {
 
   const lock = on => {
     ['#max', '#paid'].forEach(id => { $(id).disabled = on; });
-    [$('#go'), $('#mGo')].forEach(b => { b.textContent = on ? T.stop : T.start; b.classList.toggle('stop', on); });
+    { const b = $('#go'); b.textContent = on ? T.stop : T.start; b.classList.toggle('stop', on); }
     syncStops(); renderQueue();
   };
 
