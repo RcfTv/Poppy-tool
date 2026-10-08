@@ -27,7 +27,7 @@
   ::-webkit-scrollbar-thumb:active { background-color: var(--accent); }
   ::-webkit-scrollbar-corner, ::-webkit-scrollbar-button { display: none; background: transparent; }
   .panel::-webkit-scrollbar-track { margin: 18px 0; }
-  .panel { --accent:#2f9df4; --on-accent:#fff;
+  .panel { --accent:#0A84FF; --on-accent:#fff;
     --bg: rgba(12,16,28,.93); --fg:#e5e7eb; --strong:#fff; --muted:#9ca3af; --faint:#6b7280;
     --card: rgba(255,255,255,.04); --card2: rgba(255,255,255,.07); --line: rgba(255,255,255,.08); --field: rgba(255,255,255,.05); --grid: rgba(255,255,255,.07);
     width: 350px; max-height: calc(100vh - 32px); overflow: auto;
@@ -91,7 +91,7 @@
   .combo-btn .combo-val { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display:flex; align-items:center; gap: 7px; }
   .combo-btn svg { flex: none; color: var(--muted); transition: transform .15s; }
   .combo-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
-  .combo-pop { --accent:#2f9df4; --fg:#e5e7eb; --strong:#fff; --muted:#9ca3af; --faint:#6b7280; --field: rgba(255,255,255,.06);
+  .combo-pop { --accent:#0A84FF; --fg:#e5e7eb; --strong:#fff; --muted:#9ca3af; --faint:#6b7280; --field: rgba(255,255,255,.06);
     --card2: rgba(255,255,255,.09); --line: rgba(255,255,255,.1);
     position: fixed; z-index: 2147483647; background: #0e131fF7; border: 1px solid var(--line); border-radius: 12px; color: var(--fg);
     box-shadow: 0 14px 40px rgba(0,0,0,.5); overflow: hidden; display:flex; flex-direction: column; backdrop-filter: blur(18px) saturate(140%); }
@@ -263,6 +263,113 @@
   .smsg { font-size: 11.5px; color: #f59e0b; } .smsg:empty { display: none; } .smsg.err { color: #f87171; }
   .go.alt { background: linear-gradient(135deg, #7c3aed, #2563eb); color: #fff; box-shadow: none; }
   .go.warn { background: #f59e0b; color: #1f1300; box-shadow: none; }
+  `;
+  // TEST BRANCH - Apple / SwiftUI look: system materials, SF font, iOS system colours, grouped inset
+  // lists, segmented-control tabs, iOS switches. Loaded last, so it overrides both panels' base styles.
+  const APPLE_CSS = `
+  .panel, .combo-pop, .ghost {
+    --sys-bg: rgba(28,28,30,.78); --grouped: rgba(44,44,46,.72); --grouped2: rgba(58,58,60,.72);
+    --label: #fff; --label2: rgba(235,235,245,.62); --label3: rgba(235,235,245,.32);
+    --sep: rgba(84,84,88,.55); --fill: rgba(118,118,128,.24); --fill2: rgba(118,118,128,.32);
+    --seg-on: #636366; --ios-green: #30D158; --ios-red: #FF453A; --ios-orange: #FF9F0A; --ios-yellow: #FFD60A;
+    --bg: var(--sys-bg); --fg: var(--label); --strong: var(--label); --muted: var(--label2); --faint: var(--label3);
+    --card: var(--grouped); --card2: var(--fill); --line: var(--sep); --field: var(--fill); --grid: var(--sep); }
+  .panel.light, .combo-pop.light {
+    --sys-bg: rgba(242,242,247,.82); --grouped: rgba(255,255,255,.92); --grouped2: #fff;
+    --label: #000; --label2: rgba(60,60,67,.62); --label3: rgba(60,60,67,.32);
+    --sep: rgba(60,60,67,.18); --fill: rgba(118,118,128,.12); --fill2: rgba(118,118,128,.2);
+    --seg-on: #fff; --ios-green: #34C759; --ios-red: #FF3B30; --ios-orange: #FF9500; --ios-yellow: #FFCC00; }
+  .panel { font: 13px/1.38 -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Helvetica Neue", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+    letter-spacing: -.08px; -webkit-font-smoothing: antialiased; border-radius: 26px; border: .5px solid rgba(255,255,255,.14);
+    backdrop-filter: blur(40px) saturate(190%); -webkit-backdrop-filter: blur(40px) saturate(190%);
+    box-shadow: 0 0 0 .5px rgba(0,0,0,.4), 0 24px 60px rgba(0,0,0,.45), 0 4px 14px rgba(0,0,0,.2); }
+  .panel.light { border-color: rgba(0,0,0,.08); box-shadow: 0 0 0 .5px rgba(0,0,0,.06), 0 24px 60px rgba(0,0,0,.16), 0 4px 14px rgba(0,0,0,.06); }
+  .panel.min .head { border-radius: 26px; }
+  /* navigation bar */
+  .head { background: none; padding: 14px 12px 10px 16px; border-radius: 26px 26px 0 0; gap: 10px; }
+  .logo { width: 34px; height: 34px; border-radius: 9px; background: var(--accent); box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+  .logo.has-img { box-shadow: 0 0 0 .5px var(--sep), 0 1px 3px rgba(0,0,0,.25); }
+  .title { font-size: 17px; font-weight: 600; letter-spacing: -.43px; }
+  .by { font-size: 12px; color: var(--label2); letter-spacing: 0; }
+  .pill { background: var(--fill); border: 0; font-size: 12px; font-weight: 500; padding: 4px 10px; color: var(--label); }
+  .pill.run .dot { background: var(--ios-green); } .pill.found .dot { background: var(--ios-orange); } .pill.err .dot { background: var(--ios-red); }
+  .icon-btn { width: 28px; height: 28px; border-radius: 50%; background: var(--fill); color: var(--label2); }
+  .icon-btn:hover { background: var(--fill2); color: var(--label); }
+  /* tabs = segmented control */
+  .tabs { margin: 2px 14px 4px; padding: 2px; gap: 0; border: 0; border-radius: 9px; background: var(--fill); }
+  .tab { flex: 1 0 auto; padding: 5px 9px; margin: 0; border: 0; border-radius: 7px; font-size: 12px; font-weight: 500; color: var(--label); letter-spacing: -.08px; transition: background .2s, box-shadow .2s; }
+  .tab:hover { color: var(--label); background: var(--fill); }
+  .tab.on { background: var(--seg-on); border: 0; font-weight: 600; box-shadow: 0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04), 0 0 0 .5px rgba(0,0,0,.04); }
+  .tbadge { background: var(--ios-red); color: #fff; min-width: 16px; height: 16px; line-height: 16px; font-size: 10px; font-weight: 600; }
+  .page { padding: 12px 16px 16px; gap: 14px; }
+  /* section headers like a grouped List */
+  .sec, label.f, .gtitle { font-size: 12px; font-weight: 400; text-transform: uppercase; letter-spacing: -.08px; color: var(--label2); }
+  .sec { padding: 0 4px; margin-bottom: 6px; }
+  label.f { gap: 6px; padding-left: 4px; }
+  /* grouped inset rows */
+  .box, .stat, .tile, .toggle, .verdict, .hrow, .conv, .qstep, .bal, .item, .m {
+    background: var(--grouped); border: 0; border-radius: 12px; box-shadow: 0 0 0 .5px var(--sep) inset; }
+  .m { border-left: 0; padding: 9px 12px; margin-bottom: 6px; }
+  .m.ready { box-shadow: inset 3px 0 0 var(--accent), 0 0 0 .5px var(--sep) inset; }
+  .m .mtag { border-radius: 999px; padding: 3px 8px; font-size: 11px; font-weight: 600; }
+  .m .mtag.r { background: color-mix(in srgb, var(--accent) 18%, transparent); color: var(--accent); }
+  .m .mbtn { border-radius: 999px; padding: 5px 12px; font-size: 12px; font-weight: 600; }
+  .m .mbtn.dim { background: var(--fill); color: var(--accent); }
+  .m img, .item img { border-radius: 8px; }
+  .item { border-left: 0; box-shadow: inset 3px 0 0 var(--c), 0 0 0 .5px var(--sep) inset; padding: 7px 10px; }
+  .stat, .tile { padding: 9px 10px; }
+  .stat b, .tile b { font-size: 17px; font-weight: 600; letter-spacing: -.4px; font-variant-numeric: tabular-nums; }
+  .stat span, .tile span { font-size: 11px; text-transform: none; letter-spacing: 0; color: var(--label2); }
+  .toggle { padding: 10px 12px; }
+  .toggle b { font-size: 14px; font-weight: 400; letter-spacing: -.15px; }
+  .toggle small { font-size: 12px; color: var(--label2); }
+  /* iOS switch */
+  .sw { width: 42px; height: 26px; order: 2; margin-left: auto; }
+  .toggle { justify-content: space-between; }
+  .sw i { background: var(--fill2); transition: background .25s; }
+  .sw i::after { left: 2px; top: 2px; width: 22px; height: 22px; background: #fff; box-shadow: 0 3px 8px rgba(0,0,0,.15), 0 3px 1px rgba(0,0,0,.06); transition: transform .25s cubic-bezier(.3,.7,.4,1); }
+  .sw input:checked + i { background: var(--ios-green); }
+  .sw input:checked + i::after { transform: translateX(16px); background: #fff; }
+  /* fields */
+  select, input[type=number], input[type=time], .sinput, .combo-btn { background: var(--fill); border: 0; border-radius: 10px; padding: 9px 12px; font-size: 14px; color: var(--label); letter-spacing: -.15px; }
+  select:focus, input:focus, .sinput:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent); }
+  .combo-btn[aria-expanded="true"] { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent); }
+  .combo-btn svg { color: var(--accent); }
+  .combo-pop { background: var(--sys-bg); border: .5px solid var(--sep); border-radius: 14px; backdrop-filter: blur(40px) saturate(190%); -webkit-backdrop-filter: blur(40px) saturate(190%);
+    box-shadow: 0 18px 50px rgba(0,0,0,.35); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; }
+  .combo-item { border-radius: 8px; font-size: 14px; }
+  .combo-item:hover, .combo-item.active { background: var(--accent); color: #fff; }
+  .combo-item.sel::after { color: inherit; }
+  .combo-group { font-size: 12px; text-transform: none; letter-spacing: 0; font-weight: 600; color: var(--label2); }
+  /* buttons: .borderedProminent / .bordered */
+  .go { border-radius: 12px; padding: 12px; font-size: 16px; font-weight: 600; letter-spacing: -.3px; box-shadow: none; }
+  .go:hover { filter: brightness(1.06); } .go:active { transform: none; opacity: .75; }
+  .go.stop { background: var(--ios-red); box-shadow: none; }
+  .go.alt { background: var(--accent); color: var(--on-accent); }
+  .go.warn { background: var(--ios-orange); color: #fff; }
+  .chip { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); border: 0; border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 500; }
+  .chip:hover { filter: none; background: color-mix(in srgb, var(--accent) 24%, transparent); }
+  .chip.on { background: var(--accent); color: var(--on-accent); }
+  .chips .chip { background: var(--fill); color: var(--label); }
+  .chips .chip.on { background: var(--accent); color: var(--on-accent); }
+  .qlinks a { background: var(--grouped); border: 0; box-shadow: 0 0 0 .5px var(--sep) inset; border-radius: 10px; color: var(--accent); font-size: 12px; font-weight: 500; padding: 8px 4px; }
+  .conv .cv-go { background: var(--accent); border-radius: 10px; }
+  .conv .cv-go.confirm { background: var(--ios-orange); color: #fff; }
+  .cv-row button { background: var(--fill); border: 0; color: var(--accent); }
+  /* progress views */
+  .bar, .m .mbar { background: var(--fill2); height: 5px; }
+  .tag { background: var(--fill); border: 0; font-size: 12px; padding: 3px 9px; }
+  .tag.warn { background: color-mix(in srgb, var(--ios-orange) 22%, transparent); color: var(--ios-orange); }
+  .badge { background: var(--ios-green); color: #fff; border-radius: 999px; padding: 1px 6px; font-weight: 600; }
+  .msg { color: var(--ios-red); } .msg.ok, .smsg { color: var(--ios-orange); } .smsg.err { color: var(--ios-red); }
+  .lrow .up { color: var(--ios-green); } .lrow .down { color: var(--ios-red); }
+  .verdict { font-weight: 600; font-size: 14px; }
+  .swatch { border-radius: 50%; border: 0; box-shadow: 0 0 0 .5px var(--sep) inset; }
+  .swatch.auto span { border-radius: 50%; }
+  .swatch.sel { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
+  .wallet { border-top: .5px solid var(--sep); }
+  .empty { color: var(--label3); }
+  .ghost { border-radius: 26px; border: 2px dashed var(--accent); }
   `;
 
   // ---------------------------------------------------------------- shared helpers
@@ -437,7 +544,7 @@
     setLang();
     const { root } = ctx;
     const $ = s => root.querySelector(s);
-    const style = document.createElement('style'); style.textContent = EXTRA_CSS; root.appendChild(style);
+    const style = document.createElement('style'); style.textContent = EXTRA_CSS + APPLE_CSS; root.appendChild(style);
     const site = store.get('site', {});
     const saveSite = () => store.set('site', site);
 
@@ -761,10 +868,10 @@
     document.body.appendChild(host);
     const root = host.attachShadow({ mode: 'open' });
     const s = settings();
-    const accent = s.accent && s.accent !== 'auto' ? s.accent : '#2f9df4';
+    const accent = s.accent && s.accent !== 'auto' ? s.accent : '#0A84FF';
     const textOn = hex => { const c = hex.replace('#', ''); const [r, g, b] = [0, 2, 4].map(i => parseInt(c.slice(i, i + 2), 16)); return (0.299 * r + 0.587 * g + 0.114 * b) > 160 ? '#0b0f1a' : '#ffffff'; };
     const toggle = (id, title, sub) => `<label class="toggle"><span class="sw"><input type="checkbox" id="${id}"><i></i></span><span><b>${title}</b>${sub ? `<small>${sub}</small>` : ''}</span></label>`;
-    const ACCENTS = ['#2f9df4', '#a855f7', '#22c55e', '#f59e0b', '#ef4444', '#ec4899', '#14b8a6'];
+    const ACCENTS = ['#0A84FF', '#BF5AF2', '#30D158', '#FF9F0A', '#FF453A', '#FF375F', '#64D2FF'];   // iOS system colours
     root.innerHTML = `<style>${PANEL_CSS}</style>
 <div class="ghost" id="ghost"></div>
 <div class="panel${s.light ? ' light' : ''}" id="panel" style="--accent:${accent};--on-accent:${textOn(accent)}">
@@ -803,7 +910,7 @@
     const paintSw = () => root.querySelectorAll('.swatch').forEach(b => b.classList.toggle('sel', b.dataset.a === (settings().accent || 'auto')));
     root.querySelectorAll('.swatch').forEach(b => b.onclick = () => {
       setS('accent', b.dataset.a); paintSw();
-      const a = b.dataset.a === 'auto' ? '#2f9df4' : b.dataset.a;
+      const a = b.dataset.a === 'auto' ? '#0A84FF' : b.dataset.a;
       [panel, $('#ghost')].forEach(el => { el.style.setProperty('--accent', a); el.style.setProperty('--on-accent', textOn(a)); });
     });
     paintSw();

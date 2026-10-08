@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.0-test — October 8, 2026 (test branch, pre-release)
+
+- Test version of the panel in an Apple / SwiftUI style: SF font, translucent system materials, iOS system colours (light and dark), segmented-control tabs, iOS switches, grouped inset lists and bordered / prominent buttons
+- The default accent is now system blue and the accent swatches are the iOS system colours
+- Only the look changes: features and settings are the same as 5.0.3
+
 ## 5.0.3 — October 8, 2026
 
 - Scrollbars in the panel, dropdowns and lists are thin, rounded and use the accent colour (they follow the chosen accent and the light theme)

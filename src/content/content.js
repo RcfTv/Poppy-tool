@@ -247,7 +247,7 @@ const main = async () => {
   const fmtProb = p => p == null ? '' : (p >= 1 ? +p.toFixed(1) : +p.toPrecision(2)).toLocaleString(NL, { maximumFractionDigits: 4 }) + '%';
   const fmtTime = ms => { const s = Math.floor(ms / 1000), h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60; return (h ? h + 'h ' : '') + String(m).padStart(h ? 2 : 1, '0') + 'm ' + String(s % 60).padStart(2, '0') + 's'; };
   const fmtLeft = ms => { const m = Math.floor(ms / 60000), d = Math.floor(m / 1440), h = Math.floor(m / 60) % 24; return d ? `${d}d ${h}h` : h ? `${h}h ${m % 60}m` : `${m % 60}m`; };
-  const textOn = hex => { const c = (hex || '#2f9df4').replace('#', ''); const [r, g, b] = [0, 2, 4].map(i => parseInt(c.slice(i, i + 2), 16)); return (0.299 * r + 0.587 * g + 0.114 * b) > 160 ? '#0b0f1a' : '#ffffff'; };
+  const textOn = hex => { const c = (hex || '#0A84FF').replace('#', ''); const [r, g, b] = [0, 2, 4].map(i => parseInt(c.slice(i, i + 2), 16)); return (0.299 * r + 0.587 * g + 0.114 * b) > 160 ? '#0b0f1a' : '#ffffff'; };
   const today = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
 
   // ---------- session state ----------
@@ -297,7 +297,7 @@ const main = async () => {
       id, view, info, free, endsAt,
       name: clean(info.nome || view.querySelector('h1,h2,.lb-title')?.textContent || card.innerText).slice(0, 48),
       cost: free ? T.free : clean(btn10?.lastElementChild?.textContent || btn10?.innerText.split('\n').pop()),
-      accent: view.dataset.accent || '#2f9df4',
+      accent: view.dataset.accent || '#0A84FF',
       pityGroup: view.dataset.pityGruppo || info.pity_gruppo || 'standard',
       freeLeft: Math.max(0, parseInt(info.uso?.gratis_rimaste ?? view.dataset.gratis ?? 0, 10) || 0),
     });
@@ -350,7 +350,7 @@ const main = async () => {
   ::-webkit-scrollbar-thumb:active { background-color: var(--accent); }
   ::-webkit-scrollbar-corner, ::-webkit-scrollbar-button { display: none; background: transparent; }
   .panel::-webkit-scrollbar-track { margin: 18px 0; }
-  .panel { --accent:#2f9df4; --on-accent:#fff;
+  .panel { --accent:#0A84FF; --on-accent:#fff;
     --bg: rgba(12,16,28,.93); --fg:#e5e7eb; --strong:#fff; --muted:#9ca3af; --faint:#6b7280;
     --card: rgba(255,255,255,.04); --card2: rgba(255,255,255,.07); --line: rgba(255,255,255,.08); --field: rgba(255,255,255,.05); --grid: rgba(255,255,255,.07);
     width: 350px; max-height: calc(100vh - 32px); overflow: auto;
@@ -414,7 +414,7 @@ const main = async () => {
   .combo-btn .combo-val { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display:flex; align-items:center; gap: 7px; }
   .combo-btn svg { flex: none; color: var(--muted); transition: transform .15s; }
   .combo-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
-  .combo-pop { --accent:#2f9df4; --fg:#e5e7eb; --strong:#fff; --muted:#9ca3af; --faint:#6b7280; --field: rgba(255,255,255,.06);
+  .combo-pop { --accent:#0A84FF; --fg:#e5e7eb; --strong:#fff; --muted:#9ca3af; --faint:#6b7280; --field: rgba(255,255,255,.06);
     --card2: rgba(255,255,255,.09); --line: rgba(255,255,255,.1);
     position: fixed; z-index: 2147483647; background: #0e131fF7; border: 1px solid var(--line); border-radius: 12px; color: var(--fg);
     box-shadow: 0 14px 40px rgba(0,0,0,.5); overflow: hidden; display:flex; flex-direction: column; backdrop-filter: blur(18px) saturate(140%); }
@@ -678,7 +678,7 @@ const main = async () => {
   if (!Array.isArray(cfg.queue)) cfg.queue = [];
   const BOOL = ['endless', 'stopNew', 'paid', 'autoRefill', 'freeFirst', 'autoDestiny', 'autoResume', 'watchdog', 'sound', 'notify', 'titleBlink', 'freeReminder', 'light', 'compact', 'useQueue', 'repeatQueue'];
   const NUMS = ['max', 'timer', 'keepGems', 'budget', 'keepGodos'];
-  const ACCENTS = ['#2f9df4', '#a855f7', '#22c55e', '#f59e0b', '#ef4444', '#ec4899', '#14b8a6'];
+  const ACCENTS = ['#0A84FF', '#BF5AF2', '#30D158', '#FF9F0A', '#FF453A', '#FF375F', '#64D2FF'];   // iOS system colours
   const saveCfg = () => store.set('settings', cfg);
   if (bannerById(cfg.banner)) $('#banner').value = cfg.banner;
   BOOL.forEach(k => { $('#' + k).checked = !!cfg[k]; });
@@ -738,7 +738,7 @@ const main = async () => {
       if (pop || select.disabled) return;
       pop = document.createElement('div'); pop.className = 'combo-pop';
       if (panel.classList.contains('light')) pop.classList.add('light');
-      pop.style.setProperty('--accent', getComputedStyle(panel).getPropertyValue('--accent') || '#2f9df4');
+      pop.style.setProperty('--accent', getComputedStyle(panel).getPropertyValue('--accent') || '#0A84FF');
       const many = select.querySelectorAll('option').length > 8;
       pop.innerHTML = (many ? `<input class="combo-search" type="text" placeholder="${esc(T.search)}">` : '') + `<div class="combo-list"></div>`;
       root.appendChild(pop);
