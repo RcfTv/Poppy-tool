@@ -43,7 +43,7 @@ Poppy Tool was called **Auto Pull** before version 0.1.0.
 </tr>
 </table>
 
-<sub>Apple / SwiftUI look, dark and light theme. Taken from a real Poppy Tool session (30 opens, 300 pulls) run by the extension on a local copy of the lootbox page with <b>demo data</b>: the characters, balances and missions are made up.</sub>
+<sub> Taken from a real Poppy Tool session (30 opens, 300 pulls) run by the extension on a local copy of the lootbox page with <b>demo data</b>: the characters, balances and missions are made up.</sub>
 
 <table><tr>
 <td align="center" valign="top"><img src="docs/screenshots/pull-light.png" width="250" alt="Pull tab, light theme"><br><b>Pull (light)</b></td>
@@ -64,7 +64,6 @@ Bottom-right by default, works in any language of the site.
 - 🖱️ **Drag it by its top bar** and drop it anywhere: it stays there. Drop it near a corner (or double-click the bar) to snap it into the corner. "-" folds it down to its top bar.
 - ⌨️ **Alt+P** = Start / Stop.
 - 🌍 **French, English or Italian**: the panel speaks all three (Settings > Look).
-- 🍎 **Apple / SwiftUI look**: light or dark theme, segmented tabs, iOS switches, smooth animations. Pick one of 15 accent colours or your own with the colour picker (Settings > Look).
 - ⭐ **Rarities at a glance**: every rarity has its coloured star, everywhere in the panel.
 - 🔎 **Searchable dropdowns**: every dropdown (lootbox, stop target, etc.) is searchable. Click it and type to filter, handy for the 200-character lists.
 
@@ -107,7 +106,7 @@ Every version is on the [Releases page](https://github.com/RcfTv/Poppy-tool/rele
 
 | Release | Highlights | Download |
 |---------|------------|----------|
-| [**0.2.0**](https://github.com/RcfTv/Poppy-tool/releases/tag/v0.2.0) (latest) | Apple / SwiftUI look, accent colour picker, star rarities, animations, move the panel anywhere | [poppy-tool-v0.2.0.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v0.2.0/poppy-tool-v0.2.0.zip) |
+| [**0.2.0**](https://github.com/RcfTv/Poppy-tool/releases/tag/v0.2.0) (latest) | look, accent colour picker, star rarities, animations, move the panel anywhere | [poppy-tool-v0.2.0.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v0.2.0/poppy-tool-v0.2.0.zip) |
 | [0.1.2](https://github.com/RcfTv/Poppy-tool/releases/tag/v0.1.2) | Scrollbars styled to match the panel | [poppy-tool-v0.1.2.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v0.1.2/poppy-tool-v0.1.2.zip) |
 | [0.1.1](https://github.com/RcfTv/Poppy-tool/releases/tag/v0.1.1) | Compatibility with the updated Cripsum lootbox page | [poppy-tool-v0.1.1.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v0.1.1/poppy-tool-v0.1.1.zip) |
 | [0.1.0](https://github.com/RcfTv/Poppy-tool/releases/tag/v0.1.0) | First version on GitHub | [poppy-tool-v0.1.0.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v0.1.0/poppy-tool-v0.1.0.zip) |
