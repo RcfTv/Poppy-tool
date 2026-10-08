@@ -26,7 +26,7 @@ Pick a lootbox and a stop target, press Start, and Poppy Tool pulls until it get
 Opening lootboxes one by one on Cripsum takes forever, and the rewards you earn are scattered across half a dozen pages.
 **Poppy Tool puts it all in one panel.** It only clicks the site's own buttons and only collects rewards you have already earned (see [Safety](#safety)).
 
-Poppy Tool was called **Auto Pull** until version 5.0.0.
+Poppy Tool was called **Auto Pull** before version 0.1.0.
 
 ## Screenshots
 
@@ -107,11 +107,11 @@ Every version is on the [Releases page](https://github.com/RcfTv/Poppy-tool/rele
 
 | Release | Highlights | Download |
 |---------|------------|----------|
-| [**5.1.5**](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.1.5) (latest) | Apple / SwiftUI look, accent colour picker, star rarities, animations, move the panel anywhere | [poppy-tool-v5.1.5.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.1.5/poppy-tool-v5.1.5.zip) |
-| [5.0.3](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.0.3) | Scrollbars styled to match the panel | [poppy-tool-v5.0.3.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.0.3/poppy-tool-v5.0.3.zip) |
-| [5.0.2](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.0.2) | Compatibility with the updated Cripsum lootbox page | [poppy-tool-v5.0.2.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.0.2/poppy-tool-v5.0.2.zip) |
-| [5.0.1](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.0.1) | First version on GitHub | [poppy-tool-v5.0.1.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.0.1/poppy-tool-v5.0.1.zip) |
-| ≤ 5.0.0 | Released as **Auto Pull** (not on GitHub) | — |
+| [**0.2.0**](https://github.com/RcfTv/Poppy-tool/releases/tag/v0.2.0) (latest) | Apple / SwiftUI look, accent colour picker, star rarities, animations, move the panel anywhere | [poppy-tool-v0.2.0.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v0.2.0/poppy-tool-v0.2.0.zip) |
+| [0.1.2](https://github.com/RcfTv/Poppy-tool/releases/tag/v0.1.2) | Scrollbars styled to match the panel | [poppy-tool-v0.1.2.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v0.1.2/poppy-tool-v0.1.2.zip) |
+| [0.1.1](https://github.com/RcfTv/Poppy-tool/releases/tag/v0.1.1) | Compatibility with the updated Cripsum lootbox page | [poppy-tool-v0.1.1.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v0.1.1/poppy-tool-v0.1.1.zip) |
+| [0.1.0](https://github.com/RcfTv/Poppy-tool/releases/tag/v0.1.0) | First version on GitHub | [poppy-tool-v0.1.0.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v0.1.0/poppy-tool-v0.1.0.zip) |
+| before 0.1.0 | Released as **Auto Pull** (not on GitHub) | — |
 
 ## Install
 

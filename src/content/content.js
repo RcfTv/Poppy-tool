@@ -1,5 +1,5 @@
 /*
- * Poppy Tool - by Rcf   (v3.0.0)
+ * Poppy Tool - by Rcf
  * Chrome extension content script for the Cripsum lootbox page (any language).
  *
  * - Reads the REAL result of every pull from the site's server reply.

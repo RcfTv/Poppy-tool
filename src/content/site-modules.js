@@ -1,5 +1,5 @@
 /*
- * Poppy Tool - by Rcf  —  site modules (v5)
+ * Poppy Tool - by Rcf  —  site modules
  * One widget for the whole Cripsum site.
  *  - On the lootbox page, content.js (Poppy Tool) mounts these tabs into its own panel.
  *  - On every other page, this file builds the same panel by itself and mounts them.
