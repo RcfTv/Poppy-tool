@@ -1,5 +1,17 @@
 # Changelog
 
+## 5.1.5 — October 8, 2026
+
+Everything from the 5.1.0-test to 5.1.5-test pre-releases (`test` branch), now in the stable version:
+
+- **Apple / SwiftUI look**: SF font, translucent materials, iOS system colours in light and dark, segmented-control tabs, iOS switches and sliders, grouped inset lists; the toolbar popup matches the panel
+- **Accent colours**: 15 colours plus a custom colour picker (colour area, hue slider, hex field, live preview); "Pin" keeps up to 8 custom colours
+- **Rarities** are shown with the same coloured star everywhere (dropdowns, session counts, best pulls, Stats, inventory, history, Home)
+- **Animations** with Apple's curves: sliding tab highlight, pages and pop-ups easing in, buttons and switches that press in, counters that bounce, progress bars that glide (off with the system "reduce motion" setting)
+- **Move the panel anywhere**: it stays where it is dropped; near a corner (or with a double-click on the header) it snaps into the corner; minimise / restore is animated
+- **Dropdowns** follow the panel when it scrolls and use the panel style on every page; the tab bar scrolls with the mouse wheel
+- Compact mode removed
+
 ## 5.1.5-test — October 8, 2026 (test branch, pre-release)
 
 - The panel can be moved anywhere and stays where it is dropped (also after a reload); it is kept relative to the nearest window edges, so it stays on screen when the window gets smaller
