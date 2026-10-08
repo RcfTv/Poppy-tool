@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Poppy Tool",
-  "version": "5.1.2",
-  "version_name": "5.1.2-test (Apple UI)",
+  "version": "5.1.3",
+  "version_name": "5.1.3-test (Apple UI)",
   "author": "Rcf",
   "description": "By Rcf - Poppy Tool for Cripsum: one widget on every page — auto-opens lootboxes (stop on rarity/character, queue, stats) plus dashboard, missions, inventory, achievements, inbox gifts and a 'collect everything' button.",
   "icons": {

@@ -1,23 +1,38 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
 <style>
-  :root { --bg:#0c101c; --card:#151b2b; --fg:#e5e7eb; --muted:#9ca3af; --line:rgba(255,255,255,.08); --accent:#2f9df4; }
+  /* same Apple / SwiftUI look as the panel (dark by default, light when the panel uses the light theme) */
+  :root { --accent:#0A84FF; --on-accent:#fff;
+    --bg:#1C1C1E; --grouped:#2C2C2E; --label:#fff; --label2:rgba(235,235,245,.62); --sep:rgba(84,84,88,.55); --fill:rgba(118,118,128,.24);
+    --ios-green:#30D158; --ios-red:#FF453A;
+    --star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.8l3.05 6.6 7.2.8-5.37 4.88 1.5 7.1L12 17.6l-6.38 3.58 1.5-7.1L1.75 9.2l7.2-.8z'/%3E%3C/svg%3E"); }
+  :root.light { --bg:#F2F2F7; --grouped:#fff; --label:#000; --label2:rgba(60,60,67,.62); --sep:rgba(60,60,67,.18); --fill:rgba(118,118,128,.12);
+    --ios-green:#34C759; --ios-red:#FF3B30; }
   * { box-sizing: border-box; }
-  body { margin:0; width: 290px; font: 12.5px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--fg); }
-  header { display:flex; align-items:center; gap:10px; padding: 12px 14px; border-bottom: 1px solid var(--line);
-    background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 25%, transparent), transparent 70%); }
-  header img { width: 30px; height: 30px; border-radius: 9px; object-fit: cover; }
-  header b { font-size: 14px; } header small { display:block; color: var(--muted); font-size: 10.5px; }
-  main { padding: 12px 14px 14px; display:grid; gap: 10px; }
-  .state { display:flex; align-items:center; gap: 7px; font-weight: 600; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background:#6b7280; } .run .dot { background:#22c55e; }
+  body { margin:0; width: 300px; background: var(--bg); color: var(--label); -webkit-font-smoothing: antialiased; letter-spacing: -.08px;
+    font: 13px/1.38 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; }
+  header { display:flex; align-items:center; gap:10px; padding: 14px 16px 6px; }
+  header img { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; box-shadow: 0 0 0 .5px var(--sep), 0 1px 3px rgba(0,0,0,.25); }
+  header b { font-size: 17px; font-weight: 600; letter-spacing: -.43px; } header small { display:block; color: var(--label2); font-size: 12px; letter-spacing: 0; }
+  main { padding: 10px 16px 16px; display:grid; gap: 10px; }
+  .state { justify-self: start; display:inline-flex; align-items:center; gap: 6px; font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 999px; background: var(--fill); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background:#8E8E93; } .run .dot { background: var(--ios-green); }
   .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-  .s { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 6px 8px; }
-  .s b { display:block; font-size: 14px; } .s span { font-size: 9.5px; text-transform: uppercase; color: var(--muted); letter-spacing: .5px; }
-  .line { color: var(--muted); font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  button { width:100%; border:0; border-radius: 12px; padding: 10px; font: inherit; font-weight: 700; cursor: pointer; background: var(--accent); color:#fff; }
-  button.stop { background:#ef4444; }
-  .empty { color: var(--muted); text-align: center; padding: 6px 0; }
+  .s { background: var(--grouped); border-radius: 12px; padding: 9px 10px; box-shadow: 0 0 0 .5px var(--sep) inset; min-width: 0; }
+  .s b { display:block; font-size: 17px; font-weight: 600; letter-spacing: -.4px; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .s span { font-size: 11px; color: var(--label2); }
+  .line { color: var(--label2); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display:flex; align-items:center; gap: 5px; }
+  .c { width: 12px; height: 12px; flex: none; -webkit-mask: var(--star) center / contain no-repeat; mask: var(--star) center / contain no-repeat; }
+  :root.light .c[style*="#ffffff" i] { background: #C7C7CC !important; }
+  button { width:100%; border:0; border-radius: 12px; padding: 12px; font: inherit; font-size: 16px; font-weight: 600; letter-spacing: -.3px; cursor: pointer;
+    background: var(--accent); color: var(--on-accent); }
+  button:hover { filter: brightness(1.06); } button:active { opacity: .75; }
+  button.stop { background: var(--ios-red); color: #fff; }
+  button.alt { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); font-size: 14px; padding: 10px; }
+  .empty { color: var(--label2); text-align: center; padding: 6px 0; }
+  html { overflow-x: hidden; }
+  ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background-color: color-mix(in srgb, var(--accent) 35%, transparent); border: 2px solid transparent; background-clip: padding-box; border-radius: 999px; }
 </style></head>
 <body>
   <header><img src="../../icons/icon128.png" alt=""><div><b>Poppy Tool</b><small>by Rcf</small></div></header>

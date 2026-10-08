@@ -384,6 +384,29 @@
   .miss span { border-left: 0; display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px 3px 7px; background: var(--fill); }
   .m .mp .c { margin-right: 2px; }
   .dotc:not(.star) { width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 0 .5px var(--sep); }
+  .ico { flex: none; vertical-align: -2px; }
+  .tag { display: inline-flex; align-items: center; gap: 5px; }
+  .dotc { flex: none; }
+  .panel.light .dotc.star[style*="#ffffff" i] { background: #C7C7CC !important; }
+  /* nothing in a page may be wider than the panel */
+  .page > * { min-width: 0; }
+  /* queue steps fit the panel width */
+  .qstep { grid-template-columns: 16px minmax(0, 1fr) 52px 28px; gap: 6px; padding: 6px 8px; }
+  .qstep .combo { min-width: 0; }
+  .qstep .combo-btn { padding: 8px 10px; font-size: 13px; }
+  .qstep input { padding: 8px 4px; font-size: 14px; }
+  .qstep .icon-btn { font-size: 12px; }
+  .qstep.cur { box-shadow: inset 0 0 0 2px var(--accent); }
+  /* best pulls: the star tells the rarity, no side bar (same as every other list) */
+  .item { box-shadow: 0 0 0 .5px var(--sep) inset; }
+  /* settings: group title (like a Settings section) above the small field captions */
+  .gtitle { font-size: 15px; font-weight: 600; text-transform: none; letter-spacing: -.24px; color: var(--label); padding: 4px 4px 0; }
+  /* iOS slider: accent-filled track, white thumb */
+  input[type=range] { -webkit-appearance: none; appearance: none; height: 4px; border-radius: 999px; outline: none; cursor: pointer; padding: 0;
+    background: linear-gradient(var(--accent), var(--accent)) 0 / var(--pct, 50%) 100% no-repeat, var(--fill2); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #fff;
+    box-shadow: 0 .5px 4px rgba(0,0,0,.3), 0 3px 8px rgba(0,0,0,.15); }
+  input[type=range]:focus { box-shadow: none; }
   /* on the highlighted (accent) row the star turns white, like icons in a macOS menu */
   .combo-item:hover .dotc.star, .combo-item.active .dotc.star { background: #fff !important; }
   /* accent swatches: palette, pinned custom colours, "+" opens the picker */
@@ -865,6 +888,10 @@
     });
     root.addEventListener('pointerdown', unlockAudio, { capture: true });
     scrollableTabs(ctx.tabsEl);
+    // sliders show their filled part in the accent colour (iOS style)
+    const fillRange = r => r.style.setProperty('--pct', ((r.value - (r.min || 0)) / ((r.max || 100) - (r.min || 0)) * 100) + '%');
+    root.addEventListener('input', e => { if (e.target.type === 'range') fillRange(e.target); }, true);
+    setTimeout(() => root.querySelectorAll('input[type=range]').forEach(fillRange), 0);
 
     const msg = (id, t, err) => { const e = $(id); if (!e) return; e.textContent = t || ''; e.classList.toggle('err', !!err); };
     const badge = (id, n) => { const b = $('#sBadge-' + id); if (b) { b.hidden = !n; b.textContent = n; } };
@@ -1064,7 +1091,7 @@
       const msgs = (D.inbox?.messages || []).filter(m => !Number(m.is_archived)).slice(0, 8);
       $('#sUnread').textContent = D.inbox?.unread_count ? `${D.inbox.unread_count} ${T.unread}` : '';
       $('#sLList').innerHTML = msgs.map(m => `<div class="m${Number(m.is_read) ? '' : ' ready'}"><div class="mi"><div class="mt">${esc(LANG === 'it' ? m.title_it : (m.title_en || m.title_it))}</div>
-        <div class="mp">${esc(new Date((m.created_at || '').replace(' ', 'T')).toLocaleDateString(NL))}${Number(m.has_rewards) ? ' · 🎁' : ''}</div></div></div>`).join('') || `<div class="empty">${T.loading}</div>`;
+        <div class="mp">${esc(new Date((m.created_at || '').replace(' ', 'T')).toLocaleDateString(NL))}${Number(m.has_rewards) ? ' · <svg class=\"ico\" width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"8\" width=\"18\" height=\"4\" rx=\"1\"/><path d=\"M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 1 1 4.5-1.5A2.5 2.5 0 1 1 16.5 8\"/></svg>' : ''}</div></div></div>`).join('') || `<div class="empty">${T.loading}</div>`;
     };
     let claimingG = false;
     const claimGifts = async () => {

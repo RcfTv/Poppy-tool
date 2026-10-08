@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.1.3-test — October 8, 2026 (test branch, pre-release)
+
+- Toolbar popup restyled like the panel (Apple look, light theme when the panel uses it, star of the best rarity, same language as the panel)
+- Queue steps fit the panel width (the × and the switches were cut off)
+- Volume sliders: iOS style with the filled part in the accent colour, on every page
+- Settings: group titles stand out from the small field captions
+- Best pulls drop the coloured side bar (the star shows the rarity, like every other list); the 50/50 box uses a real star
+- The last emoji icons (event end, free pulls, inbox gifts) are line icons
+- Light theme: the white Special star stays visible in dropdown buttons; lootbox dots stay round in the queue
+
 ## 5.1.2-test — October 8, 2026 (test branch, pre-release)
 
 - Every rarity shows the same coloured star: characters in the "Stop when I get" dropdown, the Missing list (Stats), inventory rows, history and the Home "Last 7 days" counts

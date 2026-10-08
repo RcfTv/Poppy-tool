@@ -853,8 +853,8 @@ const main = async () => {
 
   function renderInfo() {
     const b = currentBanner(), tags = [];
-    if (b.endsAt) { const left = b.endsAt - Date.now(); tags.push(`<span class="tag${left < 86400000 ? ' warn' : ''}">⏳ ${left > 0 ? T.endsIn(fmtLeft(left)) : T.ended}</span>`); }
-    if (b.freeLeft > 0) tags.push(`<span class="tag">🎁 ${T.freeLeft(b.freeLeft)}</span>`);
+    if (b.endsAt) { const left = b.endsAt - Date.now(); tags.push(`<span class="tag${left < 86400000 ? ' warn' : ''}"><svg class="ico" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>${left > 0 ? T.endsIn(fmtLeft(left)) : T.ended}</span>`); }
+    if (b.freeLeft > 0) tags.push(`<span class="tag"><svg class="ico" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 1 1 4.5-1.5A2.5 2.5 0 1 1 16.5 8"/></svg>${T.freeLeft(b.freeLeft)}</span>`);
     if (ap.running && cfg.useQueue && ap.queueLen) tags.push(`<span class="tag">${T.stepOf(ap.queuePos + 1, ap.queueLen)}</span>`);
     $('#bInfo').innerHTML = tags.join('');
   }
@@ -894,7 +894,7 @@ const main = async () => {
     $('#fiftyBox').hidden = !featured;
     if (featured) {
       $('#fWon').textContent = fmt(ap.fifty.won); $('#fLost').textContent = fmt(ap.fifty.lost);
-      $('#fGuar').textContent = st?.garantito ? '★ ' + T.nextFeatured : '';
+      $('#fGuar').innerHTML = st?.garantito ? `<span class="c" style="background:var(--accent);margin-right:5px"></span>${esc(T.nextFeatured)}` : '';
       $('#fRule').textContent = rules.featured_entro ? T.featuredWithin(rules.featured_entro) : '';
     }
   }
@@ -1218,7 +1218,8 @@ const main = async () => {
     const top = ap.feed.slice().sort((a, b) => rank(b.rarity) - rank(a.rarity))[0];
     post({ type: 'beat', running: ap.running, resume: !!cfg.autoResume, state: $('#state').textContent, opens: ap.n, pulls: ap.pulls,
       time: ap.startedAt ? fmtTime((ap.endedAt || Date.now()) - ap.startedAt) : '', banner: currentBanner().name,
-      best: top ? `${rInfo(top.rarity).label}: ${top.name}` : '', color: accentOf(currentBanner()), lang: LANG,
+      best: top ? `${rInfo(top.rarity).label}: ${top.name}` : '', bestColor: top ? rInfo(top.rarity).color : '', light: !!cfg.light,
+      color: accentOf(currentBanner()), lang: LANG,
       labels: { start: T.start, stop: T.stop, opens: T.opens, pulls: T.pulls, time: T.time, best: T.best } });
   };
   const onCmd = e => {
