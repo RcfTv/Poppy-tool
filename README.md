@@ -8,7 +8,7 @@
 
 Pick a lootbox and a stop target, press Start, and Poppy Tool pulls until it gets what you want. Then "Collect everything" claims every reward you have earned in one click.
 
-![Version](https://img.shields.io/badge/version-5.0.3-0A84FF)
+[![Release](https://img.shields.io/github/v/release/RcfTv/Poppy-tool?color=0A84FF&label=release)](https://github.com/RcfTv/Poppy-tool/releases/latest)
 ![Chrome](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)
 ![Languages](https://img.shields.io/badge/panel-FR%20%7C%20EN%20%7C%20IT-black)
 ![By Rcf](https://img.shields.io/badge/by-Rcf-F05138)
@@ -72,32 +72,32 @@ Click the Poppy Tool icon from any tab: status, counters, best drop, Start/Stop,
 - Every claim goes through the site's own endpoints and only collects rewards you have already earned.
 - It never accepts the site's own "convert to complete the pull" popup: it stops.
 
-## Versions
+## Releases
 
-See [CHANGELOG.md](CHANGELOG.md) for the full notes of each version.
+Every version is on the [Releases page](https://github.com/RcfTv/Poppy-tool/releases) with its notes and a ready-to-install `.zip`. Full notes: [CHANGELOG.md](CHANGELOG.md).
 
-| Version | Highlights |
-|---------|------------|
-| 5.0.3 | Scrollbars styled to match the panel |
-| 5.0.2 | Compatibility with the updated Cripsum lootbox page |
-| 5.0.1 | First version on GitHub |
-| ≤ 5.0.0 | Released as **Auto Pull** |
+| Release | Highlights | Download |
+|---------|------------|----------|
+| [**5.0.3**](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.0.3) (latest) | Scrollbars styled to match the panel | [poppy-tool-v5.0.3.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.0.3/poppy-tool-v5.0.3.zip) |
+| [5.0.2](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.0.2) | Compatibility with the updated Cripsum lootbox page | [poppy-tool-v5.0.2.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.0.2/poppy-tool-v5.0.2.zip) |
+| [5.0.1](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.0.1) | First version on GitHub | [poppy-tool-v5.0.1.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.0.1/poppy-tool-v5.0.1.zip) |
+| ≤ 5.0.0 | Released as **Auto Pull** (not on GitHub) | — |
 
 ## Install
 
 Takes about a minute.
 
-1. Get the extension: on GitHub, **Code → Download ZIP** and unzip it somewhere you'll keep it (e.g. Documents), or clone it:
+1. Get the extension: download `poppy-tool-vX.Y.Z.zip` from the [latest release](https://github.com/RcfTv/Poppy-tool/releases/latest) and unzip it somewhere you'll keep it (e.g. Documents), or clone it:
    ```bash
    git clone https://github.com/RcfTv/Poppy-tool.git
    ```
 2. In Chrome, go to `chrome://extensions` and turn on **Developer mode**.
-3. Click **Load unpacked** and choose the `Poppy-tool` folder (the one with `manifest.json`).
+3. Click **Load unpacked** and choose the `poppy-tool` folder (`Poppy-tool` if you cloned it; the one with `manifest.json`).
 4. Pin it: puzzle icon in Chrome's toolbar > pin **Poppy Tool**.
 
 Coming from Auto Pull? Remove the old "Auto Pull" extension first: your settings and history are kept.
 
-To update, replace the folder (or `git pull`), then click the reload arrow on Poppy Tool in `chrome://extensions`.
+To update, download the [latest release](https://github.com/RcfTv/Poppy-tool/releases/latest) and replace the folder (or `git pull`), then click the reload arrow on Poppy Tool in `chrome://extensions`.
 
 ## Project structure
 
