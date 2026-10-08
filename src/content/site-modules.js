@@ -444,7 +444,7 @@
   .cp-pin { background: var(--accent); color: var(--on, #fff); }
 
   /* ---------- motion (Apple curves: --ease decelerates like a sheet, --spring overshoots a little) ---------- */
-  .panel, .combo-pop, .cpick { --ease: cubic-bezier(.32, .72, 0, 1); --spring: cubic-bezier(.34, 1.4, .64, 1); }
+  .panel, .combo-pop, .cpick, .ghost { --ease: cubic-bezier(.32, .72, 0, 1); --spring: cubic-bezier(.34, 1.4, .64, 1); }
   @keyframes ap-panel-in { from { opacity: 0; transform: translateY(14px) scale(.97); } }
   @keyframes ap-page-in { from { opacity: 0; transform: translateY(6px); } }
   @keyframes ap-pop-in { from { opacity: 0; transform: scale(.94) translateY(-4px); } }
@@ -492,6 +492,13 @@
   .smsg:not(:empty), .msg:not(:empty), .cp-err:not(:empty) { animation: ap-fade-in .25s var(--ease) both; }
   .m, .item, .hrow { transition: opacity .3s, box-shadow .3s, background-color .3s; }
   .tabs.fade-l, .tabs.fade-r { transition: -webkit-mask-image .2s; }
+  /* moving the panel: it lifts while dragged, the snap outline springs in near a corner */
+  .panel { transition: scale .3s var(--spring), box-shadow .3s var(--ease); }
+  .panel.dragging { scale: 1.015; box-shadow: 0 0 0 .5px rgba(0,0,0,.4), 0 34px 80px rgba(0,0,0,.55), 0 8px 20px rgba(0,0,0,.25); }
+  .panel.light.dragging { box-shadow: 0 0 0 .5px rgba(0,0,0,.06), 0 34px 80px rgba(0,0,0,.22), 0 8px 20px rgba(0,0,0,.08); }
+  .ghost { scale: .96; transition: opacity .2s, scale .35s var(--spring); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+  .ghost.on { scale: 1; }
+  .head { cursor: grab; }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   }
@@ -789,6 +796,105 @@
     setTimeout(() => { tabsEl.querySelector('.tab.on')?.scrollIntoView({ block: 'nearest', inline: 'center' }); fade(); place();
       requestAnimationFrame(() => requestAnimationFrame(() => ind.classList.remove('no-anim'))); }, 0);
   }
+  // ---------------------------------------------------------------- moving + minimising the panel (both panels)
+  // Drag the header anywhere: the panel stays where it is dropped (kept relative to the nearest window edges,
+  // so it stays on screen when the window is resized). Dropped near a corner it snaps there (a dashed outline
+  // shows the spot); a double-click on the header also snaps it to the nearest corner.
+  // "–" folds the panel down to its header with an animation (and unfolds it the same way).
+  function movable({ host, panel, head, ghost, minBtn, minPath }) {
+    const MARGIN = 16, SNAP = 80, PAD = 4;
+    const EASE = 'cubic-bezier(.32, .72, 0, 1)', SPRING = 'cubic-bezier(.34, 1.3, .64, 1)';
+    const still = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let place = store.get('place', null), drag = null;
+    if (!place || !['corner', 'free'].includes(place.mode)) {
+      const c = store.get('corner'); place = { mode: 'corner', c: ['br', 'bl', 'tr', 'tl'].includes(c) ? c : 'br' };
+    }
+    const save = () => { store.set('place', place); if (place.mode === 'corner') store.set('corner', place.c); };
+    // never (partly) off screen: pulled back inside for display, the saved spot is kept
+    const keepInView = () => {
+      if (place.mode !== 'free') return;
+      const r = host.getBoundingClientRect(), s = host.style;
+      if (r.left < PAD || r.right > innerWidth - PAD) { s.right = ''; s.left = Math.max(PAD, Math.min(innerWidth - r.width - PAD, r.left)) + 'px'; }
+      if (r.top < PAD || r.bottom > innerHeight - PAD) { s.bottom = ''; s.top = Math.max(PAD, Math.min(innerHeight - r.height - PAD, r.top)) + 'px'; }
+    };
+    const apply = () => {
+      const s = host.style; s.left = s.top = s.right = s.bottom = '';
+      if (place.mode === 'corner') { s[place.c[0] === 't' ? 'top' : 'bottom'] = MARGIN + 'px'; s[place.c[1] === 'l' ? 'left' : 'right'] = MARGIN + 'px'; }
+      else { s[place.ax === 'l' ? 'left' : 'right'] = place.dx + 'px'; s[place.ay === 't' ? 'top' : 'bottom'] = place.dy + 'px'; }
+      keepInView();
+    };
+    const cornerXY = (c, w, h) => ({ x: c[1] === 'l' ? MARGIN : innerWidth - w - MARGIN, y: c[0] === 't' ? MARGIN : innerHeight - h - MARGIN });
+    // the corner whose spot is closest to where the panel is now (works for a panel almost as tall as the window too)
+    const nearestCorner = r => ['tl', 'tr', 'bl', 'br'].map(c => { const p = cornerXY(c, r.width, r.height); return { c, d: Math.hypot(r.left - p.x, r.top - p.y) }; })
+      .sort((a, b) => a.d - b.d)[0].c;
+    // move to the saved placement, gliding from where the panel is now
+    const glide = from => {
+      apply();
+      const to = host.getBoundingClientRect(), dx = from.left - to.left, dy = from.top - to.top;
+      if (still() || (Math.abs(dx) < 1 && Math.abs(dy) < 1)) return;
+      host.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], { duration: 460, easing: SPRING });
+    };
+    const freeFrom = r => {
+      const ax = r.left + r.width / 2 < innerWidth / 2 ? 'l' : 'r', ay = r.top + r.height / 2 < innerHeight / 2 ? 't' : 'b';
+      return { mode: 'free', ax, ay, dx: Math.round(ax === 'l' ? r.left : innerWidth - r.right), dy: Math.round(ay === 't' ? r.top : innerHeight - r.bottom) };
+    };
+
+    head.addEventListener('pointerdown', e => {
+      if (e.button !== 0 || e.target.closest('button')) return;
+      const r = host.getBoundingClientRect();
+      drag = { sx: e.clientX, sy: e.clientY, dx: e.clientX - r.left, dy: e.clientY - r.top, w: r.width, h: r.height, moved: false, snap: null };
+      head.setPointerCapture(e.pointerId); e.preventDefault();
+    });
+    head.addEventListener('pointermove', e => {
+      if (!drag) return;
+      if (!drag.moved) { if (Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) < 4) return; drag.moved = true; panel.classList.add('dragging'); }
+      const x = Math.min(Math.max(0, e.clientX - drag.dx), innerWidth - drag.w), y = Math.min(Math.max(0, e.clientY - drag.dy), innerHeight - drag.h);
+      const s = host.style; s.right = s.bottom = ''; s.left = x + 'px'; s.top = y + 'px';
+      // close to a corner: show where it would snap
+      const c = nearestCorner({ left: x, top: y, width: drag.w, height: drag.h }), p = cornerXY(c, drag.w, drag.h);
+      drag.snap = Math.hypot(x - p.x, y - p.y) < SNAP ? c : null;
+      if (drag.snap) Object.assign(ghost.style, { left: p.x + 'px', top: p.y + 'px', width: drag.w + 'px', height: drag.h + 'px' });
+      ghost.classList.toggle('on', !!drag.snap);
+    });
+    const endDrag = () => {
+      if (!drag) return;
+      const d = drag; drag = null;
+      ghost.classList.remove('on'); panel.classList.remove('dragging');
+      if (!d.moved) return;
+      const from = host.getBoundingClientRect();
+      place = d.snap ? { mode: 'corner', c: d.snap } : freeFrom(from);
+      save(); glide(from);
+    };
+    head.addEventListener('pointerup', endDrag); head.addEventListener('pointercancel', endDrag);
+    head.addEventListener('dblclick', e => {
+      if (e.target.closest('button')) return;
+      const from = host.getBoundingClientRect();
+      place = { mode: 'corner', c: nearestCorner(from) }; save(); glide(from);
+    });
+    addEventListener('resize', () => { if (!drag) apply(); });
+    new ResizeObserver(() => { if (!drag) keepInView(); }).observe(panel);
+
+    // minimise / restore, the panel folds to its header and back
+    let anim = null;
+    const setMin = (m, animate = true) => {
+      const before = panel.getBoundingClientRect();
+      anim?.cancel();
+      panel.classList.toggle('min', m); minPath.setAttribute('d', m ? 'M5 12h14M12 5v14' : 'M5 12h14'); store.set('min', m);
+      minBtn.title = m ? '+' : '–';
+      if (!animate || still()) return;
+      const after = panel.getBoundingClientRect();
+      const overflow = panel.style.overflow; panel.style.overflow = 'hidden';
+      anim = panel.animate([{ width: before.width + 'px', height: before.height + 'px' }, { width: after.width + 'px', height: after.height + 'px' }],
+        { duration: m ? 380 : 480, easing: m ? EASE : SPRING });
+      anim.onfinish = anim.oncancel = () => { panel.style.overflow = overflow; anim = null; keepInView(); };
+      minBtn.querySelector('svg')?.animate([{ transform: 'rotate(-90deg) scale(.5)', opacity: .2 }, { transform: 'none', opacity: 1 }], { duration: 420, easing: SPRING });
+    };
+    minBtn.onclick = () => setMin(!panel.classList.contains('min'));
+    setMin(!!store.get('min', false), false);
+    apply();
+    return { setMin, apply };
+  }
+
   // pop-ups leave with a short fade instead of vanishing
   const leave = el => { el.classList.add('out'); el.style.pointerEvents = 'none'; setTimeout(() => el.remove(), matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 160); };
 
@@ -1299,36 +1405,13 @@
     const startTab = store.get('sitetab', 'home');
     showTab([...mod.ids, 'ssettings'].includes(startTab) ? startTab : 'home');
 
-    // icon, minimise, drag + corner snap (same storage as the lootbox panel)
+    // icon, then minimise + drag anywhere / snap to a corner (shared with the lootbox panel)
     const setIcon = () => { const u = document.documentElement.dataset.apIcon; if (u && !$('#logo img')) { const i = new Image(); i.onload = () => { $('#logo').replaceChildren(i); $('#logo').classList.add('has-img'); }; i.src = u; } };
     setIcon(); new MutationObserver(setIcon).observe(document.documentElement, { attributes: true, attributeFilter: ['data-ap-icon'] });
-    const setMin = m => { panel.classList.toggle('min', m); $('#minpath').setAttribute('d', m ? 'M5 12h14M12 5v14' : 'M5 12h14'); store.set('min', m); };
-    $('#min').onclick = () => setMin(!panel.classList.contains('min'));
-    setMin(!!store.get('min', false));
-    const MARGIN = 16;
-    let corner = ['br', 'bl', 'tr', 'tl'].includes(store.get('corner')) ? store.get('corner') : 'br';
-    const placeAt = c => { host.style.transition = ''; host.style.left = host.style.top = host.style.right = host.style.bottom = '';
-      host.style[c[0] === 't' ? 'top' : 'bottom'] = MARGIN + 'px'; host.style[c[1] === 'l' ? 'left' : 'right'] = MARGIN + 'px'; };
-    const cornerXY = (c, w, h) => ({ x: c[1] === 'l' ? MARGIN : innerWidth - w - MARGIN, y: c[0] === 't' ? MARGIN : innerHeight - h - MARGIN });
-    const nearest = (px, py) => (py < innerHeight / 2 ? 't' : 'b') + (px < innerWidth / 2 ? 'l' : 'r');
-    placeAt(corner);
-    let drag = null; const head = $('.head');
-    head.addEventListener('pointerdown', e => { if (e.button !== 0 || e.target.closest('button')) return; const r = host.getBoundingClientRect();
-      drag = { sx: e.clientX, sy: e.clientY, dx: e.clientX - r.left, dy: e.clientY - r.top, w: r.width, h: r.height, moved: false }; head.setPointerCapture(e.pointerId); e.preventDefault(); });
-    head.addEventListener('pointermove', e => { if (!drag) return;
-      if (!drag.moved) { if (Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) < 4) return; drag.moved = true; panel.classList.add('dragging'); }
-      const x = Math.min(Math.max(0, e.clientX - drag.dx), innerWidth - drag.w), y = Math.min(Math.max(0, e.clientY - drag.dy), innerHeight - drag.h);
-      host.style.right = host.style.bottom = ''; host.style.left = x + 'px'; host.style.top = y + 'px'; drag.px = e.clientX; drag.py = e.clientY;
-      const p = cornerXY(nearest(e.clientX, e.clientY), drag.w, drag.h), g = $('#ghost');
-      Object.assign(g.style, { left: p.x + 'px', top: p.y + 'px', width: drag.w + 'px', height: drag.h + 'px' }); g.classList.add('on'); });
-    const endDrag = () => { if (!drag) return; const d = drag; drag = null; $('#ghost').classList.remove('on'); panel.classList.remove('dragging'); if (!d.moved) return;
-      const r = host.getBoundingClientRect(); corner = nearest(d.px, d.py); store.set('corner', corner); const p = cornerXY(corner, r.width, r.height);
-      host.style.transition = 'left .22s cubic-bezier(.2,.8,.2,1), top .22s cubic-bezier(.2,.8,.2,1)'; host.style.left = p.x + 'px'; host.style.top = p.y + 'px';
-      setTimeout(() => placeAt(corner), 240); };
-    head.addEventListener('pointerup', endDrag); head.addEventListener('pointercancel', endDrag);
+    movable({ host, panel, head: $('.head'), ghost: $('#ghost'), minBtn: $('#min'), minPath: $('#minpath') });
   }
 
-  window.__apSite = { mount, makeCombo, accentPicker, css: EXTRA_CSS };
+  window.__apSite = { mount, makeCombo, accentPicker, movable, css: EXTRA_CSS };
   if (!IS_LOOT) {
     const go = () => { if (document.querySelector('meta[name="csrf-token"]') || document.querySelector('nav, .cnav, header')) buildShell(); };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go, { once: true }); else go();

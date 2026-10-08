@@ -47,7 +47,7 @@ Poppy Tool was called **Auto Pull** until version 5.0.0.
 
 ### Apple / SwiftUI look (test branch)
 
-The [`test`](https://github.com/RcfTv/Poppy-tool/tree/test) branch (pre-release **5.1.4-test**) restyles the panel like an Apple app: SF font, translucent materials, iOS colours, segmented tabs, iOS switches, star rarity markers, a custom accent colour picker and smooth Apple-style animations.
+The [`test`](https://github.com/RcfTv/Poppy-tool/tree/test) branch (pre-release **5.1.5-test**) restyles the panel like an Apple app: SF font, translucent materials, iOS colours, segmented tabs, iOS switches, star rarity markers, a custom accent colour picker and smooth Apple-style animations.
 
 <table><tr>
 <td align="center" valign="top"><img src="docs/screenshots/apple/pull-dark.png" width="190" alt="Pull (dark)"><br><b>Pull (dark)</b></td>
@@ -66,7 +66,7 @@ The Poppy Tool panel shows on every Cripsum page. On the lootbox page it has all
 
 Bottom-right by default, works in any language of the site.
 
-- 🖱️ **Drag it by its top bar**: it snaps to a corner. "-" minimises it.
+- 🖱️ **Drag it by its top bar** and drop it anywhere: it stays there. Drop it near a corner (or double-click the bar) to snap it into the corner. "-" folds it down to its top bar.
 - ⌨️ **Alt+P** = Start / Stop.
 - 🌍 **French, English or Italian**: the panel speaks all three (Settings > Look).
 - 🔎 **Searchable dropdowns**: every dropdown (lootbox, stop target, etc.) is searchable. Click it and type to filter, handy for the 200-character lists.
@@ -110,6 +110,7 @@ Every version is on the [Releases page](https://github.com/RcfTv/Poppy-tool/rele
 
 | Release | Highlights | Download |
 |---------|------------|----------|
+| [5.1.5-test](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.1.5-test) (pre-release, `test` branch) | Move the panel anywhere, snap near corners, animated minimise | [poppy-tool-v5.1.5-test.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.1.5-test/poppy-tool-v5.1.5-test.zip) |
 | [5.1.4-test](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.1.4-test) (pre-release, `test` branch) | Smooth Apple-style animations everywhere | [poppy-tool-v5.1.4-test.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.1.4-test/poppy-tool-v5.1.4-test.zip) |
 | [5.1.3-test](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.1.3-test) (pre-release, `test` branch) | Whole tool harmonised (toolbar popup, queue, sliders, settings, icons) | [poppy-tool-v5.1.3-test.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.1.3-test/poppy-tool-v5.1.3-test.zip) |
 | [5.1.2-test](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.1.2-test) (pre-release, `test` branch) | Uniform star rarity markers everywhere | [poppy-tool-v5.1.2-test.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.1.2-test/poppy-tool-v5.1.2-test.zip) |

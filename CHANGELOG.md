@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.1.5-test — October 8, 2026 (test branch, pre-release)
+
+- The panel can be moved anywhere and stays where it is dropped (also after a reload); it is kept relative to the nearest window edges, so it stays on screen when the window gets smaller
+- Dropped near a corner it still snaps there: a dashed outline springs in to show the spot. A double-click on the header snaps it to the nearest corner
+- The panel lifts slightly while it is dragged
+- Minimise / restore is animated: the panel folds down to its header and unfolds with a light spring, towards the corner or edges it is anchored to
+
 ## 5.1.4-test — October 8, 2026 (test branch, pre-release)
 
 - Animations everywhere, with Apple's curves (smooth deceleration and a light spring):

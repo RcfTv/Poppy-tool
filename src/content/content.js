@@ -699,10 +699,6 @@ const main = async () => {
   const makeCombo = select => window.__apSite?.makeCombo?.(select, { root, panel, color: comboColor, star: select => select.id !== 'banner' && select.dataset.k !== 'banner', search: T.search, noMatch: T.noMatch });
   const enhanceSelects = scope => (scope || root).querySelectorAll('select').forEach(makeCombo);
 
-  // minimise
-  const setMin = m => { panel.classList.toggle('min', m); $('#minpath').setAttribute('d', m ? 'M5 12h14M12 5v14' : 'M5 12h14'); store.set('min', m); };
-  $('#min').onclick = () => setMin(!panel.classList.contains('min'));
-  setMin(!!store.get('min', false));
 
   const applyLook = () => {
     panel.classList.toggle('light', !!cfg.light);
@@ -761,57 +757,8 @@ const main = async () => {
     iconObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-ap-icon'] });
   }
 
-  // ---------- drag by the header, snap to the nearest corner ----------
-  const MARGIN = 16;
-  const CORNERS = ['br', 'bl', 'tr', 'tl'];
-  let corner = CORNERS.includes(store.get('corner')) ? store.get('corner') : 'br';
-  const placeAt = c => {
-    host.style.transition = '';
-    host.style.left = host.style.top = host.style.right = host.style.bottom = '';
-    host.style[c[0] === 't' ? 'top' : 'bottom'] = MARGIN + 'px';
-    host.style[c[1] === 'l' ? 'left' : 'right'] = MARGIN + 'px';
-  };
-  const cornerXY = (c, w, h) => ({ x: c[1] === 'l' ? MARGIN : innerWidth - w - MARGIN, y: c[0] === 't' ? MARGIN : innerHeight - h - MARGIN });
-  const nearest = (px, py) => (py < innerHeight / 2 ? 't' : 'b') + (px < innerWidth / 2 ? 'l' : 'r');
-  placeAt(corner);
-  let drag = null;
-  const head = $('.head');
-  head.addEventListener('pointerdown', e => {
-    if (e.button !== 0 || e.target.closest('button')) return;
-    const r = host.getBoundingClientRect();
-    drag = { sx: e.clientX, sy: e.clientY, dx: e.clientX - r.left, dy: e.clientY - r.top, w: r.width, h: r.height, moved: false };
-    head.setPointerCapture(e.pointerId);
-    e.preventDefault();
-  });
-  head.addEventListener('pointermove', e => {
-    if (!drag) return;
-    if (!drag.moved) {
-      if (Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) < 4) return;
-      drag.moved = true; panel.classList.add('dragging');
-    }
-    const x = Math.min(Math.max(0, e.clientX - drag.dx), innerWidth - drag.w);
-    const y = Math.min(Math.max(0, e.clientY - drag.dy), innerHeight - drag.h);
-    host.style.transition = ''; host.style.right = host.style.bottom = '';
-    host.style.left = x + 'px'; host.style.top = y + 'px';
-    drag.px = e.clientX; drag.py = e.clientY;
-    const c = nearest(e.clientX, e.clientY), p = cornerXY(c, drag.w, drag.h), g = $('#ghost');
-    Object.assign(g.style, { left: p.x + 'px', top: p.y + 'px', width: drag.w + 'px', height: drag.h + 'px' });
-    g.classList.add('on');
-  });
-  const endDrag = () => {
-    if (!drag) return;
-    const d = drag; drag = null;
-    $('#ghost').classList.remove('on'); panel.classList.remove('dragging');
-    if (!d.moved) return;
-    const r = host.getBoundingClientRect();
-    corner = nearest(d.px, d.py); store.set('corner', corner);
-    const p = cornerXY(corner, r.width, r.height);
-    host.style.transition = 'left .22s cubic-bezier(.2,.8,.2,1), top .22s cubic-bezier(.2,.8,.2,1)';
-    host.style.left = p.x + 'px'; host.style.top = p.y + 'px';
-    setTimeout(() => placeAt(corner), 240);
-  };
-  head.addEventListener('pointerup', endDrag);
-  head.addEventListener('pointercancel', endDrag);
+  // ---------- minimise + drag anywhere by the header / snap to a corner (shared, site-modules.js) ----------
+  window.__apSite?.movable?.({ host, panel, head: $('.head'), ghost: $('#ghost'), minBtn: $('#min'), minPath: $('#minpath') });
 
   // ======================================================================
   // Rendering: Pull tab
