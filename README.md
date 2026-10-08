@@ -149,8 +149,3 @@ Poppy-tool/
 ```
 
 `site-modules.js` must load before `content.js`; the manifest keeps that order.
-
-## Credits
-
-Written entirely by **Claude** (Anthropic) with Claude Code, as a test of what an AI can build on its own. Idea, instructions and testing by **Rcf**.
-Poppy Tool is an independent fan-made extension, not affiliated with Cripsum.
