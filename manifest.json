@@ -3,7 +3,7 @@
   "name": "Poppy Tool",
   "version": "0.2.0",
   "author": "Rcf",
-  "description": "By Rcf - Poppy Tool for Cripsum: one widget on every page — auto-opens lootboxes (stop on rarity/character, queue, stats) plus dashboard, missions, inventory, achievements, inbox gifts and a 'collect everything' button.",
+  "description": "Poppy Tool for Cripsum: one widget on every page — auto-opens lootboxes (stop on rarity/character, queue, stats) plus dashboard, missions, inventory, achievements, inbox gifts and a 'collect everything' button.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
