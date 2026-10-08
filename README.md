@@ -108,7 +108,6 @@ Every version is on the [Releases page](https://github.com/RcfTv/Poppy-tool/rele
 | Release | Highlights | Download |
 |---------|------------|----------|
 | [**5.1.5**](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.1.5) (latest) | Apple / SwiftUI look, accent colour picker, star rarities, animations, move the panel anywhere | [poppy-tool-v5.1.5.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.1.5/poppy-tool-v5.1.5.zip) |
-| [5.1.0-test → 5.1.5-test](https://github.com/RcfTv/Poppy-tool/releases?q=test) (pre-releases, `test` branch) | Test builds of 5.1.5, step by step | on each release page |
 | [5.0.3](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.0.3) | Scrollbars styled to match the panel | [poppy-tool-v5.0.3.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.0.3/poppy-tool-v5.0.3.zip) |
 | [5.0.2](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.0.2) | Compatibility with the updated Cripsum lootbox page | [poppy-tool-v5.0.2.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.0.2/poppy-tool-v5.0.2.zip) |
 | [5.0.1](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.0.1) | First version on GitHub | [poppy-tool-v5.0.1.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.0.1/poppy-tool-v5.0.1.zip) |
