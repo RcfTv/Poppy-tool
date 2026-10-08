@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.3 — October 8, 2026
+
+- Scrollbars in the panel, dropdowns and lists are thin, rounded and use the accent colour (they follow the chosen accent and the light theme)
+
 ## 5.0.2 — October 7, 2026
 
 - Compatibility with the updated Cripsum lootbox page: lootboxes are looked up in `GACHA_INIT` by `key` (fallback `id`), as the site now keys banners by key

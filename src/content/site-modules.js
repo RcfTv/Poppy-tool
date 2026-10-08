@@ -19,10 +19,18 @@
   const PANEL_CSS = `
   :host { all: initial; }
   * { box-sizing: border-box; }
+  /* scrollbars in the panel colours: thin, rounded, accent thumb (follows the accent + light theme) */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; margin: 4px 0; }
+  ::-webkit-scrollbar-thumb { background-color: color-mix(in srgb, var(--accent) 35%, transparent); border: 2px solid transparent; background-clip: padding-box; border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background-color: color-mix(in srgb, var(--accent) 65%, transparent); }
+  ::-webkit-scrollbar-thumb:active { background-color: var(--accent); }
+  ::-webkit-scrollbar-corner, ::-webkit-scrollbar-button { display: none; background: transparent; }
+  .panel::-webkit-scrollbar-track { margin: 18px 0; }
   .panel { --accent:#2f9df4; --on-accent:#fff;
     --bg: rgba(12,16,28,.93); --fg:#e5e7eb; --strong:#fff; --muted:#9ca3af; --faint:#6b7280;
     --card: rgba(255,255,255,.04); --card2: rgba(255,255,255,.07); --line: rgba(255,255,255,.08); --field: rgba(255,255,255,.05); --grid: rgba(255,255,255,.07);
-    width: 350px; max-height: calc(100vh - 32px); overflow: auto; scrollbar-width: thin;
+    width: 350px; max-height: calc(100vh - 32px); overflow: auto;
     font: 12.5px/1.45 "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--fg);
     background: var(--bg); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
     border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 18px 50px rgba(0,0,0,.45); }
@@ -90,7 +98,7 @@
   .combo-pop.light { --fg:#1f2937; --strong:#0b0f1a; --muted:#6b7280; --faint:#9ca3af; --field:#fff; --card2: rgba(15,23,42,.08); --line: rgba(15,23,42,.12);
     background: #fbfcfeF7; box-shadow: 0 14px 40px rgba(15,23,42,.22); }
   .combo-search { margin: 8px; width: calc(100% - 16px); }
-  .combo-list { overflow: auto; scrollbar-width: thin; padding: 0 6px 6px; }
+  .combo-list { overflow: auto; padding: 0 6px 6px; }
   .combo-group { font-size: 10px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); padding: 8px 8px 4px; }
   .combo-item { display:flex; align-items:center; gap: 8px; padding: 7px 8px; border-radius: 8px; cursor: pointer; font-size: 12.5px; color: var(--fg);
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -144,7 +152,7 @@
   .rar .n { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--strong); font-weight: 600; }
   .rar .lbl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .rar .p { color: var(--faint); font-size: 10px; }
-  .feed { display:grid; gap: 5px; max-height: 190px; overflow:auto; scrollbar-width: thin; }
+  .feed { display:grid; gap: 5px; max-height: 190px; overflow:auto; }
   .item { display:flex; align-items:center; gap: 8px; padding: 5px 6px; border-radius: 10px; background: var(--card); border-left: 3px solid var(--c); }
   .item img { width: 30px; height: 30px; border-radius: 7px; object-fit: cover; flex: none; background: var(--card2); }
   .item .nm { color: var(--strong); font-weight: 600; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

@@ -8,7 +8,7 @@
 
 Pick a lootbox and a stop target, press Start, and Poppy Tool pulls until it gets what you want. Then "Collect everything" claims every reward you have earned in one click.
 
-![Version](https://img.shields.io/badge/version-5.0.2-0A84FF)
+![Version](https://img.shields.io/badge/version-5.0.3-0A84FF)
 ![Chrome](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)
 ![Languages](https://img.shields.io/badge/panel-FR%20%7C%20EN%20%7C%20IT-black)
 ![By Rcf](https://img.shields.io/badge/by-Rcf-F05138)
@@ -78,6 +78,7 @@ See [CHANGELOG.md](CHANGELOG.md) for the full notes of each version.
 
 | Version | Highlights |
 |---------|------------|
+| 5.0.3 | Scrollbars styled to match the panel |
 | 5.0.2 | Compatibility with the updated Cripsum lootbox page |
 | 5.0.1 | First version on GitHub |
 | ≤ 5.0.0 | Released as **Auto Pull** |
