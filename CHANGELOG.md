@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.1.1-test — October 8, 2026 (test branch, pre-release)
+
+- Accent colours: 15 colours to pick from, plus a custom colour picker (saturation / brightness area, hue slider, hex field, live preview). "Pin" keeps up to 8 custom colours in the row, × removes one
+- Rarity markers are coloured stars (dropdowns, session counts, best pulls, Stats, inventory filters)
+- Dropdowns follow the panel when it scrolls, close once their button scrolls out of it, and use the panel style on every page (language, inventory category)
+- Tab bar: one row again, the mouse wheel scrolls it sideways and the edges fade while tabs are hidden there
+- Compact mode removed
+
 ## 5.1.0-test — October 8, 2026 (test branch, pre-release)
 
 - Test version of the panel in an Apple / SwiftUI style: SF font, translucent system materials, iOS system colours (light and dark), segmented-control tabs, iOS switches, grouped inset lists and bordered / prominent buttons

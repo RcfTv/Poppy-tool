@@ -70,12 +70,7 @@
   .m .mtag { font-size: 9.5px; font-weight: 700; padding: 2px 6px; border-radius: 6px; flex:none; }
   .m .mtag.r { background: var(--accent); color: var(--on-accent); } .m .mtag.ok { background: var(--card2); color: var(--muted); }
   .page { padding: 12px 14px 14px; display: grid; gap: 12px; } .page[hidden] { display: none; }
-  .panel.min .tabs, .panel.min .page, .panel.min .mini { display: none !important; } .panel.min { width: auto; } .panel.min .head { border-radius: 18px; }
-  .mini { display: none; padding: 10px 12px 12px; gap: 8px; align-items: center; }
-  .panel.compact { width: 310px; } .panel.compact .tabs, .panel.compact .page { display: none !important; } .panel.compact .mini { display: flex; }
-  .mini .mstat { flex: 1; min-width: 0; font-size: 11.5px; color: var(--muted); line-height: 1.3; } .mini .mstat b { color: var(--strong); font-size: 13px; }
-  .mini .mstat span { display:block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .mini .go { width: auto; padding: 8px 16px; }
+  .panel.min .tabs, .panel.min .page { display: none !important; } .panel.min { width: auto; } .panel.min .head { border-radius: 18px; }
   label.f { display:grid; gap: 5px; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
   select, input[type=number], input[type=time] { width: 100%; font: inherit; font-size: 12.5px; text-transform: none; letter-spacing: 0; color: var(--strong);
     background: var(--field); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; outline: none; color-scheme: dark; }
@@ -296,7 +291,11 @@
   .icon-btn { width: 28px; height: 28px; border-radius: 50%; background: var(--fill); color: var(--label2); }
   .icon-btn:hover { background: var(--fill2); color: var(--label); }
   /* tabs = segmented control */
+  /* one row that scrolls sideways (mouse wheel too, see mount); the edges fade when more tabs are hidden there */
   .tabs { margin: 2px 14px 4px; padding: 2px; gap: 0; border: 0; border-radius: 9px; background: var(--fill); }
+  .tabs.fade-r { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); }
+  .tabs.fade-l { -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px); mask-image: linear-gradient(90deg, transparent, #000 28px); }
+  .tabs.fade-l.fade-r { -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent); }
   .tab { flex: 1 0 auto; padding: 5px 9px; margin: 0; border: 0; border-radius: 7px; font-size: 12px; font-weight: 500; color: var(--label); letter-spacing: -.08px; transition: background .2s, box-shadow .2s; }
   .tab:hover { color: var(--label); background: var(--fill); }
   .tab.on { background: var(--seg-on); border: 0; font-weight: 600; box-shadow: 0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04), 0 0 0 .5px rgba(0,0,0,.04); }
@@ -337,6 +336,10 @@
   .combo-btn svg { color: var(--accent); }
   .combo-pop { background: var(--sys-bg); border: .5px solid var(--sep); border-radius: 14px; backdrop-filter: blur(40px) saturate(190%); -webkit-backdrop-filter: blur(40px) saturate(190%);
     box-shadow: 0 18px 50px rgba(0,0,0,.35); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; }
+  .combo-search { background: var(--fill) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238e8e93' stroke-width='2.6' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-3.5-3.5'/%3E%3C/svg%3E") no-repeat 10px 50%;
+    border: 0; border-radius: 10px; padding: 8px 10px 8px 30px; font: inherit; font-size: 14px; color: var(--label); outline: none; }
+  .combo-search::placeholder { color: var(--label3); }
+  .combo-search:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent); }
   .combo-item { border-radius: 8px; font-size: 14px; }
   .combo-item:hover, .combo-item.active { background: var(--accent); color: #fff; }
   .combo-item.sel::after { color: inherit; }
@@ -370,6 +373,48 @@
   .wallet { border-top: .5px solid var(--sep); }
   .empty { color: var(--label3); }
   .ghost { border-radius: 26px; border: 2px dashed var(--accent); }
+  /* rarity markers are stars */
+  .c, .dotc.star, .chips .chip i { width: 12px; height: 12px; border-radius: 0; box-shadow: none; flex: none; vertical-align: -1px;
+    -webkit-mask: var(--star) center / contain no-repeat; mask: var(--star) center / contain no-repeat; }
+  .panel, .combo-pop { --star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.8l3.05 6.6 7.2.8-5.37 4.88 1.5 7.1L12 17.6l-6.38 3.58 1.5-7.1L1.75 9.2l7.2-.8z'/%3E%3C/svg%3E"); }
+  /* white (Special) stars stay visible on the light theme */
+  .panel.light .c[style*="#ffffff" i], .panel.light .c[style*="#fff;" i], .panel.light .chips .chip i[style*="#ffffff" i],
+  .combo-pop.light .dotc.star[style*="#ffffff" i] { background: #C7C7CC !important; }
+  /* on the highlighted (accent) row the star turns white, like icons in a macOS menu */
+  .combo-item:hover .dotc.star, .combo-item.active .dotc.star { background: #fff !important; }
+  /* accent swatches: palette, pinned custom colours, "+" opens the picker */
+  .swatches { gap: 8px; }
+  .swatch { width: 24px; height: 24px; }
+  .swatch.add { background: conic-gradient(#FF453A, #FFD60A, #30D158, #64D2FF, #0A84FF, #BF5AF2, #FF375F, #FF453A); }
+  .swatch.add span { position: absolute; inset: 4px; border-radius: 50%; background: var(--bg); display: grid; place-items: center; font-size: 15px; font-weight: 600; line-height: 1; color: var(--label); }
+  .swatch.pinned .x { position: absolute; top: -5px; right: -5px; width: 15px; height: 15px; border-radius: 50%; background: var(--label2); color: var(--sys-bg);
+    font: 600 11px/15px system-ui, sans-serif; font-style: normal; text-align: center; display: none; cursor: pointer; }
+  .swatch.pinned:hover .x { display: block; }
+  .cpick { --accent: #0A84FF; position: fixed; z-index: 2147483647; width: 244px; padding: 12px; display: grid; gap: 10px;
+    --sys-bg: rgba(36,36,38,.86); --label: #fff; --label2: rgba(235,235,245,.62); --label3: rgba(235,235,245,.32); --sep: rgba(84,84,88,.55); --fill: rgba(118,118,128,.24); --fill2: rgba(118,118,128,.32); --ios-red: #FF453A;
+    background: var(--sys-bg); color: var(--label); border: .5px solid var(--sep); border-radius: 16px; box-shadow: 0 18px 50px rgba(0,0,0,.4);
+    backdrop-filter: blur(40px) saturate(190%); -webkit-backdrop-filter: blur(40px) saturate(190%);
+    font: 13px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; }
+  .cpick.light { --sys-bg: rgba(250,250,252,.92); --label: #000; --label2: rgba(60,60,67,.62); --label3: rgba(60,60,67,.32); --sep: rgba(60,60,67,.18); --fill: rgba(118,118,128,.12); --fill2: rgba(118,118,128,.2); --ios-red: #FF3B30;
+    box-shadow: 0 18px 50px rgba(0,0,0,.18); }
+  .cp-title { font-weight: 600; font-size: 15px; letter-spacing: -.2px; }
+  .cp-sv { position: relative; height: 140px; border-radius: 10px; cursor: crosshair; touch-action: none;
+    background: linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, var(--hue, red)); box-shadow: 0 0 0 .5px var(--sep) inset; }
+  .cp-hue { position: relative; height: 14px; border-radius: 999px; cursor: pointer; touch-action: none;
+    background: linear-gradient(90deg, #f00, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00); }
+  .cp-knob { position: absolute; width: 18px; height: 18px; border-radius: 50%; border: 3px solid #fff; transform: translate(-50%, -50%); pointer-events: none;
+    box-shadow: 0 0 0 .5px rgba(0,0,0,.25), 0 2px 6px rgba(0,0,0,.35); }
+  .cp-hue .cp-knob { top: 50%; }
+  .cp-row { display: flex; gap: 8px; align-items: center; }
+  .cp-prev { width: 32px; height: 32px; border-radius: 8px; flex: none; box-shadow: 0 0 0 .5px var(--sep) inset; }
+  .cp-hex { flex: 1; min-width: 0; font: inherit; font-size: 14px; font-variant-numeric: tabular-nums; letter-spacing: .5px; text-transform: uppercase;
+    color: var(--label); background: var(--fill); border: 0; border-radius: 8px; padding: 8px 10px; outline: none; }
+  .cp-hex:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent); }
+  .cp-err { font-size: 11.5px; color: var(--ios-red); } .cp-err:empty { display: none; }
+  .cp-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cp-btns button { font: inherit; font-size: 14px; font-weight: 600; border: 0; border-radius: 10px; padding: 8px; cursor: pointer; }
+  .cp-cancel { background: var(--fill); color: var(--accent); }
+  .cp-pin { background: var(--accent); color: var(--on, #fff); }
   `;
 
   // ---------------------------------------------------------------- shared helpers
@@ -424,6 +469,7 @@
       nUnread: n => `${n} new message${n > 1 ? 's' : ''}`, nReq: n => `${n} new friend request${n > 1 ? 's' : ''}`,
       endsSoon: (name, t) => `${name} ends in ${t}!`, endsIn: t => `ends in ${t}`, idle: 'Up to date', todo: n => `${n} to do`,
       language: 'Panel language', auto: 'Auto', theme: 'Light theme', sound: 'Sound', notify: 'Windows notification', volume: 'Volume', accent: 'Accent colour', accentAuto: 'Default',
+      custom: 'Custom colour', pin: 'Pin', cancel: 'Cancel', unpin: 'Unpin', hexBad: 'Enter a colour like #FF9F0A',
       lootHint: 'Lootbox auto-pull settings are on the lootbox page.',
       rar: { comune: 'Common', raro: 'Rare', epico: 'Epic', leggendario: 'Legendary', speciale: 'Special', segreto: 'Secret', theone: 'The One' },
     },
@@ -446,6 +492,7 @@
       nUnread: n => `${n} nouveau${n > 1 ? 'x' : ''} message${n > 1 ? 's' : ''}`, nReq: n => `${n} nouvelle${n > 1 ? 's' : ''} demande${n > 1 ? 's' : ''} d'ami`,
       endsSoon: (name, t) => `${name} se termine dans ${t} !`, endsIn: t => `fin dans ${t}`, idle: 'À jour', todo: n => `${n} à faire`,
       language: 'Langue du panneau', auto: 'Auto', theme: 'Thème clair', sound: 'Son', notify: 'Notification Windows', volume: 'Volume', accent: 'Couleur d\'accent', accentAuto: 'Par défaut',
+      custom: 'Couleur perso', pin: 'Épingler', cancel: 'Annuler', unpin: 'Retirer', hexBad: 'Entre une couleur comme #FF9F0A',
       lootHint: 'Les réglages de l\'auto-pull sont sur la page lootbox.',
       rar: { comune: 'Commun', raro: 'Rare', epico: 'Épique', leggendario: 'Légendaire', speciale: 'Spécial', segreto: 'Secret', theone: 'The One' },
     },
@@ -463,6 +510,7 @@
       achDone: 'sbloccati', points: 'punti', locked: 'Da sbloccare', unlocked: 'Sbloccati',
       giftsTitle: 'Regali', claimGifts: 'Riscuoti regali', autoG: 'Riscatto regali auto', reqTitle: 'Richieste di amicizia', accept: 'Accetta', decline: 'Rifiuta',
       latest: 'Ultimi messaggi', openInbox: 'Apri la posta', idle: 'Tutto a posto', language: 'Lingua del pannello', theme: 'Tema chiaro', sound: 'Suono', notify: 'Notifica Windows',
+      custom: 'Colore personalizzato', pin: 'Fissa', cancel: 'Annulla', unpin: 'Rimuovi', hexBad: 'Inserisci un colore come #FF9F0A',
       rar: { comune: 'Comune', raro: 'Raro', epico: 'Epico', leggendario: 'Leggendario', speciale: 'Speciale', segreto: 'Segreto', theone: 'The One' },
     },
   };
@@ -539,6 +587,224 @@
   const upgradeAll = () => postJSON('/api/game/upgrade_all_characters.php', {});
   const friendAct = (what, id) => postJSON(`/api/social/${what}_friend_request.php`, { sender_id: id });
 
+  // ---------------------------------------------------------------- searchable combobox (both panels)
+  // Replaces a native <select>. The list lives in the panel's shadow root with position: fixed, so it is moved
+  // on every scroll inside the panel (scroll events never leave the shadow root) and closed once its button
+  // is scrolled out of the panel.
+  function makeCombo(select, { root, panel, color = () => null, star = () => true, search = 'Search…', noMatch = 'No match' }) {
+    if (!select || select.__combo) return;
+    select.style.display = 'none';
+    const combo = document.createElement('div'); combo.className = 'combo';
+    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'combo-btn'; btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = `<span class="combo-val"></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
+    combo.appendChild(btn); select.after(combo);
+    const valEl = btn.querySelector('.combo-val');
+    let pop = null, items = [], active = -1;
+    const label = () => {
+      const o = select.selectedOptions[0], col = o ? color(select, o.value) : null;
+      valEl.innerHTML = (col ? `<span class="dotc${star(select) ? ' star' : ''}" style="background:${esc(col)}"></span>` : '') + `<span>${esc(o ? o.textContent : '')}</span>`;
+      btn.disabled = select.disabled;
+    };
+    const reposition = () => {
+      if (!pop) return;
+      const r = btn.getBoundingClientRect(), p = panel.getBoundingClientRect();
+      if (r.bottom < p.top + 8 || r.top > p.bottom - 8 || !r.width) return close();   // scrolled out of the panel
+      const below = innerHeight - r.bottom, above = r.top, maxH = Math.min(300, Math.max(below, above) - 16);
+      pop.style.left = r.left + 'px'; pop.style.width = r.width + 'px';
+      if (below < 240 && above > below) { pop.style.top = 'auto'; pop.style.bottom = (innerHeight - r.top + 4) + 'px'; }
+      else { pop.style.bottom = 'auto'; pop.style.top = (r.bottom + 4) + 'px'; }
+      const list = pop.querySelector('.combo-list'); if (list) list.style.maxHeight = (maxH - (pop.querySelector('.combo-search') ? 50 : 10)) + 'px';
+    };
+    const onScroll = e => { if (pop && !pop.contains(e.target)) reposition(); };   // the list's own scrolling doesn't move it
+    const onDoc = e => { const t = e.composedPath()[0]; if (pop && !combo.contains(t) && !pop.contains(t)) close(); };
+    const close = () => {
+      if (!pop) return;
+      pop.remove(); pop = null; items = []; active = -1; btn.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('pointerdown', onDoc, true); root.removeEventListener('scroll', onScroll, true);
+      window.removeEventListener('scroll', onScroll, true); window.removeEventListener('resize', close);
+    };
+    const paint = () => items.forEach((it, i) => it.el.classList.toggle('active', i === active));
+    const choose = o => { if (o.value !== select.value) { select.value = o.value; select.dispatchEvent(new Event('change', { bubbles: true })); } label(); close(); btn.focus(); };
+    const open = () => {
+      if (pop || select.disabled) return;
+      pop = document.createElement('div'); pop.className = 'combo-pop';
+      if (panel.classList.contains('light')) pop.classList.add('light');
+      pop.style.setProperty('--accent', getComputedStyle(panel).getPropertyValue('--accent') || '#0A84FF');
+      const many = select.querySelectorAll('option').length > 8;
+      pop.innerHTML = (many ? `<input class="combo-search" type="text" placeholder="${esc(search)}">` : '') + `<div class="combo-list"></div>`;
+      root.appendChild(pop);
+      const listEl = pop.querySelector('.combo-list'), searchEl = pop.querySelector('.combo-search');
+      const add = o => {
+        const el = document.createElement('div'); el.className = 'combo-item' + (o.value === select.value ? ' sel' : '');
+        const col = color(select, o.value);
+        el.innerHTML = (col ? `<span class="dotc${star(select) ? ' star' : ''}" style="background:${esc(col)}"></span>` : '') + `<span>${esc(o.textContent)}</span>`;
+        el.addEventListener('pointerdown', e => e.preventDefault());
+        el.onclick = () => choose(o);
+        listEl.appendChild(el); items.push({ el, opt: o });
+      };
+      const render = q => {
+        q = (q || '').trim().toLowerCase(); listEl.innerHTML = ''; items = [];
+        [...select.children].forEach(node => {
+          if (node.tagName === 'OPTGROUP') {
+            const opts = [...node.children].filter(o => !q || o.textContent.toLowerCase().includes(q));
+            if (!opts.length) return;
+            const g = document.createElement('div'); g.className = 'combo-group'; g.textContent = node.label; listEl.appendChild(g);
+            opts.forEach(add);
+          } else if (node.tagName === 'OPTION' && (!q || node.textContent.toLowerCase().includes(q))) add(node);
+        });
+        if (!items.length) { const e = document.createElement('div'); e.className = 'combo-empty'; e.textContent = noMatch; listEl.appendChild(e); }
+        active = items.findIndex(it => it.opt.value === select.value); if (active < 0 && q && items.length) active = 0;
+        paint(); items[active]?.el.scrollIntoView({ block: 'nearest' });
+      };
+      render(''); btn.setAttribute('aria-expanded', 'true'); reposition();
+      document.addEventListener('pointerdown', onDoc, true); root.addEventListener('scroll', onScroll, true);
+      window.addEventListener('scroll', onScroll, true); window.addEventListener('resize', close);
+      if (searchEl) {
+        searchEl.oninput = () => render(searchEl.value);
+        searchEl.onkeydown = e => {
+          if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(items.length - 1, active + 1); paint(); items[active]?.el.scrollIntoView({ block: 'nearest' }); }
+          else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(0, active - 1); paint(); items[active]?.el.scrollIntoView({ block: 'nearest' }); }
+          else if (e.key === 'Enter') { e.preventDefault(); if (items[active]) choose(items[active].opt); }
+          else if (e.key === 'Escape') { e.preventDefault(); close(); btn.focus(); }
+        };
+        setTimeout(() => searchEl.focus(), 0);
+      }
+    };
+    btn.onclick = () => pop ? close() : open();
+    select.addEventListener('change', label);
+    const mo = new MutationObserver(() => { label(); if (pop) close(); });
+    mo.observe(select, { childList: true, attributes: true, attributeFilter: ['disabled'] });
+    label();
+    select.__combo = { close, mo };
+  }
+
+  // tab bar: one scrolling row; the mouse wheel scrolls it sideways, the edges fade while tabs are hidden there
+  function scrollableTabs(tabsEl) {
+    if (!tabsEl || tabsEl.__wheel) return; tabsEl.__wheel = true;
+    const fade = () => {
+      const max = tabsEl.scrollWidth - tabsEl.clientWidth;
+      tabsEl.classList.toggle('fade-l', tabsEl.scrollLeft > 2);
+      tabsEl.classList.toggle('fade-r', tabsEl.scrollLeft < max - 2);
+    };
+    tabsEl.addEventListener('wheel', e => {
+      if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;   // trackpads already scroll sideways
+      const max = tabsEl.scrollWidth - tabsEl.clientWidth; if (max <= 0) return;
+      e.preventDefault();
+      tabsEl.scrollLeft = Math.max(0, Math.min(max, tabsEl.scrollLeft + (e.deltaMode === 1 ? e.deltaY * 32 : e.deltaY)));
+    }, { passive: false });
+    tabsEl.addEventListener('scroll', fade, { passive: true });
+    // the clicked / selected tab is brought into view
+    tabsEl.addEventListener('click', e => { const t = e.target.closest('.tab'); if (t) t.scrollIntoView({ block: 'nearest', inline: 'nearest' }); });
+    new ResizeObserver(fade).observe(tabsEl);
+    setTimeout(() => { tabsEl.querySelector('.tab.on')?.scrollIntoView({ block: 'nearest', inline: 'center' }); fade(); }, 0);
+  }
+
+  // ---------------------------------------------------------------- accent colour picker (both panels)
+  // Swatches (Default + palette + pinned custom colours) and a "+" that opens a colour picker:
+  // saturation / brightness area, hue slider, hex field. "Pin" applies the colour and keeps it in the row.
+  const PALETTE = ['#0A84FF', '#5E5CE6', '#BF5AF2', '#FF2D92', '#FF375F', '#FF453A', '#FF9F0A', '#FFD60A',
+    '#A3E635', '#30D158', '#66D4CF', '#40C8E0', '#64D2FF', '#AC8E68', '#8E8E93'];
+  const hexOk = h => /^#[0-9a-f]{6}$/i.test(h);
+  const normHex = h => { h = String(h || '').trim().replace(/^#?/, '#'); if (/^#[0-9a-f]{3}$/i.test(h)) h = '#' + [...h.slice(1)].map(c => c + c).join(''); return hexOk(h) ? h.toUpperCase() : null; };
+  const hsvToHex = (h, s, v) => {
+    const f = n => { const k = (n + h / 60) % 6; return v - v * s * Math.max(0, Math.min(k, 4 - k, 1)); };
+    return '#' + [f(5), f(3), f(1)].map(x => Math.round(x * 255).toString(16).padStart(2, '0')).join('').toUpperCase();
+  };
+  const hexToHsv = hex => {
+    const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255), max = Math.max(r, g, b), d = max - Math.min(r, g, b);
+    const h = !d ? 0 : max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    return { h: (h * 60 + 360) % 360, s: max ? d / max : 0, v: max };
+  };
+  function accentPicker(box, { root, panel, get, set, preview }) {
+    const pinned = () => store.get('pinnedAccents', []).filter(hexOk);
+    const render = () => {
+      const cur = get() || 'auto', pins = pinned().filter(c => !PALETTE.includes(c));
+      box.innerHTML = `<button class="swatch auto" data-a="auto" title="${esc(T.accentAuto)}"><span>A</span></button>`
+        + PALETTE.map(c => `<button class="swatch" data-a="${c}" style="background:${c}" title="${c}"></button>`).join('')
+        + pins.map(c => `<button class="swatch pinned" data-a="${c}" style="background:${c}" title="${c}"><i class="x" data-unpin="${c}" title="${esc(T.unpin)}">×</i></button>`).join('')
+        + `<button class="swatch add" data-add title="${esc(T.custom)}"><span>+</span></button>`;
+      box.querySelectorAll('.swatch').forEach(b => b.classList.toggle('sel', b.dataset.a === cur));
+      // a custom colour that isn't in the row (picked before) still shows as selected on "+"
+      if (cur !== 'auto' && !box.querySelector(`.swatch[data-a="${cur}"]`)) box.querySelector('.swatch.add').classList.add('sel');
+    };
+    box.addEventListener('click', e => {
+      const x = e.target.closest('[data-unpin]');
+      if (x) { e.stopPropagation(); store.set('pinnedAccents', pinned().filter(c => c !== x.dataset.unpin)); if (get() === x.dataset.unpin) set('auto'); render(); return; }
+      const b = e.target.closest('.swatch'); if (!b) return;
+      if (b.dataset.add != null) return open(b);
+      set(b.dataset.a); render();
+    });
+
+    // ---- the picker pop-up
+    let pop = null, hsv = null, anchor = null;
+    const reposition = () => {
+      if (!pop) return;
+      const r = anchor.getBoundingClientRect(), p = panel.getBoundingClientRect();
+      if (r.bottom < p.top + 8 || r.top > p.bottom - 8 || !r.width) return close(false);
+      const w = pop.offsetWidth, h = pop.offsetHeight;
+      pop.style.left = Math.max(8, Math.min(innerWidth - w - 8, r.left + r.width / 2 - w / 2)) + 'px';
+      pop.style.top = (r.top - h - 8 > 8 ? r.top - h - 8 : Math.min(innerHeight - h - 8, r.bottom + 8)) + 'px';
+    };
+    const onScroll = e => { if (pop && !pop.contains(e.target)) reposition(); };
+    const onDoc = e => { const t = e.composedPath()[0]; if (pop && !pop.contains(t) && !anchor.contains(t)) close(false); };
+    const onKey = e => { if (e.key === 'Escape') close(false); };
+    const close = keep => {
+      if (!pop) return;
+      pop.remove(); pop = null; anchor?.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('pointerdown', onDoc, true); root.removeEventListener('scroll', onScroll, true);
+      window.removeEventListener('scroll', onScroll, true); window.removeEventListener('resize', reposition); root.removeEventListener('keydown', onKey, true);
+      if (!keep) preview(null);   // back to the saved colour
+    };
+    const open = btn => {
+      if (pop) return close(false);
+      anchor = btn; anchor.setAttribute('aria-expanded', 'true');
+      const start = normHex(get()) || normHex(getComputedStyle(panel).getPropertyValue('--accent')) || '#0A84FF';
+      hsv = hexToHsv(start);
+      pop = document.createElement('div'); pop.className = 'cpick' + (panel.classList.contains('light') ? ' light' : '');
+      pop.innerHTML = `<div class="cp-title">${esc(T.custom)}</div>
+        <div class="cp-sv"><i class="cp-knob"></i></div>
+        <div class="cp-hue"><i class="cp-knob"></i></div>
+        <div class="cp-row"><span class="cp-prev"></span><input class="cp-hex" maxlength="7" spellcheck="false" aria-label="Hex"></div>
+        <div class="cp-err"></div>
+        <div class="cp-btns"><button class="cp-cancel">${esc(T.cancel)}</button><button class="cp-pin">${esc(T.pin)}</button></div>`;
+      root.appendChild(pop);
+      const sv = pop.querySelector('.cp-sv'), hue = pop.querySelector('.cp-hue'), hex = pop.querySelector('.cp-hex'), err = pop.querySelector('.cp-err');
+      const paint = (fromInput) => {
+        const c = hsvToHex(hsv.h, hsv.s, hsv.v);
+        sv.style.setProperty('--hue', `hsl(${hsv.h} 100% 50%)`);
+        sv.querySelector('.cp-knob').style.cssText = `left:${hsv.s * 100}%;top:${(1 - hsv.v) * 100}%;background:${c}`;
+        hue.querySelector('.cp-knob').style.cssText = `left:${hsv.h / 360 * 100}%;background:hsl(${hsv.h} 100% 50%)`;
+        pop.querySelector('.cp-prev').style.background = c;
+        pop.style.setProperty('--accent', c);
+        const [r, g, b] = [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16)); pop.style.setProperty('--on', 0.299 * r + 0.587 * g + 0.114 * b > 160 ? '#000' : '#fff');
+        if (!fromInput) { hex.value = c; err.textContent = ''; }
+        preview(c);
+      };
+      const drag = (el, onMove) => el.addEventListener('pointerdown', e => {
+        e.preventDefault(); el.setPointerCapture(e.pointerId);
+        const move = ev => { const r = el.getBoundingClientRect(); onMove(Math.max(0, Math.min(1, (ev.clientX - r.left) / r.width)), Math.max(0, Math.min(1, (ev.clientY - r.top) / r.height))); paint(); };
+        move(e); el.onpointermove = move; el.onpointerup = el.onpointercancel = () => { el.onpointermove = null; };
+      });
+      drag(sv, (x, y) => { hsv.s = x; hsv.v = 1 - y; });
+      drag(hue, x => { hsv.h = Math.min(359.9, x * 360); });
+      hex.oninput = () => { const c = normHex(hex.value); if (c) { hsv = hexToHsv(c); paint(true); err.textContent = ''; } };
+      const pin = () => {
+        const c = normHex(hex.value); if (!c) { err.textContent = T.hexBad; hex.focus(); return; }
+        if (!PALETTE.includes(c)) store.set('pinnedAccents', [c, ...pinned().filter(x => x !== c)].slice(0, 8));
+        close(true); set(c); render();
+      };
+      hex.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); pin(); } };
+      pop.querySelector('.cp-pin').onclick = pin;
+      pop.querySelector('.cp-cancel').onclick = () => close(false);
+      paint(); reposition();
+      document.addEventListener('pointerdown', onDoc, true); root.addEventListener('scroll', onScroll, true);
+      window.addEventListener('scroll', onScroll, true); window.addEventListener('resize', reposition); root.addEventListener('keydown', onKey, true);
+      setTimeout(() => { hex.focus(); hex.select(); }, 0);
+    };
+    render();
+    return { render, close: () => close(false) };
+  }
+
   // ---------------------------------------------------------------- mount (adds the tabs to a panel)
   function mount(ctx) {
     setLang();
@@ -594,6 +860,7 @@
       ctx.pagesHost.insertBefore(p, ctx.beforePage || null);
     });
     root.addEventListener('pointerdown', unlockAudio, { capture: true });
+    scrollableTabs(ctx.tabsEl);
 
     const msg = (id, t, err) => { const e = $(id); if (!e) return; e.textContent = t || ''; e.classList.toggle('err', !!err); };
     const badge = (id, n) => { const b = $('#sBadge-' + id); if (b) { b.hidden = !n; b.textContent = n; } };
@@ -871,7 +1138,6 @@
     const accent = s.accent && s.accent !== 'auto' ? s.accent : '#0A84FF';
     const textOn = hex => { const c = hex.replace('#', ''); const [r, g, b] = [0, 2, 4].map(i => parseInt(c.slice(i, i + 2), 16)); return (0.299 * r + 0.587 * g + 0.114 * b) > 160 ? '#0b0f1a' : '#ffffff'; };
     const toggle = (id, title, sub) => `<label class="toggle"><span class="sw"><input type="checkbox" id="${id}"><i></i></span><span><b>${title}</b>${sub ? `<small>${sub}</small>` : ''}</span></label>`;
-    const ACCENTS = ['#0A84FF', '#BF5AF2', '#30D158', '#FF9F0A', '#FF453A', '#FF375F', '#64D2FF'];   // iOS system colours
     root.innerHTML = `<style>${PANEL_CSS}</style>
 <div class="ghost" id="ghost"></div>
 <div class="panel${s.light ? ' light' : ''}" id="panel" style="--accent:${accent};--on-accent:${textOn(accent)}">
@@ -906,14 +1172,12 @@
     $('#notify').checked = s.notify !== false; $('#notify').onchange = () => setS('notify', $('#notify').checked);
     $('#light').checked = !!s.light; $('#light').onchange = () => { setS('light', $('#light').checked); panel.classList.toggle('light', $('#light').checked); };
     $('#volume').value = s.volume ?? 60; $('#volume').oninput = () => setS('volume', +$('#volume').value); $('#volume').onchange = () => { unlockAudio(); chime(); };
-    $('#swatches').innerHTML = `<button class="swatch auto" data-a="auto" title="${esc(T.accentAuto)}"><span>A</span></button>` + ACCENTS.map(c => `<button class="swatch" data-a="${c}" style="background:${c}"></button>`).join('');
-    const paintSw = () => root.querySelectorAll('.swatch').forEach(b => b.classList.toggle('sel', b.dataset.a === (settings().accent || 'auto')));
-    root.querySelectorAll('.swatch').forEach(b => b.onclick = () => {
-      setS('accent', b.dataset.a); paintSw();
-      const a = b.dataset.a === 'auto' ? '#0A84FF' : b.dataset.a;
-      [panel, $('#ghost')].forEach(el => { el.style.setProperty('--accent', a); el.style.setProperty('--on-accent', textOn(a)); });
-    });
-    paintSw();
+    const paintAccent = a => [panel, $('#ghost')].forEach(el => { el.style.setProperty('--accent', a); el.style.setProperty('--on-accent', textOn(a)); });
+    const savedAccent = () => { const a = settings().accent; return a && a !== 'auto' ? a : '#0A84FF'; };
+    accentPicker($('#swatches'), { root, panel, get: () => settings().accent || 'auto',
+      set: a => { setS('accent', a); paintAccent(savedAccent()); }, preview: c => paintAccent(c || savedAccent()) });
+    // the panel's own dropdowns instead of the native ones (language, inventory category)
+    root.querySelectorAll('select').forEach(sel => makeCombo(sel, { root, panel, search: T.search, noMatch: T.noMatch }));
 
     // tabs
     const showTab = t => {
@@ -956,7 +1220,7 @@
     head.addEventListener('pointerup', endDrag); head.addEventListener('pointercancel', endDrag);
   }
 
-  window.__apSite = { mount, css: EXTRA_CSS };
+  window.__apSite = { mount, makeCombo, accentPicker, css: EXTRA_CSS };
   if (!IS_LOOT) {
     const go = () => { if (document.querySelector('meta[name="csrf-token"]') || document.querySelector('nav, .cnav, header')) buildShell(); };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go, { once: true }); else go();

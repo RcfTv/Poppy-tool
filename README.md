@@ -47,7 +47,7 @@ Poppy Tool was called **Auto Pull** until version 5.0.0.
 
 ### Apple / SwiftUI look (test branch)
 
-The [`test`](https://github.com/RcfTv/Poppy-tool/tree/test) branch (pre-release **5.1.0-test**) restyles the panel like an Apple app: SF font, translucent materials, iOS colours, segmented tabs and iOS switches.
+The [`test`](https://github.com/RcfTv/Poppy-tool/tree/test) branch (pre-release **5.1.1-test**) restyles the panel like an Apple app: SF font, translucent materials, iOS colours, segmented tabs, iOS switches, star rarity markers and a custom accent colour picker.
 
 <table><tr>
 <td align="center" valign="top"><img src="docs/screenshots/apple/pull-dark.png" width="190" alt="Pull (dark)"><br><b>Pull (dark)</b></td>
@@ -66,7 +66,7 @@ The Poppy Tool panel shows on every Cripsum page. On the lootbox page it has all
 
 Bottom-right by default, works in any language of the site.
 
-- 🖱️ **Drag it by its top bar**: it snaps to a corner. "-" minimises it, the arrows = Compact mode.
+- 🖱️ **Drag it by its top bar**: it snaps to a corner. "-" minimises it.
 - ⌨️ **Alt+P** = Start / Stop.
 - 🌍 **French, English or Italian**: the panel speaks all three (Settings > Look).
 - 🔎 **Searchable dropdowns**: every dropdown (lootbox, stop target, etc.) is searchable. Click it and type to filter, handy for the 200-character lists.
@@ -110,6 +110,7 @@ Every version is on the [Releases page](https://github.com/RcfTv/Poppy-tool/rele
 
 | Release | Highlights | Download |
 |---------|------------|----------|
+| [5.1.1-test](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.1.1-test) (pre-release, `test` branch) | Custom accent colours, star rarity markers, dropdown and tab fixes | [poppy-tool-v5.1.1-test.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.1.1-test/poppy-tool-v5.1.1-test.zip) |
 | [5.1.0-test](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.1.0-test) (pre-release, `test` branch) | Apple / SwiftUI look | [poppy-tool-v5.1.0-test.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.1.0-test/poppy-tool-v5.1.0-test.zip) |
 | [**5.0.3**](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.0.3) (latest) | Scrollbars styled to match the panel | [poppy-tool-v5.0.3.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.0.3/poppy-tool-v5.0.3.zip) |
 | [5.0.2](https://github.com/RcfTv/Poppy-tool/releases/tag/v5.0.2) | Compatibility with the updated Cripsum lootbox page | [poppy-tool-v5.0.2.zip](https://github.com/RcfTv/Poppy-tool/releases/download/v5.0.2/poppy-tool-v5.0.2.zip) |

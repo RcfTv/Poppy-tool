@@ -105,7 +105,7 @@ const main = async () => {
     watchdog: 'Anti-freeze', watchdogSub: 'reloads the page if nothing happens for 2 minutes',
     speed: 'Pull speed', slow: 'Slow', normal: 'Normal', fast: 'Fast',
     sLook: 'Look', language: 'Panel language', auto: 'Auto', accent: 'Accent colour', accentAuto: 'Lootbox colour',
-    theme: 'Light theme', compact: 'Compact mode', compactSub: 'only the counter and the button',
+    theme: 'Light theme',
     shortcut: 'Alt+P = Start / Stop', alertTitle: r => `Poppy Tool — ${r}!`, testMsg: 'This is how an alert looks.',
     finished: 'Poppy Tool stopped', endWarnTitle: 'Poppy Tool — event ending',
     freeBack: (name, n) => `${n} free pull${n > 1 ? 's' : ''} back on ${name}!`, freeBackTitle: 'Poppy Tool — free pulls', search: 'Search…', noMatch: 'No match',
@@ -160,7 +160,7 @@ const main = async () => {
     watchdog: 'Anti-blocage', watchdogSub: 'recharge la page si rien ne bouge pendant 2 minutes',
     speed: 'Vitesse de pull', slow: 'Lente', normal: 'Normale', fast: 'Rapide',
     sLook: 'Apparence', language: 'Langue du panneau', auto: 'Auto', accent: 'Couleur d\'accent', accentAuto: 'Couleur de la lootbox',
-    theme: 'Thème clair', compact: 'Mode compact', compactSub: 'juste le compteur et le bouton',
+    theme: 'Thème clair',
     shortcut: 'Alt+P = Lancer / Arrêter', alertTitle: r => `Poppy Tool — ${r} !`, testMsg: 'Voilà à quoi ressemble une alerte.',
     finished: 'Poppy Tool arrêté', endWarnTitle: 'Poppy Tool — fin d\'event',
     freeBack: (name, n) => `${n} pull${n > 1 ? 's' : ''} gratuit${n > 1 ? 's' : ''} de retour sur ${name} !`, freeBackTitle: 'Poppy Tool — pulls gratuits', search: 'Rechercher…', noMatch: 'Aucun résultat',
@@ -196,7 +196,7 @@ const main = async () => {
     historyEmpty: 'Ancora nessuna sessione.', clearHist: 'Svuota', reason: 'Fine',
     sStop: 'Condizioni di arresto', timer: 'Fermati dopo (minuti)', stopClock: 'Fermati alle (ora)', keepGems: 'Fermati se le gemme scendono sotto',
     sAlerts: 'Avvisi', alertFrom: 'Avvisami da', sound: 'Suono', notify: 'Notifica Windows', titleBlink: 'Titolo della scheda', testAlert: 'Prova',
-    sLook: 'Aspetto', language: 'Lingua del pannello', theme: 'Tema chiaro', compact: 'Modalità compatta',
+    sLook: 'Aspetto', language: 'Lingua del pannello', theme: 'Tema chiaro',
     shortcut: 'Alt+P = Avvia / Ferma', finished: 'Poppy Tool fermato',
   };
   const T = Object.assign({}, EN, { fr: FR, it: IT }[LANG] || {});
@@ -393,12 +393,7 @@ const main = async () => {
   .m .mtag { font-size: 9.5px; font-weight: 700; padding: 2px 6px; border-radius: 6px; flex:none; }
   .m .mtag.r { background: var(--accent); color: var(--on-accent); } .m .mtag.c { background: var(--card2); color: var(--muted); }
   .page { padding: 12px 14px 14px; display: grid; gap: 12px; } .page[hidden] { display: none; }
-  .panel.min .tabs, .panel.min .page, .panel.min .mini { display: none !important; } .panel.min { width: auto; } .panel.min .head { border-radius: 18px; }
-  .mini { display: none; padding: 10px 12px 12px; gap: 8px; align-items: center; }
-  .panel.compact { width: 310px; } .panel.compact .tabs, .panel.compact .page { display: none !important; } .panel.compact .mini { display: flex; }
-  .mini .mstat { flex: 1; min-width: 0; font-size: 11.5px; color: var(--muted); line-height: 1.3; } .mini .mstat b { color: var(--strong); font-size: 13px; }
-  .mini .mstat span { display:block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .mini .go { width: auto; padding: 8px 16px; }
+  .panel.min .tabs, .panel.min .page { display: none !important; } .panel.min { width: auto; } .panel.min .head { border-radius: 18px; }
   label.f { display:grid; gap: 5px; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
   select, input[type=number], input[type=time] { width: 100%; font: inherit; font-size: 12.5px; text-transform: none; letter-spacing: 0; color: var(--strong);
     background: var(--field); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; outline: none; color-scheme: dark; }
@@ -547,14 +542,9 @@ const main = async () => {
     <div class="logo" id="logo"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6z"/></svg></div>
     <div><div class="title">Poppy Tool</div><div class="by">${T.by}</div></div>
     <div class="pill" id="pill"><span class="dot"></span><span id="state">${T.idle}</span></div>
-    <button class="icon-btn" id="cmp" title="${T.compact}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path id="cmppath" d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/></svg></button>
     <button class="icon-btn" id="min" title="–"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path id="minpath" d="M5 12h14"/></svg></button>
   </div>
 
-  <div class="mini" id="mini">
-    <div class="mstat"><b id="mOpens">0</b> ${T.opens.toLowerCase()} · <b id="mTime">0m 00s</b><span id="mBest">–</span></div>
-    <button class="go" id="mGo">${T.start}</button>
-  </div>
 
   <div class="tabs" id="tabs">
     <button class="tab on" data-tab="pull">${T.tPull}</button><button class="tab" data-tab="queue">${T.tQueue}</button>
@@ -661,7 +651,7 @@ const main = async () => {
     <div class="group"><div class="gtitle">${T.sLook}</div>
       <label class="f">${T.language}<select id="lang"><option value="auto">${T.auto}</option><option value="fr">Français</option><option value="en">English</option><option value="it">Italiano</option></select></label>
       <label class="f">${T.accent}<div class="swatches" id="swatches"></div></label>
-      ${toggle('light', T.theme)}${toggle('compact', T.compact, T.compactSub)}</div>
+      ${toggle('light', T.theme)}</div>
   </div>
 </div>`;
   const $ = s => root.querySelector(s);
@@ -673,12 +663,11 @@ const main = async () => {
   const DEF = { banner: banners[0].id, target: 'r:theone', endless: false, stopNew: false, max: 0, paid: false,
     timer: 0, clock: '', keepGems: 0, budget: 0, autoRefill: false, keepGodos: 0, freeFirst: true, autoDestiny: true,
     autoResume: true, watchdog: true, speed: 'normal', alertFrom: 'speciale', sound: true, notify: true, titleBlink: true,
-    volume: 60, freeReminder: true, accent: 'auto', light: false, compact: false, tab: 'pull', lang: 'auto', useQueue: false, repeatQueue: false, queue: [] };
+    volume: 60, freeReminder: true, accent: 'auto', light: false, tab: 'pull', lang: 'auto', useQueue: false, repeatQueue: false, queue: [] };
   const cfg = Object.assign({}, DEF, settingsRaw);
   if (!Array.isArray(cfg.queue)) cfg.queue = [];
-  const BOOL = ['endless', 'stopNew', 'paid', 'autoRefill', 'freeFirst', 'autoDestiny', 'autoResume', 'watchdog', 'sound', 'notify', 'titleBlink', 'freeReminder', 'light', 'compact', 'useQueue', 'repeatQueue'];
+  const BOOL = ['endless', 'stopNew', 'paid', 'autoRefill', 'freeFirst', 'autoDestiny', 'autoResume', 'watchdog', 'sound', 'notify', 'titleBlink', 'freeReminder', 'light', 'useQueue', 'repeatQueue'];
   const NUMS = ['max', 'timer', 'keepGems', 'budget', 'keepGodos'];
-  const ACCENTS = ['#0A84FF', '#BF5AF2', '#30D158', '#FF9F0A', '#FF453A', '#FF375F', '#64D2FF'];   // iOS system colours
   const saveCfg = () => store.set('settings', cfg);
   if (bannerById(cfg.banner)) $('#banner').value = cfg.banner;
   BOOL.forEach(k => { $('#' + k).checked = !!cfg[k]; });
@@ -690,11 +679,10 @@ const main = async () => {
   $('#alertFrom').innerHTML = RAR.slice().reverse().filter(r => rank(r.key) >= rank('leggendario'))
     .map((r, i) => `<option value="${esc(r.key)}">${esc(r.label)}${i ? ' ' + T.orBetter : ''}</option>`).join('');
   $('#alertFrom').value = cfg.alertFrom;
-  $('#swatches').innerHTML = `<button class="swatch auto" data-a="auto" title="${esc(T.accentAuto)}"><span>A</span></button>` +
-    ACCENTS.map(c => `<button class="swatch" data-a="${c}" style="background:${c}" title="${c}"></button>`).join('');
-  const paintSwatches = () => root.querySelectorAll('.swatch').forEach(s => s.classList.toggle('sel', s.dataset.a === (cfg.accent || 'auto')));
-  root.querySelectorAll('.swatch').forEach(s => s.onclick = () => { cfg.accent = s.dataset.a; saveCfg(); paintSwatches(); paintAccent(currentBanner()); beat(); });
-  paintSwatches();
+  // accent colours: palette, pinned custom colours and a colour picker (shared with the other pages, site-modules.js)
+  window.__apSite?.accentPicker?.($('#swatches'), { root, panel, get: () => cfg.accent || 'auto',
+    set: a => { cfg.accent = a; saveCfg(); paintAccent(currentBanner()); beat(); },
+    preview: c => c ? [panel, $('#ghost')].forEach(el => { el.style.setProperty('--accent', c); el.style.setProperty('--on-accent', textOn(c)); }) : paintAccent(currentBanner()) });
 
   // ---------- searchable combobox that replaces the native <select> fields ----------
   const comboColor = (select, value) => {
@@ -703,88 +691,8 @@ const main = async () => {
     if (typeof value === 'string' && value.startsWith('r:')) return rInfo(value.slice(2)).color;
     return null;
   };
-  function makeCombo(select) {
-    if (!select || select.__combo) return;
-    select.style.display = 'none';
-    const combo = document.createElement('div'); combo.className = 'combo';
-    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'combo-btn'; btn.setAttribute('aria-expanded', 'false');
-    btn.innerHTML = `<span class="combo-val"></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
-    combo.appendChild(btn); select.after(combo);
-    const valEl = btn.querySelector('.combo-val');
-    let pop = null, items = [], active = -1;
-    const label = () => {
-      const o = select.selectedOptions[0], col = o ? comboColor(select, o.value) : null;
-      valEl.innerHTML = (col ? `<span class="dotc" style="background:${esc(col)}"></span>` : '') + `<span>${esc(o ? o.textContent : '')}</span>`;
-      btn.disabled = select.disabled;
-    };
-    const reposition = () => {
-      if (!pop) return;
-      const r = btn.getBoundingClientRect(), below = innerHeight - r.bottom, above = r.top;
-      const maxH = Math.min(300, Math.max(below, above) - 16);
-      pop.style.left = r.left + 'px'; pop.style.width = r.width + 'px';
-      if (below < 240 && above > below) { pop.style.top = 'auto'; pop.style.bottom = (innerHeight - r.top + 4) + 'px'; }
-      else { pop.style.bottom = 'auto'; pop.style.top = (r.bottom + 4) + 'px'; }
-      const list = pop.querySelector('.combo-list'); if (list) list.style.maxHeight = (maxH - (pop.querySelector('.combo-search') ? 50 : 10)) + 'px';
-    };
-    const onDoc = e => { const t = e.composedPath()[0]; if (pop && !combo.contains(t) && !pop.contains(t)) close(); };
-    const close = () => {
-      if (!pop) return;
-      pop.remove(); pop = null; items = []; active = -1; btn.setAttribute('aria-expanded', 'false');
-      document.removeEventListener('pointerdown', onDoc, true); window.removeEventListener('scroll', reposition, true); window.removeEventListener('resize', close);
-    };
-    const paint = () => items.forEach((it, i) => it.el.classList.toggle('active', i === active));
-    const choose = o => { if (o.value !== select.value) { select.value = o.value; select.dispatchEvent(new Event('change', { bubbles: true })); } label(); close(); btn.focus(); };
-    const open = () => {
-      if (pop || select.disabled) return;
-      pop = document.createElement('div'); pop.className = 'combo-pop';
-      if (panel.classList.contains('light')) pop.classList.add('light');
-      pop.style.setProperty('--accent', getComputedStyle(panel).getPropertyValue('--accent') || '#0A84FF');
-      const many = select.querySelectorAll('option').length > 8;
-      pop.innerHTML = (many ? `<input class="combo-search" type="text" placeholder="${esc(T.search)}">` : '') + `<div class="combo-list"></div>`;
-      root.appendChild(pop);
-      const listEl = pop.querySelector('.combo-list'), search = pop.querySelector('.combo-search');
-      const add = o => {
-        const el = document.createElement('div'); el.className = 'combo-item' + (o.value === select.value ? ' sel' : '');
-        const col = comboColor(select, o.value);
-        el.innerHTML = (col ? `<span class="dotc" style="background:${esc(col)}"></span>` : '') + `<span>${esc(o.textContent)}</span>`;
-        el.addEventListener('pointerdown', e => e.preventDefault());
-        el.onclick = () => choose(o);
-        listEl.appendChild(el); items.push({ el, opt: o });
-      };
-      const render = q => {
-        q = (q || '').trim().toLowerCase(); listEl.innerHTML = ''; items = [];
-        [...select.children].forEach(node => {
-          if (node.tagName === 'OPTGROUP') {
-            const opts = [...node.children].filter(o => !q || o.textContent.toLowerCase().includes(q));
-            if (!opts.length) return;
-            const g = document.createElement('div'); g.className = 'combo-group'; g.textContent = node.label; listEl.appendChild(g);
-            opts.forEach(add);
-          } else if (node.tagName === 'OPTION' && (!q || node.textContent.toLowerCase().includes(q))) add(node);
-        });
-        if (!items.length) { const e = document.createElement('div'); e.className = 'combo-empty'; e.textContent = T.noMatch; listEl.appendChild(e); }
-        active = items.findIndex(it => it.opt.value === select.value); if (active < 0 && q && items.length) active = 0;
-        paint(); items[active]?.el.scrollIntoView({ block: 'nearest' });
-      };
-      render(''); btn.setAttribute('aria-expanded', 'true'); reposition();
-      document.addEventListener('pointerdown', onDoc, true); window.addEventListener('scroll', reposition, true); window.addEventListener('resize', close);
-      if (search) {
-        search.oninput = () => render(search.value);
-        search.onkeydown = e => {
-          if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(items.length - 1, active + 1); paint(); items[active]?.el.scrollIntoView({ block: 'nearest' }); }
-          else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(0, active - 1); paint(); items[active]?.el.scrollIntoView({ block: 'nearest' }); }
-          else if (e.key === 'Enter') { e.preventDefault(); if (items[active]) choose(items[active].opt); }
-          else if (e.key === 'Escape') { e.preventDefault(); close(); btn.focus(); }
-        };
-        setTimeout(() => search.focus(), 0);
-      }
-    };
-    btn.onclick = () => pop ? close() : open();
-    select.addEventListener('change', label);
-    const mo = new MutationObserver(() => { label(); if (pop) close(); });
-    mo.observe(select, { childList: true, attributes: true, attributeFilter: ['disabled'] });
-    label();
-    select.__combo = { close, mo };
-  }
+  // the shared combobox from site-modules.js (follows the panel when it scrolls, Apple look)
+  const makeCombo = select => window.__apSite?.makeCombo?.(select, { root, panel, color: comboColor, star: select => select.id !== 'banner' && select.dataset.k !== 'banner', search: T.search, noMatch: T.noMatch });
   const enhanceSelects = scope => (scope || root).querySelectorAll('select').forEach(makeCombo);
 
   // minimise
@@ -794,9 +702,6 @@ const main = async () => {
 
   const applyLook = () => {
     panel.classList.toggle('light', !!cfg.light);
-    panel.classList.toggle('compact', !!cfg.compact);
-    $('#compact').checked = !!cfg.compact;
-    $('#cmppath').setAttribute('d', cfg.compact ? 'M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7' : 'M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7');
   };
   const syncStops = () => {
     const locked = ap.running;
@@ -816,7 +721,6 @@ const main = async () => {
   $('#volume').addEventListener('input', () => { cfg.volume = parseInt($('#volume').value, 10) || 0; saveCfg(); });
   $('#volume').addEventListener('change', () => { unlockAudio(); chime(false); });
   $('#volTest').onclick = () => { unlockAudio(); chime(false); };
-  $('#cmp').onclick = () => { cfg.compact = !cfg.compact; saveCfg(); applyLook(); if (cfg.compact) setMin(false); };
   applyLook();
 
   // whole-site tabs (site-modules.js): Home, Missions, Inventory, Achievements, Inbox
@@ -967,8 +871,6 @@ const main = async () => {
         <div class="meta"><div class="nm">${esc(f.name)}${f.isNew ? `<span class="badge">${T.isNew}</span>` : ''}</div>
         <div class="rl"><span class="c" style="background:${esc(r.color)};margin-right:5px"></span>${esc(r.label)} · #${f.open}</div></div></div>`;
     }).join('') : `<div class="empty">${T.none}</div>`;
-    const top = ap.feed.slice().sort((a, b) => rank(b.rarity) - rank(a.rarity))[0];
-    $('#mBest').textContent = top ? `${rInfo(top.rarity).label}: ${top.name}` : T.none;
   };
   function renderPity() {
     const b = currentBanner();
@@ -1002,9 +904,9 @@ const main = async () => {
   const renderSpentToday = () => { $('#spentToday').textContent = T.spentToday(fmt(spentTodayGodos())); };
   const renderStats = () => {
     const ms = ap.startedAt ? (ap.endedAt || Date.now()) - ap.startedAt : 0;
-    $('#sOpens').textContent = fmt(ap.n); $('#mOpens').textContent = fmt(ap.n);
+    $('#sOpens').textContent = fmt(ap.n);
     $('#sPulls').textContent = fmt(ap.pulls);
-    $('#sTime').textContent = fmtTime(ms); $('#mTime').textContent = fmtTime(ms);
+    $('#sTime').textContent = fmtTime(ms);
     $('#sSpent').textContent = fmt(ap.spentGems || 0);
     $('#rate').textContent = ms > 20000 ? `${fmt(Math.round(ap.pulls / (ms / 60000)))} ${T.pulls.toLowerCase()}${T.perMin}` : '';
     const w = wallet();
@@ -1340,7 +1242,6 @@ const main = async () => {
 
   const startStop = () => { if (ap.running) { ap.stop = true; store.del('resume'); setState(T.stopping); } else run(); };
   $('#go').onclick = startStop;
-  $('#mGo').onclick = startStop;
   const onKey = e => {
     if (e.altKey && !e.ctrlKey && !e.metaKey && e.code === 'KeyP') { e.preventDefault(); e.stopPropagation(); unlockAudio(); startStop(); }
   };
@@ -1354,7 +1255,7 @@ const main = async () => {
 
   const lock = on => {
     ['#max', '#paid'].forEach(id => { $(id).disabled = on; });
-    [$('#go'), $('#mGo')].forEach(b => { b.textContent = on ? T.stop : T.start; b.classList.toggle('stop', on); });
+    { const b = $('#go'); b.textContent = on ? T.stop : T.start; b.classList.toggle('stop', on); }
     syncStops(); renderQueue();
   };
 
